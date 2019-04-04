@@ -1,18 +1,8 @@
 unit uload;
-{Membaca file-file yang dibutuhkan program utama}
+{Membaca file-file csv yang dibutuhkan program utama dan memuatnya
+ke dalam array of ADT masing-masing, contoh: array of ADT Buku}
 
 interface
-const
-	LOADMAXWORD = 1000;
-
-procedure loadbook(filename: string; ptr: pbook);
-procedure loaduser(filename: string; ptr: puser);
-procedure loadborrow(filename: string; ptr: pborrow);
-procedure loadreturn(filename: string; ptr: preturn);
-procedure loadmissing(filename: string; ptr: pmissing);
-
-
-implementation
 uses
 	sysutils,
 	ubook,
@@ -22,15 +12,30 @@ uses
 	uborrow_history,
 	ureturn_history;
 
+{PUBLIC VARIABLE, CONST, ADT}
+const
+	LOAD_MAXWORD = 1000;
+
+{PUBLIC FUNCTIONS, PROCEDURE}
+procedure loadbook(filename: string; ptr: pbook);
+procedure loaduser(filename: string; ptr: puser);
+procedure loadborrow(filename: string; ptr: pborrow);
+procedure loadreturn(filename: string; ptr: preturn);
+procedure loadmissing(filename: string; ptr: pmissing);
+
+
+implementation
+{PRIVATE VARIABLE, CONST, ADT}
 type
 	{Definisi ADT input dari file}
-	inputStream = array[1..LOADMAXWORD] of string;
+	inputStream = array[1..LOAD_MAXWORD] of string;
 
 	{pointer dari array inputStream}
 	pinput = ^inputStream;
 
-
+{FUNGSI dan PROSEDUR}
 function readInput(filename: string; delimiter: char): pinput;
+	{!PRIVATE FUNCTION!}
 	{DESKRIPSI	: membaca file teks dan memuat ke dalam array agar dapat
 	digunakan program/unit lain}
 	{PARAMETER 	: nama file (beserta extensionnya) dan karakter delimiter
@@ -47,9 +52,10 @@ function readInput(filename: string; delimiter: char): pinput;
 
 	{ALGORITMA}
 	begin
-		{KONSTRUKTOR, set isi array menjadi string kosong}
-		for i:= 1 to LOADMAXWORD do begin
-			filetext[i] := '';
+		{KONSTRUKTOR, set isi array menjadi string '-', sebagai penanda
+		end of file, sehingga dapat dihitung N-efektifnya}
+		for i:= 1 to LOAD_MAXWORD do begin
+			filetext[i] := '-';
 		end;
 
 		{memuat file ke variabel f}
@@ -61,6 +67,7 @@ function readInput(filename: string; delimiter: char): pinput;
 		while not EOF(f) do begin {ulangi selama belum EOF/EndOfFile}
 			readln(f, readline);
 			inc(wordcnt);
+			filetext[wordcnt] := '';
 
 			{baca input per baris, increment index jika menemui karakter delimiter}
 			for i:= 1 to length(readline) do begin
@@ -68,6 +75,7 @@ function readInput(filename: string; delimiter: char): pinput;
 					filetext[wordcnt] += readline[i];
 				end else begin
 					inc(wordcnt);
+					filetext[wordcnt] := '';
 				end;
 			end;
 		end;
@@ -78,127 +86,201 @@ function readInput(filename: string; delimiter: char): pinput;
 		readInput := ptr;
 	end;
 
-
 procedure loadbook(filename: string; ptr: pbook);
-	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam array of ADT Buku}
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of Book}
 	{PARAMETER	: namafile dan pointer dari array tsb}
+	{RETURN 	: - }
 
 	{KAMUS LOKAL}
 	var
 		ploadedcsv	: pinput;
-		i, j 		: integer;
+		i, row 		: integer;
 		column		: integer;
 
+	{ALGORITMA}
 	begin
-		ploadedcsv := readInput(filename);
-		column := 6;
-		for i:= column + 1 to LOADMAXWORD do begin
-			j := (i div column);
+		ploadedcsv 	:= readInput(filename, ',');
+		column 		:= BOOK_COLUMN; {6}
+
+		{memisah-misah file loadedcsv ke beberapa array}
+		{row : counter indeks array yang sudah diolah}
+		{i   : counter indeks array yang belum diolah}
+		{menggunakan modulo karena kolom berulang setiap n data}
+		i := column;
+		row := (i div column) - 1;
+		while not (ploadedcsv^[i + 1] = '-') do begin
+			inc(i);
 			if ((i mod column) = 1) then begin
-				ptr^[j].id 		:= StrToIntDef(ploadedcsv^[i], 0);
+				inc(row);
+				ptr^[row].id 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
-				ptr^[j].title 	+= ploadedcsv^[i];
+				ptr^[row].title 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 3) then begin
-				ptr^[j].author 	:= ploadedcsv^[i];
+				ptr^[row].author	:= ploadedcsv^[i];
 			end else if ((i mod column) = 4) then begin
-				ptr^[j].qty 	:= StrToIntDef(ploadedcsv^[i], 0);
+				ptr^[row].qty 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 5) then begin
-				ptr^[j].year 	:= StrToIntDef(ploadedcsv^[i], 0);
+				ptr^[row].year 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[j].category := ploadedcsv^[i];
+				ptr^[row].category:= ploadedcsv^[i];
 			end;
 		end;
+		bookNeff := row;
 	end;
 
 
 procedure loaduser(filename: string; ptr: puser);
-	var
-		ploadedcsv		: pinput;
-		i, column, j 	: integer;
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of User}
+	{PARAMETER	: namafile dan pointer dari array tsb}
+	{RETURN 	: - }
 
+	{KAMUS LOKAL}
+	var
+		ploadedcsv	: pinput;
+		i, row 		: integer;
+		column 		: integer;
+
+	{ALGORITMA}
 	begin
-		ploadedcsv := readInput(filename);
-		column := 5;
-		for i:= column + 1 to LOADMAXWORD do begin
-			j := (i div column);
+		ploadedcsv 	:= readInput(filename, ',');
+		column 		:= USER_COLUMN; {5}
+
+		{memisah-misah file loadedcsv ke beberapa array}
+		{row : counter indeks array yang sudah diolah}
+		{i   : counter indeks array yang belum diolah}
+		{menggunakan modulo karena kolom berulang setiap n data}
+		i := column;
+		row := (i div column) - 1;
+		while not (ploadedcsv^[i + 1] = '-') do begin
+			inc(i);
 			if ((i mod column) = 1) then begin
-				ptr^[j].fullname 	:= ploadedcsv^[i];
+				inc(row);
+				ptr^[row].fullname 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
-				ptr^[j].address 	:= ploadedcsv^[i];
+				ptr^[row].address 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 3) then begin
-				ptr^[j].username 	:= ploadedcsv^[i];
+				ptr^[row].username 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 4) then begin
-				ptr^[j].password 	:= ploadedcsv^[i];
+				ptr^[row].password 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 0) then begin
-				ptr^[j].isAdmin 	:= ploadedcsv^[i] = 'Admin';
+				ptr^[row].isAdmin 	:= ploadedcsv^[i] = 'Admin';
 			end;
 		end;
+		userNeff := row;
 	end;
 
 
 procedure loadborrow(filename: string; ptr: pborrow);
-	var
-		ploadedcsv		: pinput;
-		i, column, j 	: integer;
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of BorrowHistory}
+	{PARAMETER	: namafile dan pointer dari array tsb}
+	{RETURN 	: - }
 
+	{KAMUS LOKAL}
+	var
+		ploadedcsv	: pinput;
+		i, row 		: integer;
+		column 		: integer;
+
+	{ALGORITMA}
 	begin
-		ploadedcsv := readInput(filename);
-		column := 5;
-		for i:= column + 1 to LOADMAXWORD do begin
-			j := (i div column);
+		ploadedcsv 	:= readInput(filename, ',');
+		column 		:= BORROW_COLUMN; {5}
+
+		{memisah-misah file loadedcsv ke beberapa array}
+		{row : counter indeks array yang sudah diolah}
+		{i   : counter indeks array yang belum diolah}
+		{menggunakan modulo karena kolom berulang setiap n data}
+		i := column;
+		row := (i div column) - 1;
+		while not (ploadedcsv^[i + 1] = '-') do begin
+			inc(i);
 			if ((i mod column) = 1) then begin
-				ptr^[j].username 	:= ploadedcsv^[i];
+				inc(row);
+				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
-				ptr^[j].id 		:= StrToIntDef(ploadedcsv^[i], 0);
+				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 3) then begin
-				ptr^[j].borrowDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].borrowDate	:= StrToDate_(ploadedcsv^[i]);
 			end else if ((i mod column) = 4) then begin
-				ptr^[j].returnDate := StrToDate_(ploadedcsv^[i]);
+				ptr^[row].returnDate 	:= StrToDate_(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[j].isBorrowed := ploadedcsv^[i] = 'belum';
+				ptr^[row].isBorrowed 	:= ploadedcsv^[i] = 'belum';
 			end;
 		end;
+		borrowNeff := row;
 	end;
 
 
 procedure loadreturn(filename: string; ptr: preturn);
-	var
-		ploadedcsv		: pinput;
-		i, column, j	: integer;
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of ReturnHistory}
+	{PARAMETER	: namafile dan pointer dari array tsb}
+	{RETURN 	: - }
 
+	{KAMUS LOKAL}
+	var
+		ploadedcsv	: pinput;
+		i, row		: integer;
+		column 		: integer;
+
+	{ALGORITMA}
 	begin
-		ploadedcsv := readInput(filename);
-		column := 3;
-		for i:= column + 1 to LOADMAXWORD do begin
-			j := (i div column);
+		ploadedcsv 	:= readInput(filename, ',');
+		column 		:= RETURN_COLUMN; {3}
+
+		{memisah-misah file loadedcsv ke beberapa array}
+		{row : counter indeks array yang sudah diolah}
+		{i   : counter indeks array yang belum diolah}
+		{menggunakan modulo karena kolom berulang setiap n data}
+		i := column;
+		row := (i div column) - 1;
+		while not (ploadedcsv^[i + 1] = '-') do begin
+			inc(i);
 			if ((i mod column) = 1) then begin
-				ptr^[j].username 	:= ploadedcsv^[i];
+				inc(row);
+				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
-				ptr^[j].id 		:= StrToIntDef(ploadedcsv^[i], 0);
+				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[j].returnDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].returnDate	:= StrToDate_(ploadedcsv^[i]);
 			end;
 		end;
+		returnNeff := row;
 	end;
 
 
 procedure loadmissing(filename: string; ptr: pmissing);
-	var
-		ploadedcsv		: pinput;
-		i, column, j	: integer;
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of MissingHistory}
+	{PARAMETER	: namafile dan pointer dari array tsb}
+	{RETURN 	: - }
 
+	{KAMUS LOKAL}
+	var
+		ploadedcsv	: pinput;
+		i, row		: integer;
+		column 		: integer;
+
+	{ALGORITMA}
 	begin
-		ploadedcsv := readInput(filename);
-		column := 3;
-		for i:= column + 1 to LOADMAXWORD do begin
-			j := (i div column);
+		ploadedcsv 	:= readInput(filename, ',');
+		column 		:= MISSING_COLUMN; {3}
+
+		{memisah-misah file loadedcsv ke beberapa array}
+		{row : counter indeks array yang sudah diolah}
+		{i 	 : counter indeks array yang belum diolah}
+		{menggunakan modulo karena kolom berulang setiap n data}
+		i := column;
+		row := (i div column) - 1;
+		while not (ploadedcsv^[i + 1] = '-') do begin
+			inc(i);
 			if ((i mod column) = 1) then begin
-				ptr^[j].username 	:= ploadedcsv^[i];
+				inc(row);
+				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
-				ptr^[j].id 		:= StrToIntDef(ploadedcsv^[i], 0);
+				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[j].reportDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].reportDate	:= StrToDate_(ploadedcsv^[i]);
 			end;
 		end;
+		missingNeff := row;
 	end;
 end.
