@@ -1,4 +1,7 @@
 unit udate;
+{Mengatur format tanggal dan konversinya dari string menjadi integer dan ADT Date}
+{REFERENSI : https://www.freepascal.org/docs-html/rtl/sysutils/format.html
+			 http://forum.lazarus.freepascal.org/index.php?topic=27778.0 (Topic: What is the format string for padding a number with leading zeros?)}
 
 interface
 uses sysutils;

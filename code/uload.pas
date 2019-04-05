@@ -1,16 +1,14 @@
 unit uload;
-{Membaca file-file csv yang dibutuhkan program utama dan memuatnya
-ke dalam array of ADT masing-masing, contoh: array of ADT Buku}
+{Membaca file-file csv yang dibutuhkan program utama dan memuatnya ke dalam array of ADT masing-masing, contoh: array of ADT Buku}
+{REFERENSI	: http://wiki.freepascal.org/File_Handling_In_Pascal
+			  https://www.youtube.com/watch?v=AOYbfHHh4bE (Reading & Writing to CSV Files in Pascal by Holly Billinghurst)}
 
 interface
 uses
 	sysutils,
 	ubook,
 	uuser,
-	udate,
-	umissing_history,
-	uborrow_history,
-	ureturn_history;
+	udate;
 
 {PUBLIC VARIABLE, CONST, ADT}
 const

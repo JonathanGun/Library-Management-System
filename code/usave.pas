@@ -8,10 +8,7 @@ uses
 	sysutils,
 	ubook,
 	uuser,
-	udate,
-	umissing_history,
-	uborrow_history,
-	ureturn_history;
+	udate;
 
 {PUBLIC VARIABLE, CONST, ADT}
 { - }

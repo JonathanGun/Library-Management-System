@@ -1,15 +1,17 @@
 program main;
 {Program Utama Sistem Manajemen Perpustakaan}
+{Dibuat oleh KELOMPOK 3 KELAS 03}
+{REFERENSI : https://tpb.kuliah.itb.ac.id/pluginfile.php/104511/mod_resource/content/1/IF1210_12_Skema_Standar_Bag2_040419.pdf (SkemaStandar Pemrosesan Array)
+			 https://tpb.kuliah.itb.ac.id/pluginfile.php/10273/mod_resource/content/1/ContohPrgKecilPascal_Agt08.pdf (Contoh Program Kecil Bahasa Pascal)
+			 https://www.tutorialspoint.com/pascal/pascal_pointers.htm
+			 https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
 
 uses
 	uload,
 	usave,
 	ubook,
 	uuser,
-	udate,
-	umissing_history,
-	uborrow_history,
-	ureturn_history;
+	udate;
 
 {KAMUS GLOBAL}
 var
@@ -42,7 +44,7 @@ procedure printFeatures();
 		writeln('Selamat datang di Perpustakaan Tengah Gurun');
 		writeln('$ register			: Regitrasi Akun');
 		writeln('$ login 			: Login');
-		writeln('$ cari					: Pencarian Buku berdasar Kategori');
+		writeln('$ cari				: Pencarian Buku berdasar Kategori');
 		writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit');
 		writeln('$ pinjam_buku 			: Pemimjaman Buku');
 		writeln('$ kembalikan_buku 		: Pengembalian Buku');
@@ -143,24 +145,37 @@ function queryValid(q : string): boolean;
 	{PARAMETER	: query input user }
 	{RETURN 	: boolean apakah query valid }
 
+	{KAMUS LOKAL}
+	const
+		queries : array [1..17] of string = ('register',
+											 'login',
+											 'cari',
+											 'caritahunterbit',
+											 'pinjam_buku',
+											 'kembalikan_buku',
+											 'lapor_hilang',
+											 'lihat_laporan',
+											 'tambah_buku',
+											 'tambah_jumlah_buku',
+											 'riwayat',
+											 'statistik',
+											 'load',
+											 'save',
+											 'cari_anggota',
+											 'exit',
+											 'logout');
+
+	var
+		str : string;
+		
 	{ALGORITMA}
 	begin
-		queryValid :=  (q = 'register') or
-					   (q = 'login') or
-					   (q = 'cari') or
-					   (q = 'caritahunterbit') or
-					   (q = 'pinjam_buku') or
-					   (q = 'kembalikan_buku') or
-					   (q = 'lapor_hilang') or
-					   (q = 'lihat_laporan') or
-					   (q = 'tambah_buku') or
-					   (q = 'tambah_jumlah_buku') or
-					   (q = 'riwayat') or
-					   (q = 'statistik') or
-					   (q = 'load') or
-					   (q = 'save') or
-					   (q = 'cari_anggota') or
-					   (q = 'exit');
+		for str in queries do begin
+			if q = str then begin
+				exit(true);
+			end;
+		end;
+		queryValid := false;
 	end;
 
 procedure init();
@@ -206,7 +221,7 @@ procedure exitProgram();
 
 		{Save file sebelum program ditutup}
 		if (wantSave = 'Y') or (wantSave = 'y') then begin
-			writeln('$ load');
+			writeln('$ save');
 			saveAllFiles();
 			writeln();
 		end;
