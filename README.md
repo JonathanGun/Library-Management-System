@@ -4,7 +4,7 @@ commited on : 2 April 2019
 last edit   : 5 April 2019
 
 ## Deskripsi tugas:
-Membuat program sistem manajemen perpustakaan dengan bahasa **Pascal**.
+Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
 
 ## Spesifikasi Program:
 Memiliki 16 fitur wajib,
