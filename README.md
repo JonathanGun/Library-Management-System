@@ -43,7 +43,7 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 
 ## Changelog
 - v0.2 Main program + (F13) Load file eksternal
-- v0.3 Save + (F14) Save file
+- v0.3 (F14) Save file
 
 
 #### Anggota Kelompok
