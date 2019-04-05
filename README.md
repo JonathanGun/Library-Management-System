@@ -51,7 +51,7 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - menambah fitur exit dan save on exit
   
 
-### Anggota Kelompok
+## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
 - Michael Hans
 - Chandrika
