@@ -2,6 +2,7 @@ program main;
 {Program Utama Perpustakaan}
 uses
 	uload,
+	usave,
 	ubook,
 	uuser,
 	udate,
@@ -11,12 +12,19 @@ uses
 
 {KAMUS GLOBAL}
 var
-	activeUser	: User;
 	books		: tbook;
 	users		: tuser;
 	borrows 	: tborrow;
 	returns 	: treturn;
 	missings	: tmissing;
+
+	ptrbooks	: pbook;
+	ptruser		: puser;
+	ptrborrow	: pborrow;
+	ptrreturn	: preturn;
+	ptrmissing	: pmissing;
+
+	activeUser	: User;
 	query		: string;
 	i : integer;
 
@@ -56,29 +64,16 @@ procedure loadAllFiles();
 	{RETURN 	: - }
 
 	{KAMUS LOKAL}
-	var
-		ptrbooks	: pbook;
-		ptruser		: puser;
-		ptrborrow	: pborrow;
-		ptrreturn	: preturn;
-		ptrmissing	: pmissing;
+	var		
 		filename	: string;
 
 	{ALGORITMA}
 	begin
-		new(ptrbooks);
-		new(ptruser);
-		new(ptrborrow);
-		new(ptrreturn);
-		new(ptrmissing);
-
-
 		ptrbooks^ 	:= books;
 		ptruser^	:= users;
 		ptrborrow^ 	:= borrows;
 		ptrreturn^	:= returns;
 		ptrmissing^	:= missings;
-
 
 		write('Masukkan nama File Buku: '); readln(filename);
 		loadbook(filename, ptrbooks);
@@ -105,6 +100,46 @@ procedure loadAllFiles();
 		writeln();
 	end;
 
+procedure saveAllFiles();
+	{DESKRIPSI	: (F14) meminta input nama file dari user kemudian mengisi
+	file tsb dengan array yang bersangkutan}
+	{PARAMETER	: - }
+	{RETURN 	: - }
+
+	{KAMUS LOKAL}
+	var
+		filename	: string;
+
+	{ALGORITMA}
+	begin
+		ptrbooks^ 	:= books;
+		ptruser^	:= users;
+		ptrborrow^ 	:= borrows;
+		ptrreturn^	:= returns;
+		ptrmissing^	:= missings;
+
+
+		write('Masukkan nama File Buku: '); readln(filename);
+		savebook(filename, ptrbooks);
+		
+		write('Masukkan nama File User: '); readln(filename);
+		saveuser(filename, ptruser);
+		
+		write('Masukkan nama File Peminjaman: '); readln(filename);
+		saveborrow(filename, ptrborrow);
+
+		write('Masukkan nama File Pengembalian: '); readln(filename);
+		savereturn(filename, ptrreturn);
+
+		write('Masukkan nama File Buku Hilang: '); readln(filename);
+		savemissing(filename, ptrmissing);
+
+		writeln();
+		writeln('Data berhasil disimpan!');
+		writeln();
+	end;
+
+
 procedure init();
 	{DESKRIPSI	: prosedur dijalankan sekali, yaitu pada awal program berjalan}
 	{PARAMETER	: - }
@@ -114,11 +149,43 @@ procedure init();
 	begin
 		query := 'load';
 		writeln('$ load');
+
 		activeUser.username := 'Anonymous';
 		activeUser.password	:= '12345678';
 		activeUser.fullname	:= 'Anonymous';
 		activeUser.address	:= '';
 		activeUser.isAdmin	:= false;
+
+		new(ptrbooks);
+		new(ptruser);
+		new(ptrborrow);
+		new(ptrreturn);
+		new(ptrmissing);
+	end;
+
+procedure exitProgram();
+	{DESKRIPSI	: (F16) prosedur dijalankan sekali, yaitu saat menerima query exit}
+	{PARAMETER	: - }
+	{RETURN 	: - }
+
+	{KAMUS LOKAL}
+	var
+		wantSave: char;
+
+	{ALGORITMA}
+	begin
+		{Validasi Input}
+		repeat
+			writeln('Simpan data? (Y/N)');
+			write('$ '); readln(wantSave);
+		until (wantSave = 'Y') or (wantSave = 'y') or (wantSave = 'N') or (wantSave = 'n');
+
+		{Save file sebelum program ditutup}
+		if (wantSave = 'Y') or (wantSave = 'y') then begin
+			saveAllFiles();
+		end;
+		write('Press ANY key to close program'); readln();
+		exit();
 	end;
 
 
@@ -140,31 +207,34 @@ begin
 	{		// 'riwayat' 				: riwayat();}
 	{		// 'statistik' 			: statistik();}
 			'load' 					: loadAllFiles();
-	{		// 'save' 					: save();}
+			'save' 					: saveAllFiles();
 	{		// 'cari_anggota' 			: cari_anggota();}
-	{		// 'exit'					: exit();}
 		end;
 		printFeatures(); readln(query);
 	end;
 
+	{DEBUG}
+	writeln('======== DEBUG ========');
 	writeln('BOOKS');
-	for i:= 1 to bookNeff do begin
-		writeln(books[i].id, ' ', books[i].title);
-	end;
+	for i:= 1 to bookNeff do writeln(books[i].id, ' ', books[i].title);
+	writeln();
+
 	writeln('USERS');
-	for i:= 1 to userNeff do begin
-		writeln(users[i].username, ' ', users[i].password);
-	end;
+	for i:= 1 to userNeff do writeln(users[i].username, ' ', users[i].password);
+	writeln();
+	
 	writeln('BORROWS');
-	for i:= 1 to borrowNeff do begin
-		writeln(borrows[i].username, ' ', borrows[i].borrowDate.year);
-	end;
+	for i:= 1 to borrowNeff do writeln(borrows[i].username, ' ', borrows[i].borrowDate.year);
+	writeln();
+
 	writeln('RETURNS');
-	for i:= 1 to returnNeff do begin
-		writeln(returns[i].id, ' ', returns[i].returnDate.day);
-	end;
+	for i:= 1 to returnNeff do writeln(returns[i].id, ' ', returns[i].returnDate.day);
+	writeln();
+
 	writeln('MISSINGS');
-	for i:= 1 to missingNeff do begin
-		writeln(missings[i].id, ' ', missings[i].username);
-	end;
+	for i:= 1 to missingNeff do writeln(missings[i].id, ' ', missings[i].username);
+	writeln('======================');
+
+	{EXIT}
+	exitProgram();
 end.
