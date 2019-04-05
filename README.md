@@ -42,17 +42,18 @@ Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 Memiliki format tanggal berupa *DD/MM/YYYY*
 
 ## Changelog
-- v0.2 Main program + (F13) Load file eksternal
-- v0.3 (F14) Save file
+**v0.2 Main program + (F13) Load file eksternal**
+  - membuat template unit-unit dan main.pas
+  - menyelesaikan uload.pas
 
+**v0.3 (F14) Save file + (F16) Exit**
+  - menyelesaikan save.pas
+  - menambah fitur exit dan save on exit
+  
 
-#### Anggota Kelompok
-[Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
-
-Michael Hans
-
-Chandrika
-
-Muhammad Azinul Haq
-
-Ayutari Dian
+### Anggota Kelompok
+- [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
+- Michael Hans
+- Chandrika
+- Muhammad Azinul Haq
+- Ayutari Dian
