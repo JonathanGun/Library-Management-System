@@ -9,10 +9,10 @@ const
 type
 	{Definisi ADT User}
 	User = record
-		username	: string;
-		password	: string;
 		fullname	: string;
 		address		: string;
+		username	: string;
+		password	: string;
 		isAdmin		: boolean;
 	end;
 
