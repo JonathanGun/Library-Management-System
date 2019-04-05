@@ -1,5 +1,6 @@
 program main;
-{Program Utama Perpustakaan}
+{Program Utama Sistem Manajemen Perpustakaan}
+
 uses
 	uload,
 	usave,
@@ -37,24 +38,24 @@ procedure printFeatures();
 
 	{ALGORITMA}
 	begin
+		writeln();
 		writeln('Selamat datang di Perpustakaan Tengah Gurun');
-		writeln('$ register				: Regitrasi Akun');
-		writeln('$ login 				: Login');
-		writeln('$ cari 				: Pencarian Buku berdasar Kategori');
+		writeln('$ register			: Regitrasi Akun');
+		writeln('$ login 			: Login');
+		writeln('$ cari					: Pencarian Buku berdasar Kategori');
 		writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit');
 		writeln('$ pinjam_buku 			: Pemimjaman Buku');
 		writeln('$ kembalikan_buku 		: Pengembalian Buku');
 		writeln('$ lapor_hilang			: Melaporkan Buku Hilang');
 		writeln('$ lihat_laporan 		: Melihat Laporan Buku yang Hilang');
 		writeln('$ tambah_buku 			: Menambahkan Buku Baru ke Sistem');
-		writeln('$ tambah_jumlah_buku 	: Melakukan Penambahan Jumlah Buku ke Sistem');
-		writeln('$ riwayat 				: Melihat Riwayat Peminjaman');
+		writeln('$ tambah_jumlah_buku 		: Melakukan Penambahan Jumlah Buku ke Sistem');
+		writeln('$ riwayat 			: Melihat Riwayat Peminjaman');
 		writeln('$ statistik 			: Melihat Statistik');
 		writeln('$ load 				: Load File');
 		writeln('$ save 				: Save File');
-		writeln('$ cari_anggota 		: Pencarian Anggota');
-		writeln('$ exit					: Exit');
-		write('$ ');
+		writeln('$ cari_anggota 			: Pencarian Anggota');
+		writeln('$ exit				: Exit');
 	end;
 
 procedure loadAllFiles();
@@ -96,8 +97,7 @@ procedure loadAllFiles();
 		missings	:= ptrmissing^;
 
 		writeln();
-		writeln('File perpustakaan berhasil dimuat!');
-		writeln();
+		write('File perpustakaan berhasil dimuat!');
 	end;
 
 procedure saveAllFiles();
@@ -135,10 +135,33 @@ procedure saveAllFiles();
 		savemissing(filename, ptrmissing);
 
 		writeln();
-		writeln('Data berhasil disimpan!');
-		writeln();
+		write('Data berhasil disimpan!');
 	end;
 
+function queryValid(q : string): boolean;
+	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak}
+	{PARAMETER	: query input user }
+	{RETURN 	: boolean apakah query valid }
+
+	{ALGORITMA}
+	begin
+		queryValid :=  (q = 'register') or
+					   (q = 'login') or
+					   (q = 'cari') or
+					   (q = 'caritahunterbit') or
+					   (q = 'pinjam_buku') or
+					   (q = 'kembalikan_buku') or
+					   (q = 'lapor_hilang') or
+					   (q = 'lihat_laporan') or
+					   (q = 'tambah_buku') or
+					   (q = 'tambah_jumlah_buku') or
+					   (q = 'riwayat') or
+					   (q = 'statistik') or
+					   (q = 'load') or
+					   (q = 'save') or
+					   (q = 'cari_anggota') or
+					   (q = 'exit');
+	end;
 
 procedure init();
 	{DESKRIPSI	: prosedur dijalankan sekali, yaitu pada awal program berjalan}
@@ -179,12 +202,16 @@ procedure exitProgram();
 			writeln('Simpan data? (Y/N)');
 			write('$ '); readln(wantSave);
 		until (wantSave = 'Y') or (wantSave = 'y') or (wantSave = 'N') or (wantSave = 'n');
+		writeln();
 
 		{Save file sebelum program ditutup}
 		if (wantSave = 'Y') or (wantSave = 'y') then begin
+			writeln('$ load');
 			saveAllFiles();
+			writeln();
 		end;
-		write('Press ANY key to close program'); readln();
+
+		write('Press ENTER to close program'); readln();
 		exit();
 	end;
 
@@ -210,7 +237,14 @@ begin
 			'save' 					: saveAllFiles();
 	{		// 'cari_anggota' 			: cari_anggota();}
 		end;
-		printFeatures(); readln(query);
+		readln();
+
+		printFeatures();
+		write('$ '); readln(query); writeln();
+		while not queryValid(query) do begin
+			writeln('Command tidak terdaftar! Silahkan ulangi lagi!');
+			write('$ '); readln(query); writeln();
+		end;
 	end;
 
 	{DEBUG}
@@ -234,6 +268,7 @@ begin
 	writeln('MISSINGS');
 	for i:= 1 to missingNeff do writeln(missings[i].id, ' ', missings[i].username);
 	writeln('======================');
+	writeln();
 
 	{EXIT}
 	exitProgram();

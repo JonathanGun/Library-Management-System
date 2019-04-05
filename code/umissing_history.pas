@@ -12,7 +12,7 @@ type
 	{Definisi ADT MissingBook}
 	MissingBook = record
 		username	: string; {User.username}
-		id 		: integer;
+		id 			: integer;
 		reportDate	: Date;
 	end;
 

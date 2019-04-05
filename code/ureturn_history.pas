@@ -12,7 +12,7 @@ type
 	{Definisi ADT ReturnHistory}
 	ReturnHistory = record
 		username	: string; {User.username}
-		id		: integer; {Book.id}
+		id			: integer; {Book.id}
 		returnDate	: Date;
 	end;
 
