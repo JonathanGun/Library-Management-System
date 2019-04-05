@@ -1,0 +1,6 @@
+copy teks di bawah ini ke cmd untuk load & save secara cepat:
+K03_Kelompok3_buku.csv
+K03_Kelompok3_user.csv
+K03_Kelompok3_peminjaman.csv
+K03_Kelompok3_pengembalian.csv
+K03_Kelompok3_kehilangan.csv
