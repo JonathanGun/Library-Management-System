@@ -43,12 +43,13 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 
 ## Changelog
 **v0.2 Main program + (F13) Load file eksternal**
-  - membuat template unit-unit dan main.pas
-  - menyelesaikan uload.pas
+  - created unit templates and main.pas
+  - finished uload.pas
 
 **v0.3 (F14) Save file + (F16) Exit**
-  - menyelesaikan save.pas
-  - menambah fitur exit dan save on exit
+  - finished save.pas
+  - added exit and save on exit
+  - fixed DateToStr_ function on udate.pas
   
 
 ## Anggota Kelompok
