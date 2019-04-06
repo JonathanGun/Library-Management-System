@@ -35,8 +35,9 @@ var
 {FUNGSI DAN PROSEDUR}
 procedure printFeatures();
 	{DESKRIPSI	: (F00) menampilkan fitur-fitur pada layar}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{I.S. 			: Sembarang}
+	{F.S.			 	: Fitur-fitur tertulis di layar}
+	{Proses 		: Menulis fitur-fitur di layar}
 
 	{ALGORITMA}
 	begin
@@ -63,8 +64,9 @@ procedure printFeatures();
 procedure loadAllFiles();
 	{DESKRIPSI	: (F13) meminta input nama file dari user kemudian membaca
 	isi file tsb dan memuatnya pada array yang bersangkutan}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{I.S. 			: Sembarang}
+	{F.S.			 	: Semua array of ADT terisi sesuai input nama file}
+	{Proses 		: Meminta input nama file dari user, lalu mengisi array of ADT}
 
 	{KAMUS LOKAL}
 	var		
@@ -104,9 +106,10 @@ procedure loadAllFiles();
 
 procedure saveAllFiles();
 	{DESKRIPSI	: (F14) meminta input nama file dari user kemudian mengisi
-	file tsb dengan array yang bersangkutan}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+			  file tsb dengan array yang bersangkutan}
+	{I.S. 		: Sembarang}
+	{F.S.		: Semua array of ADT tersimpan dalam file sesuai input dari user}
+	{Proses 	: Meminta input nama file, lalu menyimpan array of ADT dalam file tsb}
 
 	{KAMUS LOKAL}
 	var
@@ -179,8 +182,9 @@ function queryValid(q : string): boolean;
 
 procedure init();
 	{DESKRIPSI	: prosedur dijalankan sekali, yaitu pada awal program berjalan}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{I.S. 		: Sembarang}
+	{F.S.		: query terdefinisi, activeUser terdefinisi, pointer terdefinisi}
+	{Proses 	: menginisiasi variabel-variabel yang akan digunakan pada program utama}
 
 	{ALGORITMA}
 	begin
@@ -202,57 +206,62 @@ procedure init();
 
 procedure tambah_jumlah_buku();
 	{DESKRIPSI	: (F10 - Melakukan penambahan jumlah buku ke sistem}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{I.S. 		: Sembarang}
+	{F.S.		: jumlah buku dengan id ID bertambah sebanyak qty}
+	{Proses 	: Meminta input id buku dan jumlah yang ingin ditambahkan,
+			  lalu menambahkan jumlah buku ber id ID}
 
-{KAMUS LOKAL}
-var ID, qty : integer;
+	{KAMUS LOKAL}
+	var
+		ID, qty : integer;
 
-{ALGORITMA}
-begin
-	writeln('$ tambah_jumlah_buku');
-	write('Masukkan ID Buku: ');
-	readln(ID);
-	write('Masukkan jumlah buku yang ditambahkan: ');
-	readln(qty);
-	{Procedure penambahan jumlah buku sesuai dengan id dan qty}
-	Add_book_qty(ID, qty, ptrbooks);
-end;
+	{ALGORITMA}
+	begin
+		writeln('$ tambah_jumlah_buku');
+		write('Masukkan ID Buku: ');
+		readln(ID);
+		write('Masukkan jumlah buku yang ditambahkan: ');
+		readln(qty);
+		{Procedure penambahan jumlah buku sesuai dengan id dan qty}
+		Add_book_qty(ID, qty, ptrbooks);
+	end;
 
 procedure riwayat();
 	{DESKRIPSI	: (F11 - Melihat riwayat peminjaman}
 	{PARAMETER	: - }
 	{RETURN 	: - }
 
-{KAMUS LOKAL}
-var username : string;
+	{KAMUS LOKAL}
+	var username : string;
 
-{ALGORITMA}
-begin
-	writeln('$ riwayat');
-	write('Masukkan username pengunjung: ');
-	readln(username);
-	writeln('Riwayat:');
-	{Procedure penampilan riwayat seseorang dari username}
-	Borrow_history(username, ptrbooks, ptrborrow);
-end;
+	{ALGORITMA}
+	begin
+		writeln('$ riwayat');
+		write('Masukkan username pengunjung: ');
+		readln(username);
+		writeln('Riwayat:');
+		{Procedure penampilan riwayat seseorang dari username}
+		Borrow_history(username, ptrbooks, ptrborrow);
+	end;
 
 procedure statistik();
 	{DESKRIPSI	: (F12 - Statistik}
 	{PARAMETER	: - }
 	{RETURN 	: - }
 
-{ALGORITMA}
-begin
-	writeln('$ statistik');
-	{Procedure penampilan data statistik perpustakaan}
-	Stats(ptrbooks, ptruser);
-end;
+	{ALGORITMA}
+	begin
+		writeln('$ statistik');
+		{Procedure penampilan data statistik perpustakaan}
+		Stats(ptrbooks, ptruser);
+	end;
 
 procedure exitProgram();
 	{DESKRIPSI	: (F16) prosedur dijalankan sekali, yaitu saat menerima query exit}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{I.S. 		: array of ADT terdefinisi}
+	{F.S.		: keluar dari program dan file data tersimpan dalam format csv}
+	{Proses 	: Menanyakan pada user apakah ingin menyimpan file, lalu menyimpan file,
+			  lalu keluar dari program}
 
 	{KAMUS LOKAL}
 	var
