@@ -75,7 +75,7 @@ var
 	borrowNeff: integer;
 	returnNeff: integer;
 	missingNeff: integer;
-
+	
 
 {PUBLIC FUNCTIONS, PROCEDURE}
 {FUNGSI-FUNGSI PENUNJANG}
@@ -121,7 +121,7 @@ function CountingAdmin(ptruser : puser):integer;
 	{DESKRIPSI	: Menghitung banyak admin dalam data user.csv}
 	{PARAMETER	: Ptruser (pointer pada user.csv)}
 	{RETURN		: sebuah bilangan integer}
-
+	
 {KAMUS LOKAL}
 var i,sum : integer;
 
@@ -145,7 +145,7 @@ function CountingPengunjung(ptruser : puser):integer;
 	{PARAMETER	: Ptruser (pointer pada user.csv)}
 	{RETURN		: sebuah bilangan integer}
 
-{KAMUS LOKAL}
+{KAMUS LOKAL}	
 var i,sum : integer;
 
 {ALGORITMA}
@@ -194,8 +194,8 @@ function checkLocation (id : integer; ptr : pbook):integer;
 {KAMUS LOKAL}
 var i,idx : integer;
 	found : boolean;
-
-{ALGORITMA}
+	
+{ALGORITMA}	
 begin
 	{INISIALISASI}
 	found := False;
@@ -216,13 +216,14 @@ end;
 {F10 - Melakukan penambahan jumlah buku ke dalam sistem}
 procedure Add_book_qty (id,qty : integer; ptr : pbook);
 	{DESKRIPSI	: Menambahkan jumlah buku dengan skema searching pada id yang ingin ditambahkan pada book.csv}
-	{PARAMETER	: id dan qty yang bertipe integer dan Ptrbook (pointer pada book.csv)}
-	{RETURN		: - }
+	{I.S		: id dan qty yang bertipe integer dan Ptrbook (pointer pada book.csv)}
+	{F.S		: Jumlah buku dari buku dengan ID tertentu berubah }
+	{PROSES		: Mencari buku dengan ID tertentu dengan skema searching dan mengubah data qty pada buku ID tersebut}
 
 {KAMUS LOKAL}
 var i,idx : integer;
 	found : boolean;
-
+	
 {ALGORITMA}
 begin
 	{INISIALISASI}
@@ -240,7 +241,8 @@ begin
 	end;
 	{TAHAP PENAMBAHAN JUMLAH BUKU}
 	ptr^[idx].qty += qty;
-	writeln('Pembaharuan jumlah buku berhasil dilakukan, total buku ');
+	writeln();
+	write('Pembaharuan jumlah buku berhasil dilakukan, total buku ');
 	write(ptr^[idx].title);
 	write(' menjadi ');
 	writeln(ptr^[idx].qty);
@@ -249,8 +251,9 @@ end;
 {F11 - Melihat riwayat peminjaman}
 procedure Borrow_history (username : string; ptrbook : pbook; ptruser : pborrow);
 	{DESKRIPSI	: Menampilkan riwayat peminjaman dari username pada borrow.csv}
-	{PARAMETER	: username bertipe string, ptrbook (pointer pada book.csv), dan ptruser (pointer pada borrow.csv)}
-	{RETURN		: - }
+	{I.S.		: username bertipe string, ptrbook (pointer pada book.csv), dan ptruser (pointer pada borrow.csv)}
+	{F.S.		: Menampilkan riwayat peminjaman ke layar}
+	{Proses		: Menuliskan riwayat peminjaman dengan skema searching}
 
 {KAMUS LOKAL}
 var i,idx : integer;
@@ -275,8 +278,9 @@ end;
 {F12 - Statistik}
 procedure Stats(ptrbook : pbook; ptruser : puser);
 	{DESKRIPSI	: Menampilkan data statistik berupa admin, pengunjung, dan 5 jenis buku berdasarkan user.csv dan book.csv}
-	{PARAMETER	: ptrbook (pointer pada book.csv), dan ptruser (pointer pada user.csv)}
-	{RETURN		: - }
+	{I.S		: ptrbook valid (pointer pada book.csv), dan ptruser valid (pointer pada user.csv)}
+	{F.S		: Menampilkan jenis-jenis statistik di layar }
+	{Proses		: Menulis jenis-jenis statistik ke layar berdasarkan book.csv}
 
 {KAMUS LOKAL}
 var total : integer;
