@@ -1,7 +1,7 @@
 # TUGAS BESAR DASAR PEMROGRAMAN
 commited on : 2 April 2019
 
-last edit   : 5 April 2019
+last edit   : 6 April 2019
 
 ## Deskripsi tugas:
 Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
@@ -17,9 +17,9 @@ Memiliki 16 fitur wajib,
 - [ ] F07 - Melaporkan buku hilang
 - [ ] F08 - Melihat laporan buku yang hilang
 - [ ] F09 - Menambahkan buku baru ke sistem
-- [ ] F10 - Melakukan penambahan jumlah buku ke sistem
-- [ ] F11 - Melihat riwayat peminjaman
-- [ ] F12 – Statistik
+- [x] F10 - Melakukan penambahan jumlah buku ke sistem
+- [x] F11 - Melihat riwayat peminjaman
+- [x] F12 – Statistik
 - [x] F13 - Load file
 - [x] F14 - Save file
 - [ ] F15 - Pencarian anggota
@@ -50,6 +50,9 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - finished save.pas
   - added exit and save on exit
   - fixed DateToStr_ function on udate.pas
+
+**v0.4 (F10) Tambah Jumlah Buku + (F11) Lihat Riwayat Peminjaman + (F12) Statistik**
+  - added 3 functions on ubook.pas
   
 
 ## Anggota Kelompok
