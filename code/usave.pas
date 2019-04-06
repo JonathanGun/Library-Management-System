@@ -29,13 +29,15 @@ const
 {FUNGSI dan PROSEDUR}
 procedure savebook(filename: string; ptr: pbook);
 	{DESKRIPSI	: Menyimpan ADT array of Book ke dalam file csv}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pbook terdefinisi, array tbook terdefinisi}
+	{F.S.		: file csv terbentuk/terupdate di direktori}
+	{Proses 	: meminta input nama file, lalu menyimpan ADT array of Book ke dalam file csv}
+
 
 	{KAMUS LOKAL}
 	var
 		row 		: integer;
-		f 			: text;
+		f 		: text;
 
 	{ALGORITMA}
 	begin
@@ -57,8 +59,9 @@ procedure savebook(filename: string; ptr: pbook);
 
 procedure saveuser(filename: string; ptr: puser);
 	{DESKRIPSI	: Menyimpan ADT array of User ke dalam file csv}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pUser terdefinisi, array tUser terdefinisi}
+	{F.S.		: file csv terbentuk/terupdate di direktori}
+	{Proses 	: meminta input nama file, lalu menyimpan ADT array of User ke dalam file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -88,8 +91,9 @@ procedure saveuser(filename: string; ptr: puser);
 
 procedure saveborrow(filename: string; ptr: pborrow);
 	{DESKRIPSI	: Menyimpan ADT array of BorrowHistory ke dalam file csv}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pBorrow terdefinisi, array tBorrow terdefinisi}
+	{F.S.		: file csv terbentuk/terupdate di direktori}
+	{Proses 	: meminta input nama file, lalu menyimpan ADT array of BorrowHistory ke dalam file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -119,8 +123,9 @@ procedure saveborrow(filename: string; ptr: pborrow);
 
 procedure savereturn(filename: string; ptr: preturn);
 	{DESKRIPSI	: Menyimpan ADT array of ReturnHistory ke dalam file csv}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pReturn terdefinisi, array tReturn terdefinisi}
+	{F.S.		: file csv terbentuk/terupdate di direktori}
+	{Proses 	: meminta input nama file, lalu menyimpan ADT array of ReturnHistory ke dalam file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -144,8 +149,9 @@ procedure savereturn(filename: string; ptr: preturn);
 
 procedure savemissing(filename: string; ptr: pmissing);
 	{DESKRIPSI	: Menyimpan ADT array of MissingBook ke dalam file csv}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pMissing terdefinisi, array tMissing terdefinisi}
+	{F.S.		: file csv terbentuk/terupdate di direktori}
+	{Proses 	: meminta input nama file, lalu menyimpan ADT array of MissingBook ke dalam file csv}
 
 	{KAMUS LOKAL}
 	var
