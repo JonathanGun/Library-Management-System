@@ -21,7 +21,7 @@ var
 	returns 	: treturn;
 	missings	: tmissing;
 
-	ptrbooks	: pbook;
+	ptrbook 	: pbook;
 	ptruser		: puser;
 	ptrborrow	: pborrow;
 	ptrreturn	: preturn;
@@ -29,6 +29,7 @@ var
 
 	activeUser	: User;
 	query		: string;
+	notAdminMsg	: string;
 	i : integer;
 
 
@@ -69,25 +70,25 @@ procedure loadAllFiles();
 	{Proses 		: Meminta input nama file dari user, lalu mengisi array of ADT}
 
 	{KAMUS LOKAL}
-	var		
+	var
 		filename	: string;
 
 	{ALGORITMA}
 	begin
-		ptrbooks^ 	:= books;
+		ptrbook^ 	:= books;
 		ptruser^	:= users;
 		ptrborrow^ 	:= borrows;
 		ptrreturn^	:= returns;
 		ptrmissing^	:= missings;
 
 		write('Masukkan nama File Buku: '); readln(filename);
-		loadbook(filename, ptrbooks);
-		books 		:= ptrbooks^;
-		
+		loadbook(filename, ptrbook);
+		books 		:= ptrbook^;
+
 		write('Masukkan nama File User: '); readln(filename);
 		loaduser(filename, ptruser);
 		users 		:= ptruser^;
-		
+
 		write('Masukkan nama File Peminjaman: '); readln(filename);
 		loadborrow(filename, ptrborrow);
 		borrows 	:= ptrborrow^;
@@ -117,18 +118,18 @@ procedure saveAllFiles();
 
 	{ALGORITMA}
 	begin
-		books := ptrbooks^;
+		books := ptrbook^;
 		users := ptruser^;
 		borrows := ptrborrow^ ;
 		returns := ptrreturn^	;
 		missings := ptrmissing^ ;
 
 		write('Masukkan nama File Buku: '); readln(filename);
-		savebook(filename, ptrbooks);
-		
+		savebook(filename, ptrbook);
+
 		write('Masukkan nama File User: '); readln(filename);
 		saveuser(filename, ptruser);
-		
+
 		write('Masukkan nama File Peminjaman: '); readln(filename);
 		saveborrow(filename, ptrborrow);
 
@@ -169,7 +170,7 @@ function queryValid(q : string): boolean;
 
 	var
 		str : string;
-		
+
 	{ALGORITMA}
 	begin
 		for str in queries do begin
@@ -197,7 +198,9 @@ procedure init();
 		activeUser.address	:= '';
 		activeUser.isAdmin	:= false;
 
-		new(ptrbooks);
+		notAdminMsg := 'Akses ditolak. Anda bukan admin!';
+
+		new(ptrbook);
 		new(ptruser);
 		new(ptrborrow);
 		new(ptrreturn);
@@ -223,7 +226,7 @@ procedure tambah_jumlah_buku();
 		write('Masukkan jumlah buku yang ditambahkan: ');
 		readln(qty);
 		{Procedure penambahan jumlah buku sesuai dengan id dan qty}
-		Add_book_qty(ID, qty, ptrbooks);
+		Add_book_qty(ID, qty, ptrbook);
 	end;
 
 procedure riwayat();
@@ -241,7 +244,7 @@ procedure riwayat();
 		readln(username);
 		writeln('Riwayat:');
 		{Procedure penampilan riwayat seseorang dari username}
-		Borrow_history(username, ptrbooks, ptrborrow);
+		Borrow_history(username, ptrbook, ptrborrow);
 	end;
 
 procedure statistik();
@@ -253,7 +256,29 @@ procedure statistik();
 	begin
 		writeln('$ statistik');
 		{Procedure penampilan data statistik perpustakaan}
-		Stats(ptrbooks, ptruser);
+		Stats(ptrbook, ptruser);
+	end;
+
+procedure find();
+	{DESKRIPSI	: (F15) mencari anggota dengan username sesuai input dari user}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: nama dan alamat user yang dicari tertulis di layar}
+	{Proses 	: Menanyakan pada user username siapa yang akan dicari, lalu mencari username dan alamat user tersebut
+				lalu menampilkannya di layar}
+
+	var
+		targetUsername 	: string;
+		targetUser 			: User;
+	begin
+		if not activeUser.isAdmin then begin
+			write('Masukkan username: ');
+			readln(targetUsername);
+			targetUser := findUser(targetUsername, ptruser);
+			writeln('Nama Anggota 	:', targetUser.fullname);
+			writeln('Alamat anggota :', targetUser.address);
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure exitProgram();
@@ -301,13 +326,13 @@ begin
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
 	{		// 'lapor_hilang'			: lapor_hilang();}
 	{		// 'lihat_laporan' 		: lihat_laporan();}
-			'tambah_buku' 			: tambah_buku(ptrbooks);
+			'tambah_buku' 			: tambah_buku(ptrbook);
 			'tambah_jumlah_buku' 	: tambah_jumlah_buku();
 			'riwayat' 				: riwayat();
 			'statistik' 			: statistik();
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
-	{		// 'cari_anggota' 			: cari_anggota();}
+			'cari_anggota' 			: find();
 		end;
 		readln();
 
@@ -318,7 +343,7 @@ begin
 			write('$ '); readln(query); writeln();
 		end;
 	end;
-	
+
 	{DEBUG}
 	writeln('======== DEBUG ========');
 	writeln('BOOKS');
@@ -328,7 +353,7 @@ begin
 	writeln('USERS');
 	for i:= 1 to userNeff do writeln(users[i].username, ' ', users[i].password);
 	writeln();
-	
+
 	writeln('BORROWS');
 	for i:= 1 to borrowNeff do writeln(borrows[i].username, ' ', borrows[i].borrowDate.year);
 	writeln();

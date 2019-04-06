@@ -75,7 +75,7 @@ var
 	borrowNeff: integer;
 	returnNeff: integer;
 	missingNeff: integer;
-	
+
 
 {PUBLIC FUNCTIONS, PROCEDURE}
 {FUNGSI-FUNGSI PENUNJANG}
@@ -121,7 +121,7 @@ function CountingAdmin(ptruser : puser):integer;
 	{DESKRIPSI	: Menghitung banyak admin dalam data user.csv}
 	{PARAMETER	: Ptruser (pointer pada user.csv)}
 	{RETURN		: sebuah bilangan integer}
-	
+
 {KAMUS LOKAL}
 var i,sum : integer;
 
@@ -145,7 +145,7 @@ function CountingPengunjung(ptruser : puser):integer;
 	{PARAMETER	: Ptruser (pointer pada user.csv)}
 	{RETURN		: sebuah bilangan integer}
 
-{KAMUS LOKAL}	
+{KAMUS LOKAL}
 var i,sum : integer;
 
 {ALGORITMA}
@@ -194,8 +194,8 @@ function checkLocation (id : integer; ptr : pbook):integer;
 {KAMUS LOKAL}
 var i,idx : integer;
 	found : boolean;
-	
-{ALGORITMA}	
+
+{ALGORITMA}
 begin
 	{INISIALISASI}
 	found := False;
@@ -222,7 +222,7 @@ procedure Add_book_qty (id,qty : integer; ptr : pbook);
 {KAMUS LOKAL}
 var i,idx : integer;
 	found : boolean;
-	
+
 {ALGORITMA}
 begin
 	{INISIALISASI}
