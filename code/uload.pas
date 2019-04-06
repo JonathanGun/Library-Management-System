@@ -86,8 +86,10 @@ function readInput(filename: string; delimiter: char): pinput;
 
 procedure loadbook(filename: string; ptr: pbook);
 	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of Book}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pbook terdefinisi, array tbook terdefinisi, filename ada di direktori}
+	{F.S.		: array tbook terisi sesuai isi filename,}
+	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari buku,
+			  mengisi variabel bookNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -129,8 +131,10 @@ procedure loadbook(filename: string; ptr: pbook);
 
 procedure loaduser(filename: string; ptr: puser);
 	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of User}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer puser terdefinisi, array tuser terdefinisi, filename ada di direktori}
+	{F.S.		: array tuser terisi sesuai isi filename,}
+	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari user,
+			  mengisi variabel userNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -170,8 +174,10 @@ procedure loaduser(filename: string; ptr: puser);
 
 procedure loadborrow(filename: string; ptr: pborrow);
 	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of BorrowHistory}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pBorrowHistory terdefinisi, array tBorrowHistory terdefinisi, filename ada di direktori}
+	{F.S.		: array tBorrowHistory terisi sesuai isi filename,}
+	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari BorrowHistory,
+			  mengisi variabel BorrowNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -211,8 +217,10 @@ procedure loadborrow(filename: string; ptr: pborrow);
 
 procedure loadreturn(filename: string; ptr: preturn);
 	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of ReturnHistory}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{I.S. 		: pointer pReturnHistory terdefinisi, array tReturnHistory terdefinisi, filename ada di direktori}
+	{F.S.		: array tReturnHistory terisi sesuai isi filename,}
+	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari ReturnHistory,
+			  mengisi variabel ReturnNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -247,9 +255,11 @@ procedure loadreturn(filename: string; ptr: preturn);
 
 
 procedure loadmissing(filename: string; ptr: pmissing);
-	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of MissingHistory}
-	{PARAMETER	: namafile dan pointer dari array tsb}
-	{RETURN 	: - }
+	{DESKRIPSI	: Memuat file csv berisi data buku ke dalam ADT array of MissingBook}
+	{I.S. 		: pointer pMissingBook terdefinisi, array tMissingBook terdefinisi, filename ada di direktori}
+	{F.S.		: array tMissingBook terisi sesuai isi filename,}
+	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari MissingBook,
+			  mengisi variabel MissingNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
