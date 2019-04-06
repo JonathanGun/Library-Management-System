@@ -22,7 +22,7 @@ Memiliki 16 fitur wajib,
 - [x] F12 – Statistik
 - [x] F13 - Load file
 - [x] F14 - Save file
-- [ ] F15 - Pencarian anggota
+- [x] F15 - Pencarian anggota
 - [x] F16 - Exit
 
 2 fitur bonus,
@@ -51,13 +51,13 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - added exit and save on exit
   - fixed DateToStr_ function on udate.pas
 
-**v0.4 (F10) Tambah Jumlah Buku + (F11) Lihat Riwayat Peminjaman + (F12) Statistik**
+**v0.4 (F10) Tambah Jumlah Buku + (F11) Lihat Riwayat Peminjaman + (F12) Statistik + (F15) Pencarian Anggota**
   - added 3 functions on ubook.pas
-  
+  - added 1 functions on main.pas
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
 - [Michael Hans](https://github.com/michaellhans)
-- Chandrika
+- Chandrika Azharyanti
 - Muhammad Azinul Haq
 - Ayutari Dian
