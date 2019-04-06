@@ -114,12 +114,11 @@ procedure saveAllFiles();
 
 	{ALGORITMA}
 	begin
-		ptrbooks^ 	:= books;
-		ptruser^	:= users;
-		ptrborrow^ 	:= borrows;
-		ptrreturn^	:= returns;
-		ptrmissing^	:= missings;
-
+		books := ptrbooks^;
+		users := ptruser^;
+		borrows := ptrborrow^ ;
+		returns := ptrreturn^	;
+		missings := ptrmissing^ ;
 
 		write('Masukkan nama File Buku: '); readln(filename);
 		savebook(filename, ptrbooks);
@@ -201,6 +200,55 @@ procedure init();
 		new(ptrmissing);
 	end;
 
+procedure tambah_jumlah_buku();
+	{DESKRIPSI	: (F10 - Melakukan penambahan jumlah buku ke sistem}
+	{PARAMETER	: - }
+	{RETURN 	: - }
+
+{KAMUS LOKAL}
+var ID, qty : integer;
+
+{ALGORITMA}
+begin
+	writeln('$ tambah_jumlah_buku');
+	write('Masukkan ID Buku: ');
+	readln(ID);
+	write('Masukkan jumlah buku yang ditambahkan: ');
+	readln(qty);
+	{Procedure penambahan jumlah buku sesuai dengan id dan qty}
+	Add_book_qty(ID, qty, ptrbooks);
+end;
+
+procedure riwayat();
+	{DESKRIPSI	: (F11 - Melihat riwayat peminjaman}
+	{PARAMETER	: - }
+	{RETURN 	: - }
+
+{KAMUS LOKAL}
+var username : string;
+
+{ALGORITMA}
+begin
+	writeln('$ riwayat');
+	write('Masukkan username pengunjung: ');
+	readln(username);
+	writeln('Riwayat:');
+	{Procedure penampilan riwayat seseorang dari username}
+	Borrow_history(username, ptrbooks, ptrborrow);
+end;
+
+procedure statistik();
+	{DESKRIPSI	: (F12 - Statistik}
+	{PARAMETER	: - }
+	{RETURN 	: - }
+
+{ALGORITMA}
+begin
+	writeln('$ statistik');
+	{Procedure penampilan data statistik perpustakaan}
+	Stats(ptrbooks, ptruser);
+end;
+
 procedure exitProgram();
 	{DESKRIPSI	: (F16) prosedur dijalankan sekali, yaitu saat menerima query exit}
 	{PARAMETER	: - }
@@ -244,10 +292,10 @@ begin
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
 	{		// 'lapor_hilang'			: lapor_hilang();}
 	{		// 'lihat_laporan' 		: lihat_laporan();}
-	{		// 'tambah_buku' 			: tambah_buku();}
-	{		// 'tambah_jumlah_buku' 	: tambah_jumlah_buku();}
-	{		// 'riwayat' 				: riwayat();}
-	{		// 'statistik' 			: statistik();}
+			'tambah_buku' 			: tambah_buku(ptrbooks);
+			'tambah_jumlah_buku' 	: tambah_jumlah_buku();
+			'riwayat' 				: riwayat();
+			'statistik' 			: statistik();
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
 	{		// 'cari_anggota' 			: cari_anggota();}
@@ -261,7 +309,7 @@ begin
 			write('$ '); readln(query); writeln();
 		end;
 	end;
-
+	
 	{DEBUG}
 	writeln('======== DEBUG ========');
 	writeln('BOOKS');
