@@ -57,7 +57,7 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
-- Michael Hans
+- [Michael Hans](https://github.com/michaellhans)
 - Chandrika
 - Muhammad Azinul Haq
 - Ayutari Dian
