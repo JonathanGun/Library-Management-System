@@ -47,6 +47,7 @@ procedure printFeatures();
 		writeln('Selamat datang di Perpustakaan Tengah Gurun');
 		writeln('$ register			: Regitrasi Akun');
 		writeln('$ login 			: Login');
+		writeln('$ logout			: Logout');
 		writeln('$ cari				: Pencarian Buku berdasar Kategori');
 		writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit');
 		writeln('$ pinjam_buku 			: Pemimjaman Buku');
@@ -404,6 +405,41 @@ procedure login();
 		end;
 	end;	
 
+procedure logout();
+	{DESKRIPSI	: (T01)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
+
+	{KAMUS LOKAL}
+	var
+		wantLogout	: char;
+
+	{ALGORITMA}
+	begin
+		{Validasi Input}
+		repeat
+			writeln('Yakin? (Y/N)');
+			write('$ '); readln(wantLogout);
+		until (wantLogout = 'Y') or (wantLogout = 'y') or (wantLogout = 'N') or (wantLogout = 'n');
+		writeln();
+
+		{Save file sebelum program ditutup}
+		if (wantLogout = 'Y') or (wantLogout = 'y') then begin
+			writeln('$ logout');
+
+			activeUser.username := 'Anonymous';
+			activeUser.password	:= '12345678';
+			activeUser.fullname	:= 'Anonymous';
+			activeUser.address	:= '';
+			activeUser.isAdmin	:= false;
+
+			writeln('Berhasil logout.'); 
+			writeln ('Selamat datang ', activeUser.fullname , '!');
+		end;
+	end;
+
+
 {ALGORITMA}
 begin
 	init();
@@ -424,6 +460,7 @@ begin
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
 			'cari_anggota' 			: find();
+			'logout'				: logout();
 		end;
 		readln();
 
