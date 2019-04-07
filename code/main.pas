@@ -313,6 +313,24 @@ procedure exitProgram();
 		exit();
 	end;
 
+procedure caritahunterbit();
+	{DESKRIPSI	: (F04)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
+
+	{KAMUS LOKAL}
+	var
+		year : integer;
+		category : string;
+	
+	{ALGORITMA}
+	begin
+	write('Masukkan tahun: '); readln(year);
+	write('Masukkan kategori: ');readln(category);
+	findbook(year, category, ptrbook);
+	end;
+	
 
 {ALGORITMA}
 begin
