@@ -27,7 +27,7 @@ Memiliki 16 fitur wajib,
 
 2 fitur bonus,
 - [ ] B01 - Penyimpanan Password
-- [ ] B02 - Denda
+- [x] B02 - Denda
 
 dan 1 fitur tambahan.
 - [x] T01 - Logout
@@ -60,6 +60,9 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
  
  **v0.9.1 Reformatting and Commenting, Minor Changes**
   - bug fix on riwayat, f09, statistik, etc
+
+**v0.9.2 Denda**
+  - added function for denda (on udate.pas)
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
