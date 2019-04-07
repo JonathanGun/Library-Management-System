@@ -10,7 +10,7 @@ uses
 	uload,
 	usave,
 	ubook,
-	F01, F02, F04,f07,f08,f09,
+	F01, F02, F03, F04,f07,f08,f09,
 	uuser,
 	udate;
 
@@ -385,9 +385,9 @@ begin
 	init();
 	while not (query = 'exit') do begin
 		case query of
-	{		// 'register'				: register();}
-	{		// 'login' 				: login();}
-	{		// 'cari' 					: cari();}
+			'register'				: registeruser();
+			'login' 				: login();
+			'cari' 					: findbook(ptrbook);
 			'caritahunterbit' 		: caritahunterbit();
 	{		// 'pinjam_buku' 			: pinjam_buku();}
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
@@ -399,7 +399,7 @@ begin
 			'statistik' 			: statistik();
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
-	{		// 'cari_anggota' 			: cari_anggota();}
+			'cari_anggota' 			: cari_anggota();
 		end;
 		readln();
 
