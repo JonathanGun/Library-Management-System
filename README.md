@@ -10,7 +10,7 @@ Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
 Memiliki 16 fitur wajib,
 - [x] F01 - Registrasi akun
 - [x] F02 - Login
-- [ ] F03 - Pencarian buku berdasarkan kategori
+- [x] F03 - Pencarian buku berdasarkan kategori
 - [x] F04 - Pencarian buku berdasarkan tahun terbit
 - [ ] F05 - Peminjaman buku
 - [ ] F06 - Pengembalian buku
@@ -55,9 +55,11 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - added 3 functions on ubook.pas
   - added 1 functions on main.pas
 
+**v0.9 Semua Fitur Utama minus F05 dan F06
+
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
 - [Michael Hans](https://github.com/michaellhans)
-- Chandrika Azharyanti
-- Muhammad Azinul Haq
-- Ayutari Dian
+- [Chandrika Azharyanti](https://github.com/cacachandrika)
+- [Muhammad Azinul Haq](https://github.com/keltiga)
+- [Ayutari Dian](https://github.com/ayutaridian)
