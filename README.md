@@ -30,7 +30,7 @@ Memiliki 16 fitur wajib,
 - [ ] B02 - Denda
 
 dan 1 fitur tambahan.
-- [ ] T01 - Logout
+- [x] T01 - Logout
 
 Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 - [x] File Buku (*ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori*)
