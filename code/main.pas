@@ -10,6 +10,7 @@ uses
 	uload,
 	usave,
 	ubook,
+	f04,f07,f08,f09,
 	uuser,
 	udate;
 
@@ -324,15 +325,15 @@ begin
 	{		// 'caritahunterbit' 		: caritahunterbit();}
 	{		// 'pinjam_buku' 			: pinjam_buku();}
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
-	{		// 'lapor_hilang'			: lapor_hilang();}
-	{		// 'lihat_laporan' 		: lihat_laporan();}
-			'tambah_buku' 			: tambah_buku(ptrbook);
+			'lapor_hilang'			: lapor_hilang(ptrmissing, activeUser.username);
+	        	'lihat_laporan' 		: lihat_laporan(ptrbooks, ptrmissing);
+			'tambah_buku' 			: tambah_buku(ptrbooks);
 			'tambah_jumlah_buku' 	: tambah_jumlah_buku();
 			'riwayat' 				: riwayat();
 			'statistik' 			: statistik();
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
-			'cari_anggota' 			: find();
+	{		// 'cari_anggota' 			: cari_anggota();}
 		end;
 		readln();
 
