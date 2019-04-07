@@ -84,9 +84,6 @@ function CountingPengunjung(ptruser : puser):integer;
 function CountingBuku(category : string; ptrbook : pbook):integer;
 function checkLocation (id : integer; ptr : pbook):integer;
 
-{FUNGSI-FUNGSI UTAMA F07, F08, dan F09}
-procedure tambah_buku (ptrbook : pbook);
-
 {FUNGSI-FUNGSI UTAMA F10, F11, dan F12}
 procedure Stats(ptrbook : pbook; ptruser : puser);
 procedure Add_book_qty (id,qty : integer; ptr : pbook);
@@ -96,26 +93,6 @@ procedure Borrow_history (username : string; ptrbook : pbook; ptruser : pborrow)
 implementation
 
 {FUNGSI dan PROSEDUR}
-procedure tambah_buku (ptrbook : pbook);
-begin
-	writeln('$ tambah_buku');
-	bookNeff := bookNeff + 1;
-	writeln('Masukkan Informasi buku yang ditambahkan:');
-	write('Masukkan id buku: ');
-	readln(ptrbook^[bookNeff].id);
-	write('Masukkan judul buku: ');
-	readln(ptrbook^[bookNeff].title);
-	write('Masukkan pengarang buku: ');
-	readln(ptrbook^[bookNeff].author);
-	write('Masukkan jumlah_buku: ');
-	readln(ptrbook^[bookNeff].qty);
-	write('Masukkan tahun terbit buku: ');
-	readln(ptrbook^[bookNeff].year);
-	write('Masukkan kategori buku: ');
-	readln(ptrbook^[bookNeff].category);
-	writeln();
-	writeln('Buku berhasil ditambahkan ke dalam sistem!');
-end;
 
 function CountingAdmin(ptruser : puser):integer;
 	{DESKRIPSI	: Menghitung banyak admin dalam data user.csv}
