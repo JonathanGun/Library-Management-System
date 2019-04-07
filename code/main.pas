@@ -10,7 +10,7 @@ uses
 	uload,
 	usave,
 	ubook,
-	f04,f07,f08,f09,
+	F01, F02, F04,f07,f08,f09,
 	uuser,
 	udate;
 
@@ -330,7 +330,55 @@ procedure caritahunterbit();
 	write('Masukkan kategori: ');readln(category);
 	findbook(year, category, ptrbook);
 	end;
+
+procedure registeruser ();
+var
+	pengunjung : user;
+
+begin
+	if activeUser.isAdmin then
+	begin
+		writeln ('Masukkan nama pengunjung:');
+		readln (pengunjung.fullname);
 	
+		writeln ('Masukkan alamat pengunjung:');
+		readln (pengunjung.address);
+	
+		writeln ('Masukkan username pengunjung:');
+		readln (pengunjung.username);
+	
+		writeln ('Masukkan password pengunjung:');
+		readln (pengunjung.password);
+	
+		writeln ('Pengunjung ', pengunjung.fullname , ' berhasil terdaftar sebagai user.');
+
+		userregistration (pengunjung, ptruser);
+	end
+	else 
+	begin
+		writeln (notAdminMsg)
+	end;
+	
+end;
+
+procedure login ();
+var
+	pengunjung : user;
+
+begin
+	writeln ('Masukkan username:');
+	readln (pengunjung.username);
+	
+	writeln ('Masukkan password:');
+	readln (pengunjung.address);
+
+	activeUser := loginuser (pengunjung, ptruser);
+	if activeUser.username <> 'Anonymous' then begin
+		writeln ('Selamat datang ', activeUser.fullname , '!');
+	end else begin
+		writeln ('Username / password salah! Silakan coba lagi.');
+	end;
+end;	
 
 {ALGORITMA}
 begin
