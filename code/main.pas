@@ -221,43 +221,59 @@ procedure tambah_jumlah_buku();
 
 	{ALGORITMA}
 	begin
-		writeln('$ tambah_jumlah_buku');
-		write('Masukkan ID Buku: ');
-		readln(ID);
-		write('Masukkan jumlah buku yang ditambahkan: ');
-		readln(qty);
-		{Procedure penambahan jumlah buku sesuai dengan id dan qty}
-		Add_book_qty(ID, qty, ptrbook);
+		if activeUser.isAdmin then begin
+			write('Masukkan ID Buku: ');
+			readln(ID);
+			write('Masukkan jumlah buku yang ditambahkan: ');
+			readln(qty);
+			{Procedure penambahan jumlah buku sesuai dengan id dan qty}
+			Add_book_qty(ID, qty, ptrbook);
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure riwayat();
-	{DESKRIPSI	: (F11 - Melihat riwayat peminjaman}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{DESKRIPSI	: (F11)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{KAMUS LOKAL}
-	var username : string;
+
+	{KAMUS LOKAL}
+	var
+		username : string;
 
 	{ALGORITMA}
 	begin
-		writeln('$ riwayat');
-		write('Masukkan username pengunjung: ');
-		readln(username);
-		writeln('Riwayat:');
-		{Procedure penampilan riwayat seseorang dari username}
-		Borrow_history(username, ptrbook, ptrborrow);
+		if activeUser.isAdmin then begin
+			write('Masukkan username pengunjung: ');
+			readln(username);
+			writeln('Riwayat:');
+			{Procedure penampilan riwayat seseorang dari username}
+			Borrow_history(username, ptrbook, ptrborrow);
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure statistik();
-	{DESKRIPSI	: (F12 - Statistik}
-	{PARAMETER	: - }
-	{RETURN 	: - }
+	{DESKRIPSI	: (F12)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
+
+	{KAMUS LOKAL}
 
 	{ALGORITMA}
 	begin
-		writeln('$ statistik');
-		{Procedure penampilan data statistik perpustakaan}
-		Stats(ptrbook, ptruser);
+		if activeUser.isAdmin then begin
+			{Procedure penampilan data statistik perpustakaan}
+			Stats(ptrbook, ptruser);
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure find();
@@ -271,7 +287,7 @@ procedure find();
 		targetUsername 	: string;
 		targetUser 			: User;
 	begin
-		if not activeUser.isAdmin then begin
+		if activeUser.isAdmin then begin
 			write('Masukkan username: ');
 			readln(targetUsername);
 			targetUser := findUser(targetUsername, ptruser);
@@ -321,64 +337,72 @@ procedure caritahunterbit();
 
 	{KAMUS LOKAL}
 	var
-		year : integer;
-		category : string;
+		year 		: integer;
+		category 	: string;
 	
 	{ALGORITMA}
 	begin
-	write('Masukkan tahun: '); readln(year);
-	write('Masukkan kategori: ');readln(category);
-	findbook(year, category, ptrbook);
+		write('Masukkan tahun: '); readln(year);
+		write('Masukkan kategori: ');readln(category);
+		findbookbycategory(year, category, ptrbook);
 	end;
 
-procedure registeruser ();
-var
-	pengunjung : user;
+procedure registeruser();
+	{DESKRIPSI	: (F01)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
-begin
-	if activeUser.isAdmin then
+	{KAMUS LOKAL}
+	var
+		pengunjung : user;
+
+	{ALGORITMA}
 	begin
-		writeln ('Masukkan nama pengunjung:');
-		readln (pengunjung.fullname);
-	
-		writeln ('Masukkan alamat pengunjung:');
-		readln (pengunjung.address);
-	
-		writeln ('Masukkan username pengunjung:');
-		readln (pengunjung.username);
-	
-		writeln ('Masukkan password pengunjung:');
-		readln (pengunjung.password);
-	
-		writeln ('Pengunjung ', pengunjung.fullname , ' berhasil terdaftar sebagai user.');
+		if activeUser.isAdmin then begin
+			write('Masukkan nama pengunjung:');
+			readln(pengunjung.fullname);
+		
+			write('Masukkan alamat pengunjung:');
+			readln(pengunjung.address);
+		
+			write('Masukkan username pengunjung:');
+			readln(pengunjung.username);
+		
+			write('Masukkan password pengunjung:');
+			readln(pengunjung.password);
 
-		userregistration (pengunjung, ptruser);
-	end
-	else 
+			userregistration (pengunjung, ptruser);
+			writeln('Pengunjung ', pengunjung.fullname , ' berhasil terdaftar sebagai user.');
+		end else begin
+			writeln (notAdminMsg)
+		end;	
+	end;
+
+procedure login();
+	{DESKRIPSI	: (F02)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
+
+	{KAMUS LOKAL}
+	var
+		pengunjung : user;
+
 	begin
-		writeln (notAdminMsg)
-	end;
-	
-end;
+		write('Masukkan username:');
+		readln(pengunjung.username);
+		
+		write('Masukkan password:');
+		readln(pengunjung.address);
 
-procedure login ();
-var
-	pengunjung : user;
-
-begin
-	writeln ('Masukkan username:');
-	readln (pengunjung.username);
-	
-	writeln ('Masukkan password:');
-	readln (pengunjung.address);
-
-	activeUser := loginuser (pengunjung, ptruser);
-	if activeUser.username <> 'Anonymous' then begin
-		writeln ('Selamat datang ', activeUser.fullname , '!');
-	end else begin
-		writeln ('Username / password salah! Silakan coba lagi.');
-	end;
-end;	
+		activeUser := loginuser (pengunjung, ptruser);
+		if activeUser.username <> 'Anonymous' then begin
+			writeln ('Selamat datang ', activeUser.fullname , '!');
+		end else begin
+			writeln ('Username / password salah! Silakan coba lagi.');
+		end;
+	end;	
 
 {ALGORITMA}
 begin
@@ -387,19 +411,19 @@ begin
 		case query of
 			'register'				: registeruser();
 			'login' 				: login();
-			'cari' 					: findbook(ptrbook);
+			'cari' 					: findbookbyyear(ptrbook);
 			'caritahunterbit' 		: caritahunterbit();
 	{		// 'pinjam_buku' 			: pinjam_buku();}
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
 			'lapor_hilang'			: lapor_hilang(ptrmissing, activeUser.username);
-	        	'lihat_laporan' 		: lihat_laporan(ptrbooks, ptrmissing);
-			'tambah_buku' 			: tambah_buku(ptrbooks);
+	        'lihat_laporan' 		: lihat_laporan(ptrbook, ptrmissing);
+			'tambah_buku' 			: tambah_buku(ptrbook);
 			'tambah_jumlah_buku' 	: tambah_jumlah_buku();
 			'riwayat' 				: riwayat();
 			'statistik' 			: statistik();
 			'load' 					: loadAllFiles();
 			'save' 					: saveAllFiles();
-			'cari_anggota' 			: cari_anggota();
+			'cari_anggota' 			: find();
 		end;
 		readln();
 
