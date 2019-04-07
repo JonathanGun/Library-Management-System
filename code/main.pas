@@ -340,7 +340,7 @@ begin
 	{		// 'register'				: register();}
 	{		// 'login' 				: login();}
 	{		// 'cari' 					: cari();}
-	{		// 'caritahunterbit' 		: caritahunterbit();}
+			'caritahunterbit' 		: caritahunterbit();
 	{		// 'pinjam_buku' 			: pinjam_buku();}
 	{		// 'kembalikan_buku' 		: kembalikan_buku();}
 			'lapor_hilang'			: lapor_hilang(ptrmissing, activeUser.username);
