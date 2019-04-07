@@ -8,15 +8,15 @@ Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
 
 ## Spesifikasi Program:
 Memiliki 16 fitur wajib,
-- [ ] F01 - Registrasi akun
-- [ ] F02 - Login
+- [x] F01 - Registrasi akun
+- [x] F02 - Login
 - [ ] F03 - Pencarian buku berdasarkan kategori
-- [ ] F04 - Pencarian buku berdasarkan tahun terbit
+- [x] F04 - Pencarian buku berdasarkan tahun terbit
 - [ ] F05 - Peminjaman buku
 - [ ] F06 - Pengembalian buku
-- [ ] F07 - Melaporkan buku hilang
-- [ ] F08 - Melihat laporan buku yang hilang
-- [ ] F09 - Menambahkan buku baru ke sistem
+- [x] F07 - Melaporkan buku hilang
+- [x] F08 - Melihat laporan buku yang hilang
+- [x] F09 - Menambahkan buku baru ke sistem
 - [x] F10 - Melakukan penambahan jumlah buku ke sistem
 - [x] F11 - Melihat riwayat peminjaman
 - [x] F12 – Statistik
