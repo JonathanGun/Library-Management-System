@@ -30,7 +30,7 @@ Memiliki 16 fitur wajib,
 - [ ] B02 - Denda
 
 dan 1 fitur tambahan.
-- [ ] T01 - Logout
+- [x] T01 - Logout
 
 Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 - [x] File Buku (*ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori*)
@@ -55,7 +55,11 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - added 3 functions on ubook.pas
   - added 1 functions on main.pas
 
-**v0.9 Semua Fitur Utama minus F05 dan F06
+**v0.9 Semua Fitur Utama minus F05 dan F06**
+  - added bunch of features, now nearly complete
+ 
+ **v0.9.1 Reformatting and Commenting, Minor Changes**
+  - bug fix on riwayat, f09, statistik, etc
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)

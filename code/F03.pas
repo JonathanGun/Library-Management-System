@@ -1,17 +1,23 @@
-Unit F03;
+unit F03;
+{DESKRIPSI}
+{REFERENSI}
 
 interface
 uses
 	ubook;
-var
-	buku : book;
-	arraybuku : tbook;
-	ptrarraybuku : pbook;
 
-procedure findbook (ptrbook: pbook);
+{PUBLIC, VARIABLE, CONST, ADT}
+{ - }
+
+{PUBLIC, FUNCTION, PROCEDURE}
+procedure findbookbyyear(ptrbook: pbook);
 
 	
 implementation
+{PRIVATE VARIABLE, CONST, ADT}
+{ - }
+
+{FUNGSI dan PROSEDUR}
 function kategoriValid(q : string): boolean;
 	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak}
 	{PARAMETER	: kategori input user }
@@ -39,72 +45,81 @@ function kategoriValid(q : string): boolean;
 	end;
 
 procedure sort (ptrarraybuku: pbook; counter: integer);
-var
-	i,j: integer;
-	tampungbentar : book;
+	{
+	* DESKRIPSI	: 
+	* PARAMETER	: 
+	* RETURN	: 
+	}
 
-begin	
-for j := 1 to counter do
-begin
-	for i := j to counter do 
-	begin
-		if ptrarraybuku^[i].title > ptrarraybuku^[i+1].title then
-		begin
-			tampungbentar := ptrarraybuku^[i];
-			ptrarraybuku^[i] := ptrarraybuku^[i+1];
-			ptrarraybuku^[i+1] := tampungbentar;
+	{KAMUS LOKAL}
+	var
+		i, j		: integer;
+		tmp 		: book;
+
+	{ALGORITMA}
+	begin	
+		for j := 1 to counter-1 do begin
+			for i := j to counter-1 do begin
+				if ptrarraybuku^[i].title > ptrarraybuku^[i+1].title then begin
+					{Tukar arraybuku indeks ke-i dengan i+1}
+					tmp 				:= ptrarraybuku^[i];
+					ptrarraybuku^[i] 	:= ptrarraybuku^[i+1];
+					ptrarraybuku^[i+1] 	:= tmp;
+				end;
+			end;
 		end;
 	end;
-end;
-end;
 
 
-procedure findbook (ptrbook: pbook);
-var
-	buku : book;
-	i, counter : integer;
-	Found : boolean;
+procedure findbookbyyear(ptrbook: pbook);
+	{
+	* DESKRIPSI	: 
+	* PARAMETER	: 
+	* RETURN	: 
+	}
 
-begin
-	writeln ('Masukkan kategori:');
-	readln (buku.category);
-	
-	if kategoriValid(buku.category) then
+	{KAMUS LOKAL}
+	var
+		buku 			: book;
+		i, counter 		: integer;
+		Found 			: boolean;
+		arraybuku 		: tbook;
+		ptrarraybuku 	: pbook;
+
+	{ALGORITMA}
 	begin
-	Found := false;
-	i := 1;
-	counter := 0;
-		while (i <= bookNeff) do
-		begin
-			if (buku.category = ptrbook^[i].category) then
-				begin
-				Found := true;
-				counter := counter + 1;
-				arraybuku [counter] := ptrbook^[i];
-				i := i + 1;
-			end else begin
-				i := i+ 1;
-			end;
-		end; { i > userNeff or Found }
+		write('Masukkan kategori:');
+		readln(buku.category);
 		
-		if (Found) then
-		begin
-			new(ptrarraybuku);
-			ptrarraybuku^ := arraybuku;
-			sort (ptrarraybuku, counter-1);
-			writeln('ada', counter, 'buku',buku.category);
+		if kategoriValid(buku.category) then begin
+			Found := false;
+			i := 1;
+			counter := 0;
+			while (i <= bookNeff) do begin
+				if (buku.category = ptrbook^[i].category) then begin
+					Found := true;
+					counter := counter + 1;
+					arraybuku [counter] := ptrbook^[i];
+				end;
+				i += 1
+			end; { i > userNeff or Found }
 			
-			for i := 1 to counter do
-			begin
-				writeln(ptrarraybuku^[i].id, ' | ' , ptrarraybuku^[i].title , ' | ' , ptrarraybuku^[i].author);
+			writeln('ada', counter);
+			if Found then begin
+				new(ptrarraybuku);
+				ptrarraybuku^ := arraybuku;
+				sort (ptrarraybuku, counter);
+				
+				for i := 1 to counter do begin
+					writeln(ptrarraybuku^[i].id, ' | ' , ptrarraybuku^[i].title , ' | ' , ptrarraybuku^[i].author);
+				end;
+
+			end else begin
+				writeln ('Tidak ada buku dalam kategoti ini.');
 			end;
-		end else
-		begin
-			writeln ('Tidak ada buku dalam kategoti ini.');
+
+		end else begin
+			writeln ('Kategori ', buku.category ,' tidak valid.');
 		end;
-	end else begin
-		writeln ('Kategori ', buku.category ,' tidak valid.');
 	end;
-	
-end;
 end.
