@@ -26,7 +26,7 @@ Memiliki 16 fitur wajib,
 - [x] F16 - Exit
 
 2 fitur bonus,
-- [ ] B01 - Penyimpanan Password
+- [x] B01 - Penyimpanan Password
 - [x] B02 - Denda
 
 dan 1 fitur tambahan.
@@ -69,6 +69,10 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - remove sysutils dependencies
   - compacted code
   - universal commentary template
+
+**v1.1.0 Hashing Complete**
+  - using MD5 for hashing
+  - a lot bug fixes on udate, csv file, uborrow, etc etc
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
