@@ -5,13 +5,10 @@ unit usave;
 
 interface
 uses
-	sysutils,
+	k03_kel3_utils,
 	ubook,
 	uuser,
 	udate;
-
-{PUBLIC VARIABLE, CONST, ADT}
-{ - }
 
 {PUBLIC FUNCTIONS, PROCEDURE}
 procedure savebook(filename: string; ptr: pbook);
@@ -36,14 +33,14 @@ procedure savebook(filename: string; ptr: pbook);
 
 	{KAMUS LOKAL}
 	var
-		row 		: integer;
+		row 	: integer;
 		f 		: text;
 
 	{ALGORITMA}
 	begin
 		{memuat file ke variabel f}
-		system.assign(f, filename);
-		system.rewrite(f);
+		assign(f, filename);
+		rewrite(f);
 
 		writeln(f, 'ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori');
 		for row:= 1 to bookNeff do begin
@@ -87,6 +84,8 @@ procedure saveuser(filename: string; ptr: puser);
 			end;
 		end;
 		close(f);
+		assign(input,  ''); reset(input);
+		assign(output, ''); rewrite(output);
 	end;
 
 procedure saveborrow(filename: string; ptr: pborrow);
@@ -110,8 +109,8 @@ procedure saveborrow(filename: string; ptr: pborrow);
 		for row:= 1 to borrowNeff do begin
 			write(f, ptr^[row].username + delimiter);
 			write(f, IntToStr(ptr^[row].id) + delimiter);
-			write(f, DateToStr_(ptr^[row].borrowDate) + delimiter);
-			write(f, DateToStr_(ptr^[row].returnDate) + delimiter);
+			write(f, DateToStr(ptr^[row].borrowDate) + delimiter);
+			write(f, DateToStr(ptr^[row].returnDate) + delimiter);
 			if ptr^[row].isBorrowed then begin
 				writeln(f, 'belum');
 			end else begin
@@ -119,6 +118,8 @@ procedure saveborrow(filename: string; ptr: pborrow);
 			end;
 		end;
 		close(f);
+		assign(input,  ''); reset(input);
+		assign(output, ''); rewrite(output);
 	end;
 
 procedure savereturn(filename: string; ptr: preturn);
@@ -142,9 +143,11 @@ procedure savereturn(filename: string; ptr: preturn);
 		for row:= 1 to returnNeff do begin
 			write(f, ptr^[row].username + delimiter);
 			write(f, IntToStr(ptr^[row].id) + delimiter);
-			writeln(f, DateToStr_(ptr^[row].returnDate));
+			writeln(f, DateToStr(ptr^[row].returnDate));
 		end;
 		close(f);
+		assign(input,  ''); reset(input);
+		assign(output, ''); rewrite(output);
 	end;
 
 procedure savemissing(filename: string; ptr: pmissing);
@@ -168,8 +171,10 @@ procedure savemissing(filename: string; ptr: pmissing);
 		for row:= 1 to missingNeff do begin
 			write(f, ptr^[row].username, delimiter);
 			write(f, IntToStr(ptr^[row].id), delimiter);
-			writeln(f, DateToStr_(ptr^[row].reportDate));
+			writeln(f, DateToStr(ptr^[row].reportDate));
 		end;
 		close(f);
+		assign(input,  ''); reset(input);
+		assign(output, ''); rewrite(output);
 	end;
 end.

@@ -5,7 +5,7 @@ unit uload;
 
 interface
 uses
-	sysutils,
+	k03_kel3_utils,
 	ubook,
 	uuser,
 	udate;
@@ -31,9 +31,8 @@ type
 	{pointer dari array inputStream}
 	pinput = ^inputStream;
 
-{FUNGSI dan PROSEDUR}
+{Realisasi FUNGSI dan PROSEDUR}
 function readInput(filename: string; delimiter: char): pinput;
-	{!PRIVATE FUNCTION!}
 	{DESKRIPSI	: membaca file teks dan memuat ke dalam array agar dapat
 	digunakan program/unit lain}
 	{PARAMETER 	: nama file (beserta extensionnya) dan karakter delimiter
@@ -64,7 +63,7 @@ function readInput(filename: string; delimiter: char): pinput;
 		wordcnt := 0;
 		while not EOF(f) do begin {ulangi selama belum EOF/EndOfFile}
 			readln(f, readline);
-			inc(wordcnt);
+			wordcnt += 1;
 			filetext[wordcnt] := '';
 
 			{baca input per baris, increment index jika menemui karakter delimiter}
@@ -72,7 +71,7 @@ function readInput(filename: string; delimiter: char): pinput;
 				if not (readline[i] = delimiter) then begin
 					filetext[wordcnt] += readline[i];
 				end else begin
-					inc(wordcnt);
+					wordcnt += 1;
 					filetext[wordcnt] := '';
 				end;
 			end;
@@ -109,9 +108,9 @@ procedure loadbook(filename: string; ptr: pbook);
 		i := column;
 		row := (i div column) - 1;
 		while not (ploadedcsv^[i + 1] = '-') do begin
-			inc(i);
+			i += 1;
 			if ((i mod column) = 1) then begin
-				inc(row);
+				row += 1;
 				ptr^[row].id 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].title 	:= ploadedcsv^[i];
@@ -154,9 +153,9 @@ procedure loaduser(filename: string; ptr: puser);
 		i := column;
 		row := (i div column) - 1;
 		while not (ploadedcsv^[i + 1] = '-') do begin
-			inc(i);
+			i += 1;
 			if ((i mod column) = 1) then begin
-				inc(row);
+				row += 1;
 				ptr^[row].fullname 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].address 	:= ploadedcsv^[i];
@@ -197,16 +196,16 @@ procedure loadborrow(filename: string; ptr: pborrow);
 		i := column;
 		row := (i div column) - 1;
 		while not (ploadedcsv^[i + 1] = '-') do begin
-			inc(i);
+			i += 1;
 			if ((i mod column) = 1) then begin
-				inc(row);
+				row += 1;
 				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 3) then begin
-				ptr^[row].borrowDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].borrowDate	:= StrToDate(ploadedcsv^[i]);
 			end else if ((i mod column) = 4) then begin
-				ptr^[row].returnDate 	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].returnDate 	:= StrToDate(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
 				ptr^[row].isBorrowed 	:= ploadedcsv^[i] = 'belum';
 			end;
@@ -240,14 +239,14 @@ procedure loadreturn(filename: string; ptr: preturn);
 		i := column;
 		row := (i div column) - 1;
 		while not (ploadedcsv^[i + 1] = '-') do begin
-			inc(i);
+			i += 1;
 			if ((i mod column) = 1) then begin
-				inc(row);
+				row += 1;
 				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[row].returnDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].returnDate	:= StrToDate(ploadedcsv^[i]);
 			end;
 		end;
 		returnNeff := row;
@@ -279,14 +278,14 @@ procedure loadmissing(filename: string; ptr: pmissing);
 		i := column;
 		row := (i div column) - 1;
 		while not (ploadedcsv^[i + 1] = '-') do begin
-			inc(i);
+			i += 1;
 			if ((i mod column) = 1) then begin
-				inc(row);
+				row += 1;
 				ptr^[row].username 		:= ploadedcsv^[i];
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[row].reportDate	:= StrToDate_(ploadedcsv^[i]);
+				ptr^[row].reportDate	:= StrToDate(ploadedcsv^[i]);
 			end;
 		end;
 		missingNeff := row;

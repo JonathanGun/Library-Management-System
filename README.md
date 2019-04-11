@@ -1,7 +1,7 @@
 # TUGAS BESAR DASAR PEMROGRAMAN
 commited on : 2 April 2019
 
-last edit   : 7 April 2019
+last edit   : 11 April 2019
 
 ## Deskripsi tugas:
 Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
@@ -12,8 +12,8 @@ Memiliki 16 fitur wajib,
 - [x] F02 - Login
 - [x] F03 - Pencarian buku berdasarkan kategori
 - [x] F04 - Pencarian buku berdasarkan tahun terbit
-- [ ] F05 - Peminjaman buku
-- [ ] F06 - Pengembalian buku
+- [x] F05 - Peminjaman buku
+- [x] F06 - Pengembalian buku
 - [x] F07 - Melaporkan buku hilang
 - [x] F08 - Melihat laporan buku yang hilang
 - [x] F09 - Menambahkan buku baru ke sistem
@@ -63,6 +63,12 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 
 **v0.9.2 Denda**
   - added function for denda (on udate.pas)
+
+**v1.0.0 Finished All Main Features**
+  - new unit structures
+  - remove sysutils dependencies
+  - compacted code
+  - universal commentary template
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
