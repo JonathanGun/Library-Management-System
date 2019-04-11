@@ -137,22 +137,39 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 
 	{KAMUS LOKAL}
 	var
-		found : boolean;
-		i	  : integer;
+		i, counter 		: integer;
+		found 			: boolean;
+		filteredBooks 	: tbook;
+		ptr 			: pbook;
 		
 	{ALGORITMA}
 	begin
 		writeln('Buku yang terbit', category, year);
-		found := false;
 
-		for i := 1 to bookNeff do begin
-			if (fitcategory(year, category, ptrbook^[i].year)) then begin
+		{skema pencarian dengan boolean}
+		i := 1;
+		counter := 0;
+		found := false;
+		while (i <= bookNeff) do begin
+			if (fitcategory(year, category, ptrbook^[i].year))  then begin
+				found := true;
+				counter += 1;
+				filteredBooks[counter] := ptrbook^[i];
+			end;
+			i += 1
+		end;
+
+		if (found) then begin
+			new(ptr);
+			ptr^ := filteredBooks;
+			sortBookByTitle(ptr, counter);
+
+			for i := 1 to bookNeff do begin
 				writeln(ptrbook^[i].id, '|', ptrbook^[i].title, '|', ptrbook^[i].author);
 				found := true;
 			end;
-		end;
-		
-		if (not found) then begin
+
+		end else begin
 			writeln('Tidak ada buku yang sesuai');
 		end;
 	end;

@@ -4,13 +4,14 @@ unit k03_kel3_utils;
 
 interface
 uses
-	crt;
+	uuser, crt;
 
 {PUBLIC FUNCTIONS, PROCEDURE}
 function StrToInt(rawString : string): integer;
 function IntToStr(rawInt : integer): string;
+function IntToHex(n: Cardinal): string;
 procedure clrscr_();
-procedure printFeatures();
+procedure printFeatures(pactiveUser : psingleuser);
 function queryValid(q : string): boolean;
 
 implementation
@@ -57,6 +58,7 @@ function IntToStr(rawInt : integer): string;
 
 	{ALGORITMA}
 	begin
+		{kasus integer negatif}
 		if (rawInt < 0) then begin
 			rawInt *= -1;
 			isNeg := true;
@@ -66,13 +68,43 @@ function IntToStr(rawInt : integer): string;
 
 		IntToStr := '';
 		while (rawInt <> 0) do begin
+			{ambil digit terakhir (mod 10), ubah jadi char bersesuaian}
 			IntToStr := chr((rawInt mod 10) + ord('0')) + IntToStr;
 			rawInt := rawInt div 10;
 		end;
 		
+		{beri tanda negatif jika integer negatif}
 		if (isNeg) then begin
 			IntToStr := '-' + IntToStr;
 		end;
+	end;
+
+function IntToHex(n: Cardinal): string;
+	{DESKRIPSI	: Mengubah 32-bit unsigned integer (Cardinal) menjadi string hexadecimalnya}
+	{PARAMETER	: integer yang ingin diubah menjadi string hexadecimal}
+	{RETURN		: string yang merepresentasikan nilai hexadecimal integer tersebut}
+
+	{KAMUS LOKAL}
+	var
+		tmp : integer;
+
+	{ALGORITMA}
+	begin
+	    IntToHex := '';
+	    {skema yang sama seperti StrToInt}
+	    while (n <> 0) do begin
+	    	tmp := n mod 16;
+	    	{bagi 2 kasus, kurang dari 10 dan di atas 10}
+	    	if (tmp < 10) then begin
+	    		{ubah jadi char yang bersesuaian}
+	    		IntToHex := chr(tmp + ord('0')) + IntToHex;
+	    	end else begin
+	    		tmp -= 10;
+	    		{10 -> 'a', 11 -> 'b', 12 -> 'c', 13 -> 'd', 14 -> 'e', 15 -> 'f'}
+	    		IntToHex := chr(tmp + ord('a')) + IntToHex;
+	    	end;
+	        n := n div 16;
+	    end;
 	end;
 
 procedure clrscr_();
@@ -86,7 +118,7 @@ procedure clrscr_();
 		assign(output, ''); rewrite(output);
 	end;
 
-procedure printFeatures();
+procedure printFeatures(pactiveUser : psingleuser);
 	{DESKRIPSI	: Menampilkan fitur-fitur pada layar}
 	{I.S. 		: Sembarang}
 	{F.S.		: Fitur-fitur tertulis di layar}
@@ -94,24 +126,46 @@ procedure printFeatures();
 
 	{ALGORITMA}
 	begin
-		writeln('Selamat datang di Perpustakaan Tengah Gurun'								);
-		writeln('$ register			: Regitrasi Akun'										);
-		writeln('$ login 			: Login'												);
-		writeln('$ logout			: Logout'												);
-		writeln('$ cari				: Pencarian Buku berdasar Kategori'						);
-		writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit' 			);
-		writeln('$ pinjam_buku 			: Pemimjaman Buku'									);
-		writeln('$ kembalikan_buku 		: Pengembalian Buku'								);
-		writeln('$ lapor_hilang			: Melaporkan Buku Hilang'							);
-		writeln('$ lihat_laporan 		: Melihat Laporan Buku yang Hilang'					);
-		writeln('$ tambah_buku 			: Menambahkan Buku Baru ke Sistem'					);
-		writeln('$ tambah_jumlah_buku 		: Melakukan Penambahan Jumlah Buku ke Sistem'	);
-		writeln('$ riwayat 			: Melihat Riwayat Peminjaman'				 			);
-		writeln('$ statistik 			: Melihat Statistik'					 			);
-		writeln('$ load 				: Load File'							 			);
-		writeln('$ save 				: Save File'							 			);
-		writeln('$ cari_anggota 			: Pencarian Anggota'				 			);
-		writeln('$ exit				: Exit'										 			);
+		writeln('Selamat datang di Perpustakaan Tengah Gurun, ', pactiveUser^.username, '!'		);
+		{Prompt pada Admin}
+		if (pactiveUser^.isAdmin) then begin
+			writeln('$ register			: Regitrasi Akun'										);
+			writeln('$ logout			: Logout'												);
+			writeln('$ cari				: Pencarian Buku berdasar Kategori'						);
+			writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit' 			);
+			writeln('$ pinjam_buku 			: Pemimjaman Buku'									);
+			writeln('$ kembalikan_buku 		: Pengembalian Buku'								);
+			writeln('$ lapor_hilang			: Melaporkan Buku Hilang'							);
+			writeln('$ lihat_laporan 		: Melihat Laporan Buku yang Hilang'					);
+			writeln('$ tambah_buku 			: Menambahkan Buku Baru ke Sistem'					);
+			writeln('$ tambah_jumlah_buku 		: Melakukan Penambahan Jumlah Buku ke Sistem'	);
+			writeln('$ riwayat 			: Melihat Riwayat Peminjaman'				 			);
+			writeln('$ statistik 			: Melihat Statistik'					 			);
+			writeln('$ load 				: Load File'							 			);
+			writeln('$ save 				: Save File'							 			);
+			writeln('$ cari_anggota 			: Pencarian Anggota'				 			);
+			writeln('$ exit				: Exit'										 			);
+
+		{Prompt pada pengguna yang sudah login}
+		end else if (pactiveUser^.username <> 'Anonymous') then begin
+			writeln('$ logout			: Logout'												);
+			writeln('$ cari				: Pencarian Buku berdasar Kategori'						);
+			writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit' 			);
+			writeln('$ pinjam_buku 			: Pemimjaman Buku'									);
+			writeln('$ kembalikan_buku 		: Pengembalian Buku'								);
+			writeln('$ lapor_hilang			: Melaporkan Buku Hilang'							);
+			writeln('$ load 				: Load File'							 			);
+			writeln('$ save 				: Save File'							 			);
+			writeln('$ exit				: Exit'										 			);
+
+		{Prompt pada penggunayang belum login}
+		end else begin
+			writeln('$ login 			: Login'												);
+			writeln('$ cari				: Pencarian Buku berdasar Kategori'						);
+			writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit' 			);
+			writeln('$ lapor_hilang			: Melaporkan Buku Hilang'							);
+			writeln('$ exit				: Exit'										 			);
+		end;
 	end;
 
 function queryValid(q : string): boolean;

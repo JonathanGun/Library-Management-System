@@ -7,7 +7,7 @@ uses
 	ubook, ubookutils,
 	udate;
 
-{PUBLIC, FUNCTION, PROCEDURE}
+{PUBLIC FUNCTION, PROCEDURE}
 procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook: pbook); {F05}
 procedure returnBookUtil(bookid : integer; username : string; ptrreturn : preturn; ptrborrow : pborrow; ptrbook : pbook); {F06}
 procedure addMissingBookUtil(ptr : psinglemissing; ptrarray: pmissing); {F07}
@@ -38,7 +38,7 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
 			writeln('Terima kasih, ', pnewBorrow^.username, ', sudah meminjam buku ', ptrbook^[idx].title, '!');
 	    end else begin
 	    	writeln('Buku ', ptrbook^[idx].title, ' sedang habis!');
-	    	writeln('Coba lain kali');
+	    	writeln('Coba lain kali.');
 	    end;
     end;
 
@@ -63,15 +63,18 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
         if (borrowData.username <> 'Anonymous') then begin
             idx         := checklocation(borrowData.id, ptrbook);
             booktitle   := ptrbook^[idx].title;
+            writeln();
             writeln('Data peminjaman:');
             writeln('Username: ', borrowData.username);
             writeln('Judul buku: ', booktitle);
-            writeln('Tangal peminjaman: ', DateToStr(borrowData.borrowDate));
-            writeln('Tangal pengembalian: ', DateToStr(borrowData.returnDate));
+            writeln('Tanggal peminjaman: ', DateToStr(borrowData.borrowDate));
+            writeln('Tanggal pengembalian: ', DateToStr(borrowData.returnDate));
 
             write('Masukkan tanggal hari ini (DD/MM/YYYY): '); readln(tmp);
+            writeln();
 
             newReturn.username  := username;
+            newReturn.id        := bookid;
             newReturn.returnDate:= StrToDate(tmp);
 
             ptrreturn^[returnNeff+1] := newReturn;
@@ -84,7 +87,7 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
             if (selisih < 0) then begin
                 writeln('Terima kasih sudah meminjam.');
             end else begin
-                writeln('Anda terlambat ', selisih, 'hari mengembalikan buku.');
+                writeln('Anda terlambat ', selisih, ' hari mengembalikan buku.');
                 writeln('Anda terkena denda Rp', selisih * 2000, '.');
                 writeln('Silakan bayar di loket.')
             end;

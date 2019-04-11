@@ -93,8 +93,8 @@ procedure findUserUtil(targetUsername : string; ptr: puser);
 		i := 1;
 		while ((not found) and (i <= userNeff)) do begin
 			if (ptr^[i].username = targetUsername) then begin
-				writeln('Nama Anggota   :', ptr^[i].fullname);
-				writeln('Alamat anggota :', ptr^[i].address);
+				writeln('Nama Anggota   : ', ptr^[i].fullname);
+				writeln('Alamat anggota : ', ptr^[i].address);
 				found := true;
 			end;
 			i += 1;

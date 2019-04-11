@@ -10,7 +10,7 @@ uses
 	uload, usave, udate,
 	ubook, ubooksearch, ubookio, ubookoutput,
 	uuser, uuserutils,
-	k03_kel3_utils;
+	k03_kel3_utils, k03_kel3_md5;
 
 {KAMUS GLOBAL}
 var
@@ -78,6 +78,8 @@ procedure registerUser();
 			write('Masukkan password pengunjung: '); readln(newUser.password);
 			newUser.isAdmin := false;
 
+			newUser.password := hashMD5(newUser.password);
+
 			new(pnewUser);
 			pnewUser^ := newUser;
 			registerUserUtil(pnewUser, ptruser);
@@ -95,6 +97,8 @@ procedure login();
 	begin
 		write('Masukkan username: '); readln(activeUser.username);	
 		write('Masukkan password: '); readln(activeUser.password);
+
+		activeUser.password := hashMD5(activeUser.password);
 
 		ptractiveUser^ := activeUser;
 		loginUtil(ptractiveUser, ptruser);
@@ -120,7 +124,7 @@ procedure findBookByCategory();
 		writeln('sejarah');
 		writeln('programming');
 		writeln();
-		write('Masukkan kategori:'); readln(category);
+		write('Masukkan kategori: '); readln(category);
 		findBookByCategoryUtil(category, ptrbook);
 	end;
 
@@ -226,7 +230,11 @@ procedure showMissings();
 
 	{ALGORITMA}
 	begin
-		showMissingsUtil(ptrmissing, ptrbook);
+		if (activeUser.isAdmin) then begin
+			showMissingsUtil(ptrmissing, ptrbook);
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure addNewBook();
@@ -455,6 +463,7 @@ procedure logout();
 
 			{Save file sebelum program ditutup}
 			if ((wantLogout = 'Y') or (wantLogout = 'y')) then begin
+				clrscr_();
 				writeln('$ logout');
 
 				setToDefaultUser(ptractiveUser);
@@ -493,7 +502,7 @@ begin
 		end;
 		writeln();write('Tekan ENTER untuk melanjutkan.'); readln(); clrscr_();
 
-		printFeatures();
+		printFeatures(ptractiveUser);
 		write('$ '); readln(query); writeln();
 		while (not queryValid(query)) do begin
 			writeln('Command tidak terdaftar! Silahkan ulangi lagi!');

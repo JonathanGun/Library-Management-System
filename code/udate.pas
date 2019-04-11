@@ -17,11 +17,11 @@ type
 	end;
 
 {PUBLIC FUNCTIONS, PROCEDURE}
-function DateDifference(date1, date2 : Date): integer;
+function DateDifference(date1, date2 : Date): longint;
 function StrToDate(rawDate: string): Date;
 function DateToStr(convertedDate: Date): string;
-function DateToDays(varDate : Date): integer;
-function DaysToDate(days : integer): Date;
+function DateToDays(varDate : Date): longint;
+function DaysToDate(days : longint): Date;
 
 implementation
 {FUNGSI dan PROSEDUR}
@@ -86,7 +86,7 @@ function isKabisat(year: integer): boolean;
 		end;
 	end;
 
-function DateToDays(varDate : Date): integer;
+function DateToDays(varDate : Date): longint;
 	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
 	{PARAMETER	: 1 ADT Date}
 	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
@@ -108,7 +108,7 @@ function DateToDays(varDate : Date): integer;
 		end;
 
 		{bulan}
-		for i := 1 to varDate.month do begin
+		for i := 1 to varDate.month - 1 do begin
 			{feb}
 			if i = 2 then begin
 				if isKabisat(varDate.year) then begin
@@ -141,7 +141,7 @@ function DateToDays(varDate : Date): integer;
 		DateToDays += varDate.day;
 	end;
 
-function DaysToDate(days : integer): Date;
+function DaysToDate(days : longint): Date;
 	{DESKRIPSI	: }
 	{PARAMETER	: }
 	{RETURN		: }
@@ -153,9 +153,9 @@ function DaysToDate(days : integer): Date;
 
 	{ALGORITMA}
 	begin
-		DaysToDate.year := 0;
+		DaysToDate.year  := 0;
 		DaysToDate.month := 1;
-		DaysToDate.day := 1;
+		DaysToDate.day 	 := 1;
 
 		{tahun}
 		i := 0;
@@ -238,7 +238,7 @@ function DaysToDate(days : integer): Date;
 		DaysToDate.day := days;
 	end;
 
-function DateDifference(date1, date2 : Date): integer;
+function DateDifference(date1, date2 : Date): longint;
 	{DESKRIPSI	: Mencari selisih dari 2 tanggal (dalam satuan hari)}
 	{PARAMETER	: 2 ADT Date}
 	{RETURN		: berapa hari selisih kedua tanggal tersebut, dalam satuan hari (integer)}

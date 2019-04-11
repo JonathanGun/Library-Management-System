@@ -10,7 +10,7 @@ uses
 {PUBLIC, FUNCTION, PROCEDURE}
 procedure showMissingsUtil(ptrmissing : pmissing; ptrbook : pbook); {F08}
 procedure showStatsUtil(ptrbook : pbook; ptruser : puser); {F11}
-procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptruser : pborrow); {F12}
+procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptrborrow : pborrow); {F12}
 
 implementation
 {FUNGSI dan PROSEDUR}
@@ -27,12 +27,12 @@ procedure showMissingsUtil(ptrmissing : pmissing; ptrbook : pbook);
     {ALGORITMA}
     begin
         for i:= 1 to missingNeff do begin
-            idx:=checklocation(ptrmissing^[i].id,ptrbook);
+            idx := checklocation(ptrmissing^[i].id, ptrbook);
             writeln(ptrmissing^[i].id, ' | ', ptrbook^[idx].title, ' | ', DateToStr(ptrmissing^[i].reportdate));
         end;
     end;
 
-procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptruser : pborrow);
+procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptrborrow : pborrow);
     {DESKRIPSI  : (F11) Menampilkan riwayat peminjaman dari username pada borrow.csv}
     {I.S.       : username bertipe string, ptrbook (pointer pada book.csv), dan ptruser (pointer pada borrow.csv)}
     {F.S.       : Menampilkan riwayat peminjaman ke layar}
@@ -48,10 +48,10 @@ procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptruser : pb
         i := 1;
 
         {SKEMA PENGULANGAN BERDASARKAN KONDISI BERHENTI}
-        while (i <= bookNeff) do begin
-            if (username = ptruser^[i].username) then begin
-                idx := checkLocation(ptruser^[i].id,ptrbook); {Pemanggilan fungsi mencari indeks dari id untuk menampilkan title}
-                writeln(DateToStr(ptruser^[i].borrowDate), ' | ',ptruser^[i].id,' | ',ptrbook^[idx].title);
+        while (i <= borrowNeff) do begin
+            if (username = ptrborrow^[i].username) then begin
+                idx := checkLocation(ptrborrow^[i].id, ptrbook); {Pemanggilan fungsi mencari indeks dari id untuk menampilkan title}
+                writeln(DateToStr(ptrborrow^[i].borrowDate), ' | ',ptrborrow^[i].id,' | ',ptrbook^[idx].title);
             end;
             i += 1;
         end;

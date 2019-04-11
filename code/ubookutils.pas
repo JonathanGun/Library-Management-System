@@ -7,7 +7,7 @@ interface
 uses
 	ubook, uuser, udate;
 
-{PUBLIC, FUNCTION, PROCEDURE}
+{PUBLIC FUNCTION, PROCEDURE}
 function countAdmin(ptruser : puser):integer;
 function countPengunjung(ptruser : puser):integer;
 function countBuku(category : string; ptrbook : pbook):integer;
@@ -128,7 +128,7 @@ function searchBorrow(id : integer; username: string; ptrborrow: pborrow): Borro
         found := false;
         i := 1;
         while (not found) and (i <= borrowNeff) do begin
-            if (ptrborrow^[i].username = username) and (ptrborrow^[i].id = id) then begin
+            if (ptrborrow^[i].username = username) and (ptrborrow^[i].id = id) and (ptrborrow^[i].isBorrowed) then begin
                 searchBorrow := ptrborrow^[i];
                 ptrborrow^[i].isBorrowed := false;
                 found := true;
@@ -137,7 +137,7 @@ function searchBorrow(id : integer; username: string; ptrborrow: pborrow): Borro
         end;
 
         if (not found) then begin
-            writeln('Anda tidak sedang meminjam buku tersebut');
+            writeln('Anda tidak sedang meminjam buku tersebut.');
             searchBorrow.username := 'Anonymous';
         end;
 	end;
