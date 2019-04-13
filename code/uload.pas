@@ -57,13 +57,11 @@ procedure parserow(str: string; ptr: pinput);
 				repeat
 					wrappedtext += str[i];
 					i += 1;
-					// writeln(str[wordcnt-1], str[wordcnt], str[wordcnt+1]);
 				until (((i = 1) or ((i - 1 >= 1) and (str[i - 1] <> wrapper))) and
 					   (str[i] = wrapper) and
 					   ((i = length(str)) or ((i + 1 <= length(str)) and (str[i + 1] = delimiter))));
 
 				wrappedtext += str[i];
-				// writeln(wrappedtext);
 				ptr^[wordcnt] := unwraptext(wrappedtext);
 			end else begin
 				if (str[i] = delimiter) then begin
@@ -75,7 +73,6 @@ procedure parserow(str: string; ptr: pinput);
 			end;
 			i += 1;
 		end;
-		// for i:= 1 to wordcnt do writeln(ptr^[i]);
 	end;
 
 function readInput(filename: string; delimiter: char): pinput;
@@ -114,8 +111,6 @@ function readInput(filename: string; delimiter: char): pinput;
 			parserow(readline, ptr);
 		end;
 		close(f);
-
-		for i := 1 to wordcnt do writeln(ptr^[i]);
 		readInput := ptr;
 	end;
 
