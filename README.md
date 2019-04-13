@@ -1,7 +1,7 @@
 # TUGAS BESAR DASAR PEMROGRAMAN
 commited on : 2 April 2019
 
-last edit   : 11 April 2019
+last edit   : 14 April 2019
 
 ## Deskripsi tugas:
 Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
@@ -42,7 +42,7 @@ Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 Memiliki format tanggal berupa *DD/MM/YYYY*
 
 ## Changelog
-**v0.2 Main program + (F13) Load file eksternal**
+**v0.2 Main program + (F13) Load file**
   - created unit templates and main.pas
   - finished uload.pas
 
@@ -55,7 +55,7 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - added 3 functions on ubook.pas
   - added 1 functions on main.pas
 
-**v0.9 Semua Fitur Utama minus F05 dan F06**
+**v0.9 All Basic Features minus F05 and F06**
   - added bunch of features, now nearly complete
  
  **v0.9.1 Reformatting and Commenting, Minor Changes**
@@ -76,7 +76,10 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   
  **v1.2.0 CSV now support commas inside a cell**
   - address, name, username can contain commas and quotes inside them
-  
+ 
+ **v1.2.1 Day count bug fixed**
+  - fixed wrong return date
+  - minor changes
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
