@@ -10,6 +10,7 @@ uses
 	uload, usave, udate,
 	ubook, ubooksearch, ubookio, ubookoutput,
 	uuser, uuserutils,
+	ucsvwrapper,
 	k03_kel3_utils, k03_kel3_md5;
 
 {KAMUS GLOBAL}
@@ -76,9 +77,12 @@ procedure registerUser();
 			write('Masukkan alamat pengunjung: '  ); readln(newUser.address);
 			write('Masukkan username pengunjung: '); readln(newUser.username);
 			write('Masukkan password pengunjung: '); readln(newUser.password);
-			newUser.isAdmin := false;
-
+			
+			newUser.fullname := wraptext(newUser.fullname);
+			newUser.address := wraptext(newUser.address);
+			newUser.username := wraptext(newUser.username);
 			newUser.password := hashMD5(newUser.password);
+			newUser.isAdmin := false;
 
 			new(pnewUser);
 			pnewUser^ := newUser;
@@ -98,6 +102,7 @@ procedure login();
 		write('Masukkan username: '); readln(activeUser.username);	
 		write('Masukkan password: '); readln(activeUser.password);
 
+		activeUser.username := wraptext(activeUser.username);
 		activeUser.password := hashMD5(activeUser.password);
 
 		ptractiveUser^ := activeUser;
@@ -160,9 +165,10 @@ procedure borrowBook();
 
 	{ALGORITMA}
 	begin
-		if (activeUser.username <> 'Anonymous') then begin
+		if (activeUser.username <> wraptext('Anonymous')) then begin
 			write('Masukkan id buku yang ingin dipinjam: '); readln(newBorrow.id);
 			write('Masukkan tanggal hari ini (DD/MM/YYYY): '); readln(tmp);
+
 			newBorrow.borrowDate := StrToDate(tmp);
 			newBorrow.username 	 := activeUser.username;
 			newBorrow.isBorrowed := true;
@@ -188,7 +194,7 @@ procedure returnBook();
 
 	{ALGORITMA}
 	begin
-		if (activeUser.username <> 'Anonymous') then begin
+		if (activeUser.username <> wraptext('Anonymous')) then begin
 			write('Masukkan id buku yang ingin dikembalikan: '); readln(id);
 			returnBookUtil(id, activeUser.username, ptrreturn, ptrborrow, ptrbook);
 		end else begin
@@ -259,6 +265,9 @@ procedure addNewBook();
 	        write('Masukkan tahun terbit buku: '); readln(newBook.year);
 	        write('Masukkan kategori buku: '	); readln(newBook.category);
 
+			newBook.title := wraptext(newBook.title);	        
+			newBook.author := wraptext(newBook.author);
+
 	        new(pnewBook);
 	        pnewBook^ := newBook;
 			addNewBookUtil(pnewBook, ptrbook);
@@ -304,7 +313,7 @@ procedure showBorrowHistory();
 		if (activeUser.isAdmin) then begin
 			write('Masukkan username pengunjung: '); readln(username);
 			writeln('Riwayat:');
-			showBorrowHistoryUtil(username, ptrbook, ptrborrow);
+			showBorrowHistoryUtil(wraptext(username), ptrbook, ptrborrow);
 		end else begin
 			writeln(notAdminMsg);
 		end;
@@ -401,7 +410,7 @@ procedure findUser();
 	begin
 		if (activeUser.isAdmin) then begin
 			write('Masukkan username: '); readln(targetUsername);
-			findUserUtil(targetUsername, ptruser);
+			findUserUtil(wraptext(targetUsername), ptruser);
 		end else begin
 			writeln(notAdminMsg);
 		end;
@@ -453,7 +462,7 @@ procedure logout();
 
 	{ALGORITMA}
 	begin
-		if (activeUser.username <> 'Anonymous') then begin
+		if (activeUser.username <> wraptext('Anonymous')) then begin
 			{Validasi Input}
 			repeat
 				writeln('Yakin? (Y/N)');
@@ -470,7 +479,7 @@ procedure logout();
 				activeUser := ptractiveUser^;
 
 				writeln('Berhasil logout.'); 
-				writeln('Selamat datang ', activeUser.fullname , '!');
+				writeln('Selamat datang ', unwraptext(activeUser.fullname) , '!');
 			end;
 		end else begin
 			writeln(notLoggedInMsg);

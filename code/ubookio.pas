@@ -4,6 +4,7 @@ unit ubookio;
 
 interface
 uses
+    ucsvwrapper,
 	ubook, ubookutils,
 	udate;
 
@@ -34,10 +35,10 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
     		borrowNeff += 1;
 	    	ptrbook^[idx].qty -= 1;
 	    	
-	    	writeln('Tersisa ', ptrbook^[idx].qty, ' buku ', ptrbook^[idx].title, '.');
-			writeln('Terima kasih, ', pnewBorrow^.username, ', sudah meminjam buku ', ptrbook^[idx].title, '!');
+	    	writeln('Tersisa ', ptrbook^[idx].qty, ' buku ', unwraptext(ptrbook^[idx].title), '.');
+			writeln('Terima kasih, ', unwraptext(pnewBorrow^.username), ', sudah meminjam buku ', unwraptext(ptrbook^[idx].title), '!');
 	    end else begin
-	    	writeln('Buku ', ptrbook^[idx].title, ' sedang habis!');
+	    	writeln('Buku ', unwraptext(ptrbook^[idx].title), ' sedang habis!');
 	    	writeln('Coba lain kali.');
 	    end;
     end;
@@ -60,13 +61,13 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
     {ALGORITMA}
     begin
         borrowData  := searchBorrow(bookid, username, ptrborrow);
-        if (borrowData.username <> 'Anonymous') then begin
+        if (borrowData.username <> wraptext('Anonymous')) then begin
             idx         := checklocation(borrowData.id, ptrbook);
             booktitle   := ptrbook^[idx].title;
             writeln();
             writeln('Data peminjaman:');
-            writeln('Username: ', borrowData.username);
-            writeln('Judul buku: ', booktitle);
+            writeln('Username: ', unwraptext(borrowData.username));
+            writeln('Judul buku: ', unwraptext(booktitle));
             writeln('Tanggal peminjaman: ', DateToStr(borrowData.borrowDate));
             writeln('Tanggal pengembalian: ', DateToStr(borrowData.returnDate));
 
@@ -150,7 +151,7 @@ procedure addBookQtyUtil (id,qty : integer; ptr : pbook);
         {TAHAP PENAMBAHAN JUMLAH BUKU}
         ptr^[idx].qty += qty;
         writeln();
-        writeln('Pembaharuan jumlah buku berhasil dilakukan, total buku ', ptr^[idx].title, ' menjadi ', ptr^[idx].qty);
+        writeln('Pembaharuan jumlah buku berhasil dilakukan, total buku ', unwraptext(ptr^[idx].title), ' menjadi ', ptr^[idx].qty);
     end;
 
 end.

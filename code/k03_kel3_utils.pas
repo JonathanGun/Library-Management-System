@@ -4,8 +4,12 @@ unit k03_kel3_utils;
 
 interface
 uses
+	ucsvwrapper,
 	uuser, crt;
 
+const
+	delimiter = ',';
+	
 {PUBLIC FUNCTIONS, PROCEDURE}
 function StrToInt(rawString : string): integer;
 function IntToStr(rawInt : integer): string;
@@ -126,7 +130,7 @@ procedure printFeatures(pactiveUser : psingleuser);
 
 	{ALGORITMA}
 	begin
-		writeln('Selamat datang di Perpustakaan Tengah Gurun, ', pactiveUser^.username, '!'		);
+		writeln('Selamat datang di Perpustakaan Tengah Gurun, ', unwraptext(pactiveUser^.username), '!'		);
 		{Prompt pada Admin}
 		if (pactiveUser^.isAdmin) then begin
 			writeln('$ register			: Regitrasi Akun'										);
@@ -147,7 +151,7 @@ procedure printFeatures(pactiveUser : psingleuser);
 			writeln('$ exit				: Exit'										 			);
 
 		{Prompt pada pengguna yang sudah login}
-		end else if (pactiveUser^.username <> 'Anonymous') then begin
+		end else if (pactiveUser^.username <> wraptext('Anonymous')) then begin
 			writeln('$ logout			: Logout'												);
 			writeln('$ cari				: Pencarian Buku berdasar Kategori'						);
 			writeln('$ caritahunterbit 		: Pencarian Buku berdasar Tahun Terbit' 			);

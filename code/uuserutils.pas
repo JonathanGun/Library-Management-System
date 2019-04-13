@@ -4,7 +4,8 @@ unit uuserutils;
 
 interface
 uses
-	uuser, crt;
+	ucsvwrapper,
+	uuser, k03_kel3_md5, crt;
 
 {PUBLIC, FUNCTION, PROCEDURE}
 procedure setToDefaultUser(ptr : psingleuser);
@@ -21,10 +22,10 @@ procedure setToDefaultUser(ptr : psingleuser);
 
 	{ALGORITMA}
 	begin
-		ptr^.fullname	:= 'Anonymous';
-		ptr^.address	:= '';
-		ptr^.username	:= 'Anonymous';
-		ptr^.password	:= '12345678';
+		ptr^.fullname	:= wraptext('Anonymous');
+		ptr^.address	:= wraptext('');
+		ptr^.username	:= wraptext('Anonymous');
+		ptr^.password	:= hashMD5('12345678');
 		ptr^.isAdmin	:= false;
 	end;
 
@@ -37,7 +38,7 @@ procedure registerUserUtil(pnewUser : psingleuser; ptruser: puser);
 	begin
 		ptruser^[userNeff + 1] := pnewUser^;
 		userNeff += 1;
-		writeln('Pengunjung ', pnewUser^.fullname , ' berhasil terdaftar sebagai user.');
+		writeln('Pengunjung ', unwraptext(pnewUser^.fullname) , ' berhasil terdaftar sebagai user.');
 	end;
 
 procedure loginUtil(ptr : psingleuser; ptruser: puser);
@@ -56,7 +57,7 @@ procedure loginUtil(ptr : psingleuser; ptruser: puser);
 		found := false;
 		i := 1;
 		while ((i <= userNeff) and (not Found)) do begin
-			if (ptr^.username = ptruser^[i].username) and (ptr^.password = ptruser^[i].password) then begin
+			if ((ptr^.username = ptruser^[i].username) and (ptr^.password = ptruser^[i].password)) then begin
 				found := true;
 				ptr^  := ptruser^[i];
 			end;
@@ -68,9 +69,9 @@ procedure loginUtil(ptr : psingleuser; ptruser: puser);
 		end;
 
 		clrscr;
-		if (ptr^.username <> 'Anonymous') then begin
+		if (ptr^.username <> wraptext('Anonymous')) then begin
 			writeln('Berhasil login.');
-			writeln ('Selamat datang ', ptr^.fullname , '!');
+			writeln ('Selamat datang ', unwraptext(ptr^.fullname) , '!');
 		end else begin
 			writeln ('Username / password salah! Silakan coba lagi.');
 		end;
@@ -93,15 +94,15 @@ procedure findUserUtil(targetUsername : string; ptr: puser);
 		i := 1;
 		while ((not found) and (i <= userNeff)) do begin
 			if (ptr^[i].username = targetUsername) then begin
-				writeln('Nama Anggota   : ', ptr^[i].fullname);
-				writeln('Alamat anggota : ', ptr^[i].address);
+				writeln('Nama Anggota   : ', unwraptext(ptr^[i].fullname));
+				writeln('Alamat anggota : ', unwraptext(ptr^[i].address));
 				found := true;
 			end;
 			i += 1;
 		end;
 
 		if (not found) then begin
-			writeln('User dengan username ', targetUsername, ' tidak ditemukan.')
+			writeln('User dengan username ', unwraptext(targetUsername), ' tidak ditemukan.')
 		end;			
 	end;
 
