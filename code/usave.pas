@@ -19,10 +19,6 @@ procedure savemissing(filename: string; ptr: pmissing);
 
 
 implementation
-{PRIVATE VARIABLE, CONST, ADT}
-const
-	delimiter = ',';
-
 {FUNGSI dan PROSEDUR}
 procedure savebook(filename: string; ptr: pbook);
 	{DESKRIPSI	: Menyimpan ADT array of Book ke dalam file csv}

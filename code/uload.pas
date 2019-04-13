@@ -5,10 +5,8 @@ unit uload;
 
 interface
 uses
-	k03_kel3_utils,
-	ubook,
-	uuser,
-	udate;
+	k03_kel3_utils, ucsvwrapper,
+	ubook, uuser, udate;
 
 {PUBLIC VARIABLE, CONST, ADT}
 const
@@ -31,7 +29,55 @@ type
 	{pointer dari array inputStream}
 	pinput = ^inputStream;
 
-{Realisasi FUNGSI dan PROSEDUR}
+var
+	wordcnt: integer;
+
+{FUNGSI dan PROSEDUR}
+procedure parserow(str: string; ptr: pinput);
+	{DESKRIPSI	: }
+	{PARAMETER 	: }
+	{RETURN 	: }
+
+	{KAMUS LOKAL}
+	var
+		i			: integer;
+		wrappedtext : string;
+
+	{ALGORITMA}
+	begin
+		i := 1;
+		wordcnt += 1;
+		ptr^[wordcnt] := '';
+		while (i <= length(str)) do begin
+			if (((i = 1) or ((i - 1 >= 1) and (str[i - 1] = delimiter))) and
+			    (str[i] = wrapper) and
+			    ((i = length(str)) or ((i + 1 <= length(str)) and (str[i + 1] <> wrapper)))) then begin
+
+				wrappedtext := '';
+				repeat
+					wrappedtext += str[i];
+					i += 1;
+					// writeln(str[wordcnt-1], str[wordcnt], str[wordcnt+1]);
+				until (((i = 1) or ((i - 1 >= 1) and (str[i - 1] <> wrapper))) and
+					   (str[i] = wrapper) and
+					   ((i = length(str)) or ((i + 1 <= length(str)) and (str[i + 1] = delimiter))));
+
+				wrappedtext += str[i];
+				// writeln(wrappedtext);
+				ptr^[wordcnt] := unwraptext(wrappedtext);
+			end else begin
+				if (str[i] = delimiter) then begin
+					wordcnt += 1;
+					ptr^[wordcnt] := '';
+				end else begin
+					ptr^[wordcnt] += str[i];
+				end;
+			end;
+			i += 1;
+		end;
+		// for i:= 1 to wordcnt do writeln(ptr^[i]);
+	end;
+
 function readInput(filename: string; delimiter: char): pinput;
 	{DESKRIPSI	: membaca file teks dan memuat ke dalam array agar dapat
 	digunakan program/unit lain}
@@ -44,7 +90,7 @@ function readInput(filename: string; delimiter: char): pinput;
 		f 			: text;
 		readline 	: string;
 		filetext 	: inputStream;
-		wordcnt, i 	: integer;
+		i 			: integer;
 		ptr 		: pinput;
 
 	{ALGORITMA}
@@ -54,6 +100,8 @@ function readInput(filename: string; delimiter: char): pinput;
 		for i:= 1 to LOAD_MAXWORD do begin
 			filetext[i] := '-';
 		end;
+		new(ptr);
+		ptr^ := filetext;
 
 		{memuat file ke variabel f}
 		system.assign(f, filename);
@@ -63,23 +111,11 @@ function readInput(filename: string; delimiter: char): pinput;
 		wordcnt := 0;
 		while not EOF(f) do begin {ulangi selama belum EOF/EndOfFile}
 			readln(f, readline);
-			wordcnt += 1;
-			filetext[wordcnt] := '';
-
-			{baca input per baris, increment index jika menemui karakter delimiter}
-			for i:= 1 to length(readline) do begin
-				if not (readline[i] = delimiter) then begin
-					filetext[wordcnt] += readline[i];
-				end else begin
-					wordcnt += 1;
-					filetext[wordcnt] := '';
-				end;
-			end;
+			parserow(readline, ptr);
 		end;
 		close(f);
 
-		new(ptr);
-		ptr^ := filetext;
+		for i := 1 to wordcnt do writeln(ptr^[i]);
 		readInput := ptr;
 	end;
 
@@ -113,15 +149,15 @@ procedure loadbook(filename: string; ptr: pbook);
 				row += 1;
 				ptr^[row].id 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
-				ptr^[row].title 	:= ploadedcsv^[i];
+				ptr^[row].title 	:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 3) then begin
-				ptr^[row].author	:= ploadedcsv^[i];
+				ptr^[row].author	:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 4) then begin
 				ptr^[row].qty 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 5) then begin
 				ptr^[row].year 		:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
-				ptr^[row].category:= ploadedcsv^[i];
+				ptr^[row].category	:= ploadedcsv^[i];
 			end;
 		end;
 		bookNeff := row;
@@ -156,11 +192,11 @@ procedure loaduser(filename: string; ptr: puser);
 			i += 1;
 			if ((i mod column) = 1) then begin
 				row += 1;
-				ptr^[row].fullname 	:= ploadedcsv^[i];
+				ptr^[row].fullname 	:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
-				ptr^[row].address 	:= ploadedcsv^[i];
+				ptr^[row].address 	:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 3) then begin
-				ptr^[row].username 	:= ploadedcsv^[i];
+				ptr^[row].username 	:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 4) then begin
 				ptr^[row].password 	:= ploadedcsv^[i];
 			end else if ((i mod column) = 0) then begin
@@ -199,7 +235,7 @@ procedure loadborrow(filename: string; ptr: pborrow);
 			i += 1;
 			if ((i mod column) = 1) then begin
 				row += 1;
-				ptr^[row].username 		:= ploadedcsv^[i];
+				ptr^[row].username 		:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 3) then begin
@@ -242,7 +278,7 @@ procedure loadreturn(filename: string; ptr: preturn);
 			i += 1;
 			if ((i mod column) = 1) then begin
 				row += 1;
-				ptr^[row].username 		:= ploadedcsv^[i];
+				ptr^[row].username 		:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin
@@ -281,7 +317,7 @@ procedure loadmissing(filename: string; ptr: pmissing);
 			i += 1;
 			if ((i mod column) = 1) then begin
 				row += 1;
-				ptr^[row].username 		:= ploadedcsv^[i];
+				ptr^[row].username 		:= wraptext(ploadedcsv^[i]);
 			end else if ((i mod column) = 2) then begin
 				ptr^[row].id 			:= StrToInt(ploadedcsv^[i]);
 			end else if ((i mod column) = 0) then begin

@@ -4,6 +4,7 @@ unit ubookoutput;
 
 interface
 uses
+    ucsvwrapper,
     ubook, ubookutils,
     udate, uuser;
 
@@ -51,7 +52,7 @@ procedure showBorrowHistoryUtil(username : string; ptrbook : pbook; ptrborrow : 
         while (i <= borrowNeff) do begin
             if (username = ptrborrow^[i].username) then begin
                 idx := checkLocation(ptrborrow^[i].id, ptrbook); {Pemanggilan fungsi mencari indeks dari id untuk menampilkan title}
-                writeln(DateToStr(ptrborrow^[i].borrowDate), ' | ',ptrborrow^[i].id,' | ',ptrbook^[idx].title);
+                writeln(DateToStr(ptrborrow^[i].borrowDate), ' | ', ptrborrow^[i].id, ' | ', unwraptext(ptrbook^[idx].title));
             end;
             i += 1;
         end;

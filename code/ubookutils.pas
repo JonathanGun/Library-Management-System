@@ -5,6 +5,7 @@ unit ubookutils;
 interface
 {PUBLIC VARIABLE, CONST, ADT}
 uses
+    ucsvwrapper,
 	ubook, uuser, udate;
 
 {PUBLIC FUNCTION, PROCEDURE}
@@ -138,7 +139,7 @@ function searchBorrow(id : integer; username: string; ptrborrow: pborrow): Borro
 
         if (not found) then begin
             writeln('Anda tidak sedang meminjam buku tersebut.');
-            searchBorrow.username := 'Anonymous';
+            searchBorrow.username := wraptext('Anonymous');
         end;
 	end;
 

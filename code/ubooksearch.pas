@@ -4,6 +4,7 @@ unit ubooksearch;
 
 interface
 uses
+	ucsvwrapper,
 	ubook, ubookutils;
 
 {PUBLIC, FUNCTION, PROCEDURE}
@@ -22,15 +23,15 @@ function fitCategory(year:integer; category:string; currentyear:integer) : boole
 
 	{ALGORITMA}
 	begin
-		if category = '<' then begin
+		if (category = '<') then begin
 			fitcategory := currentyear < year;
-		end else if category = '=' then begin
+		end else if (category = '=') then begin
 			fitcategory := currentyear = year;
-		end else if category = '>' then begin
+		end else if (category = '>') then begin
 			fitcategory := currentyear > year;
-		end else if category = '<=' then begin
+		end else if (category = '<=') then begin
 			fitcategory := currentyear <= year;
-		end else if category = '>=' then begin
+		end else if (category = '>=') then begin
 			fitcategory := currentyear >= year;
 		end;
 	end;
@@ -117,7 +118,7 @@ procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
 				sortBookByTitle(ptr, counter);
 				
 				for i := 1 to counter do begin
-					writeln(ptr^[i].id, ' | ' , ptr^[i].title , ' | ' , ptr^[i].author);
+					writeln(ptr^[i].id, ' | ' , unwraptext(ptr^[i].title) , ' | ' , unwraptext(ptr^[i].author));
 				end;
 
 			end else begin
@@ -165,7 +166,7 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 			sortBookByTitle(ptr, counter);
 
 			for i := 1 to bookNeff do begin
-				writeln(ptrbook^[i].id, '|', ptrbook^[i].title, '|', ptrbook^[i].author);
+				writeln(ptrbook^[i].id, '|', unwraptext(ptrbook^[i].title), '|', unwraptext(ptrbook^[i].author));
 				found := true;
 			end;
 
