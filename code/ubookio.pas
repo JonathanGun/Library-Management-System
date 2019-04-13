@@ -11,7 +11,7 @@ uses
 {PUBLIC FUNCTION, PROCEDURE}
 procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook: pbook); {F05}
 procedure returnBookUtil(bookid : integer; username : string; ptrreturn : preturn; ptrborrow : pborrow; ptrbook : pbook); {F06}
-procedure addMissingBookUtil(ptr : psinglemissing; ptrarray: pmissing); {F07}
+procedure addMissingBookUtil(ptr : psinglemissing; ptrarray: pmissing; ptrbook: pbook); {F07}
 procedure addNewBookUtil(ptr : psinglebook; ptrarray : pbook); {F09}
 procedure addBookQtyUtil(id, qty : integer; ptr : pbook); {F10}
 
@@ -95,14 +95,19 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
         end;
     end;
 
-procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing);
+procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing; ptrbook: pbook);
     {DESKRIPSI  : (F07) Menerima laporan buku hilang dengan menerima data id buku, judul buku, dan tanggal pelaporan}
     {I.S        : array of book terdefinisi, pointer terdefinisi (pointer pada book.csv)}
     {F.S        : data buku hilang tersimpan }
     {Proses     : }
 
+    {KAMUS LOKAL}
+    var
+        idx : integer;
     {ALGORITMA}
     begin
+        idx := checkLocation(ptr^.id, ptrbook);
+        ptrbook^[idx].qty -= 1;
         ptrarray^[missingNeff + 1] := ptr^;
         missingNeff += 1;
         writeln('Laporan berhasil diterima');

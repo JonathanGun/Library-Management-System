@@ -172,6 +172,7 @@ procedure borrowBook();
 			newBorrow.borrowDate := StrToDate(tmp);
 			newBorrow.username 	 := activeUser.username;
 			newBorrow.isBorrowed := true;
+
 			newBorrow.returnDate := DaysToDate(DateToDays(newBorrow.borrowDate) + 7);
 
 			new(pnewBorrow);
@@ -225,7 +226,7 @@ procedure addMissingBook();
 
 		new(ptrnewmissing);
 		ptrnewmissing^ := newMissingBook;
-		addMissingBookUtil(ptrnewmissing, ptrmissing);
+		addMissingBookUtil(ptrnewmissing, ptrmissing, ptrbook);
     end;
 
 procedure showMissings();

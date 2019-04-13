@@ -64,9 +64,9 @@ function DateToStr(convertedDate: Date): string;
 	end;
 
 function isKabisat(year: integer): boolean;
-	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
-	{PARAMETER	: 1 ADT Date}
-	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
+	{DESKRIPSI	: Menentukan apakah tahun year kabisat}
+	{PARAMETER	: integer, tahun yang ingin dicek}
+	{RETURN		: true apabila tahun tsb kabisat}
 	{REFERENSI	: https://id.wikipedia.org/wiki/Tahun_kabisat}
 
 	{ALGORITMA}
@@ -87,9 +87,9 @@ function isKabisat(year: integer): boolean;
 	end;
 
 function DateToDays(varDate : Date): longint;
-	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
+	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 01/01/0000) - 1}
 	{PARAMETER	: 1 ADT Date}
-	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 00/00/0000)}
+	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 01/01/0000) - 1}
 
 	{KAMUS LOKAL}
 	var
@@ -100,7 +100,7 @@ function DateToDays(varDate : Date): longint;
 		DateToDays := 0;
 		{tahun}
 		for i := 0 to varDate.year - 1 do begin
-			if isKabisat(i) then begin
+			if (isKabisat(i)) then begin
 				DateToDays += 366;
 			end else begin
 				DateToDays += 365;
@@ -110,16 +110,16 @@ function DateToDays(varDate : Date): longint;
 		{bulan}
 		for i := 1 to varDate.month - 1 do begin
 			{feb}
-			if i = 2 then begin
+			if (i = 2) then begin
 				if isKabisat(varDate.year) then begin
 					DateToDays += 29;
 				end else begin
 					DateToDays += 28;
 				end;
 
-			end else if i <= 7 then begin
+			end else if (i <= 7) then begin
 				{jan, mar, mei, jul}
-				if i mod 2 = 1 then begin
+				if (i mod 2 = 1) then begin
 					DateToDays += 31;
 				{apr, jun}
 				end else begin
@@ -128,7 +128,7 @@ function DateToDays(varDate : Date): longint;
 
 			end else begin
 				{ags, okt, des}
-				if i mod 2 = 0 then begin
+				if (i mod 2 = 0) then begin
 					DateToDays += 31;
 				{sept, nov}
 				end else begin
@@ -173,7 +173,8 @@ function DaysToDate(days : longint): Date;
 					days -= 365;
 					enoughdays := true;
 				end;
-			end;		
+			end;
+			i += 1;
 		until (not enoughdays);
 
 		{bulan}
@@ -182,7 +183,7 @@ function DaysToDate(days : longint): Date;
 			enoughdays := false;
 			{feb}
 			if i = 2 then begin
-				if isKabisat(DaysToDate.year + 1) then begin
+				if isKabisat(DaysToDate.year) then begin
 					if (days > 29) then begin
 						enoughdays := true;
 						days -= 29;
