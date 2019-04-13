@@ -1,6 +1,7 @@
 ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori
-1200,Pengantar Analisis Rangkaian,M.K. Sadiku,418,2015,programming
-1210,Dasar Pemrograman B,Inggriani Liem,420,2014,programming
-1101,Sejarah Olahraga Dasar,Jonathan,1,2007,sejarah
-7500,Naruto The Ultimate Edition,Masashi Kishimoto,99,2018,manga
-3450,Di Balik Sebuah Cerita,Mandala Rando,192,2017,sastra
+1200,"Pengantar Analisis Rangkaian","M.K. Sadiku",418,2015,programming
+1210,"Dasar Pemrograman B","Inggriani Liem",420,2014,programming
+1101,"Sejarah Olahraga Dasar","Jonathan",1,2007,sejarah
+7500,"Naruto The Ultimate Edition","Masashi Kishimoto",79,2018,manga
+3450,"Di Balik Sebuah Cerita","Mandala Rando",192,2017,sastra
+1,"Laskar Pelangi","Andrea Hirata",1,2005,sastra
