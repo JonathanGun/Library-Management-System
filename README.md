@@ -72,7 +72,11 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 
 **v1.1.0 Hashing Complete**
   - using MD5 for hashing
-  - a lot bug fixes on udate, csv file, uborrow, etc etc
+  - a lot bug fixes on udate, csv file, uborrow, etc
+  
+ **v1.2.0 CSV now support commas inside a cell**
+  - address, name, username can contain commas and quotes inside them
+  
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
