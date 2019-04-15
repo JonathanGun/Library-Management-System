@@ -32,6 +32,7 @@ function countAdmin(ptruser : puser): integer;
         {INISIASI}
         countAdmin := 0;
         i := 1;
+
         {TAHAP PENCACAHAN}
         while (i <= userNeff) do begin
             if (ptruser^[i].isAdmin) then begin
@@ -55,6 +56,7 @@ function countPengunjung(ptruser : puser): integer;
         {INISIASI}
         countPengunjung := 0;
         i := 1;
+
         {TAHAP PENCACAHAN}
         while (i <= userNeff) do begin
             if (ptruser^[i].isAdmin = False) then begin
@@ -78,6 +80,7 @@ function countBuku(category : string; ptrbook : pbook):integer;
         {INISIALISASI}
         countBuku := 0;
         i := 1;
+
         {TAHAP PENCACAHAN}
         while (i <= bookNeff) do begin
             if (ptrbook^[i].category = category) then begin
@@ -102,6 +105,7 @@ function checkLocation(id : integer; ptr : pbook): integer;
 		{INISIALISASI}
 		found := false;
 		i := 1;
+
 		{TAHAP PENCARIAN}
 		while ((not found) and (i <= bookNeff)) do begin
 			if (id = ptr^[i].id) then begin
@@ -113,10 +117,9 @@ function checkLocation(id : integer; ptr : pbook): integer;
 	end;
 
 function searchBorrow(id : integer; username: string; ptrborrow: pborrow): BorrowHistory;
-	{DESKRIPSI	: }
-	{I.S		: }
-	{F.S		: }
-	{Proses		: }
+	{DESKRIPSI	: Mencari data peminjaman dengan id dan username tertentu}
+    {PARAMETER  : id dan username yang ingin dicari pada array of history}
+    {RETURN     : ADT borrowhistory dengan username dan id yang sesuai dengan parameter}
 
 	{KAMUS LOKAL}
     var
@@ -128,7 +131,7 @@ function searchBorrow(id : integer; username: string; ptrborrow: pborrow): Borro
         {SKEMA SEARCHING DENGAN BOOLEAN}
         found := false;
         i := 1;
-        while (not found) and (i <= borrowNeff) do begin
+        while ((not found) and (i <= borrowNeff)) do begin
             if (ptrborrow^[i].username = username) and (ptrborrow^[i].id = id) and (ptrborrow^[i].isBorrowed) then begin
                 searchBorrow := ptrborrow^[i];
                 ptrborrow^[i].isBorrowed := false;

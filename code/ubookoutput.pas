@@ -1,6 +1,6 @@
 unit ubookoutput;
 {Berisi fungsi (F08, F11, F12) yang mennampilkan isi berbagai ADT Buku ke layar}
-{REFERENSI}
+{REFERENSI : - }
 
 interface
 uses
@@ -19,7 +19,7 @@ procedure showMissingsUtil(ptrmissing : pmissing; ptrbook : pbook);
     {DESKRIPSI  : (F08) Menampilkan data-data buku yang hilang}
     {I.S        : pointer menunjuk ke missing terdefinisi (pointer pada book.csv)}
     {F.S        : data buku hilang ditampilkan }
-    {Proses     : menampilkan data-data buku hilang berdasarkan id dan tanggal dari ptrmissing, dan judul dari ptrbook}
+    {Proses     : menampilkan data-data buku hilang berdasarkan book.csv}
 
     {KAMUS LOKAL}
     var

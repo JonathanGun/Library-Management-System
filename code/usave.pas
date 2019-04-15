@@ -26,7 +26,6 @@ procedure savebook(filename: string; ptr: pbook);
 	{F.S.		: file csv terbentuk/terupdate di direktori}
 	{Proses 	: meminta input nama file, lalu menyimpan ADT array of Book ke dalam file csv}
 
-
 	{KAMUS LOKAL}
 	var
 		row 	: integer;

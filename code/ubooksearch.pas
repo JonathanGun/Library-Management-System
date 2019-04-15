@@ -1,6 +1,6 @@
 unit ubooksearch;
 {Berisi fungsi (F03, F04) untuk mencari buku di perpustakaan}
-{REFERENSI}
+{REFERENSI : - }
 
 interface
 uses
@@ -17,11 +17,9 @@ implementation
 function fitCategory(year:integer; category:string; currentyear:integer) : boolean;
 	{DESKRIPSI	: mencocokkan kategori dengan tahun terbit buku.}
 	{PARAMETER	: year menyatakan tahun terbit buku,
-			  category menyatakan kategori dari buku,
-			  dan current year adalah input tahun yang dimasukkan.}
+			  	  category menyatakan kategori dari buku,
+			  	  dan current year adalah input tahun yang dimasukkan.}
 	{RETURN		: apakah dia fitcategory atau tidak.}
-	{KAMUS LOKAL}
-	{-}
 
 	{ALGORITMA}
 	begin
@@ -67,29 +65,28 @@ procedure sortBookByTitle(ptr: pbook; counter: integer);
 
 	{KAMUS LOKAL}
 	var
-		i, j, pass	: integer;
+		i, pass		: integer;
 		tmp 		: book;
 		tukar		: boolean;
 
 	{ALGORITMA}
 	begin
-		{bubble sort}
-		tukar := true;
-		pass := 1;
-		while (Pass <= counter-1) and (Tukar) do
-		begin
-		tukar := false;
-			for i := j to counter-1 do begin
+		{Skema Sorting dengan Optimized Bubble Sort}
+		tukar 	:= true;
+		pass 	:= 1;
+		while ((pass <= counter-1) and tukar) do begin
+			tukar := false;
+			for i := 1 to (counter-pass) do begin
 				if ptr^[i].title > ptr^[i+1].title then begin
 					{Tukar arraybuku indeks ke-i dengan i+1}
-					tmp 				:= ptr^[i];
+					tmp 		:= ptr^[i];
 					ptr^[i] 	:= ptr^[i+1];
 					ptr^[i+1] 	:= tmp;
-					tukar := true;
+
+					tukar 		:= true;
 				end;
-			pass := pass + 1;
 			end;
-		end;
+			pass += 1;
 		end;
 	end;
 

@@ -3,10 +3,10 @@ unit ubook;
 {REFERENSI : - }
 
 interface
-{PUBLIC VARIABLE, CONST, ADT}
 uses
 	udate, uuser;
 
+{PUBLIC VARIABLE, CONST, ADT}
 const
 	BOOK_MAX 		= 1000;
 	BORROW_MAX 		= 1000;
@@ -34,21 +34,21 @@ type
 	end;
 
 	BorrowHistory = record
-		username 	: string; {User.username}
-		id 			: integer; {Book.id}
+		username 	: string;
+		id 			: integer;
 		borrowDate	: Date;
 		returnDate	: Date;
 		isBorrowed	: boolean;
 	end;
 
 	ReturnHistory = record
-		username	: string; {User.username}
-		id			: integer; {Book.id}
+		username	: string;
+		id			: integer;
 		returnDate	: Date;
 	end;
 
 	MissingBook = record
-		username	: string; {User.username}
+		username	: string;
 		id 			: integer;
 		reportDate	: Date;
 	end;

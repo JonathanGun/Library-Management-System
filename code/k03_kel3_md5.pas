@@ -4,10 +4,9 @@ unit k03_kel3_md5;
 			 https://tr.opensuse.org/MD5
 			 https://rosettacode.org/wiki/MD5/Implementation
 			 .. dan masih banyak lagi}
-
-{DISCLAIMER : saya hanya mengikuti pseudocode yang ada di wikipedia
-			  dengan bantuan google dan stackoverflow, bukan berarti
-			  saya paham masing-masing barisnya}
+{!! DISCLAIMER : saya hanya mengikuti pseudocode yang ada di wikipedia  !!
+ !! 		 	 dengan bantuan google dan stackoverflow, bukan berarti !!
+ !! 		 	 saya paham masing-masing barisnya 						!!}
 
 interface
 {PUBLIC VARIABLE, CONST, ADT}
@@ -20,8 +19,8 @@ function hashMD5(str: string): string;
 implementation
 function leftrotate(x, c: Cardinal): Cardinal;
 	{DESKRIPSI : merotasi 32 bit yang merepresentasikan 1 chunk string}
-	{PARAMETER : }
-	{RETURN : }
+	{PARAMETER : integer (cardinal) yang ingin dirotate dan seberapa banyak (jumlah bit nya)}
+	{RETURN : integer (cardinal) yang sudah dirotate}
 	begin
 		leftrotate := (x shl c) or (x shr (32-c));
 	end;
@@ -30,7 +29,7 @@ function leftrotate(x, c: Cardinal): Cardinal;
 function Swap32(ALong: Cardinal): Cardinal; Assembler; 
 	{DESKRIPSI : menukar isi memori 32 bit}
 	{PARAMETER : 32 bit unsigned integer (Cardinal)}
-	{RETURN : }
+	{RETURN : assembler untuk menukar 2 cardinal}
 	asm 
 		BSWAP eax
 	end;
@@ -40,7 +39,10 @@ function hashMD5(str: string): string;
 	{DESKRIPSI : melakukan hashing pada string, terutama password}
 	{PARAMETER : string yang ingin dihash}
 	{RETURN : string hasil hash}
-	{DISCLAIMER : PSEUDOCODE ADA DI WIKIPEDIA}
+
+	{!! DISCLAIMER : PSEUDOCODE ADA DI WIKIPEDIA !!}
+
+	{KAMUS LOKAL}
 	const
 		{s : jumlah shift tiap 'round'}
 		s: array[0..63] of Cardinal = (
@@ -69,7 +71,7 @@ function hashMD5(str: string): string;
 			$f7537e82, $bd3af235, $2ad7d2bb, $eb86d391 );
 
 	var
-		a0, b0, c0, d0 	: Cardinal;
+		a0, b0, c0, d0 	: Cardinal; {4 chunk 32bit yang akan diubah jadi hexadecimal}
 		a, b, c, d 		: Cardinal; 
 		f, g, dTemp		: Cardinal;
 		
@@ -78,6 +80,7 @@ function hashMD5(str: string): string;
 		{array M menyimpan 16 32-bit unsigned integer yang merepresentasikan string tsb}
 		M 		: array[0..15] of Cardinal absolute msg; 
 
+	{ALGORITMA}
 	begin
 		{INISIASI}
 		a0 := $67452301;
@@ -108,6 +111,7 @@ function hashMD5(str: string): string;
 		D := d0;
 
 		//Main loop:
+		{!! DISCLAIMER : PSEUDOCODE ADA DI WIKIPEDIA !!}
 		for i := 0 to 63 do begin
 			if (i >= 0) and (i <= 15) then begin
 				F := (B and C) or ((not B) and D);

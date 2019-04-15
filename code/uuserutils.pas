@@ -82,8 +82,9 @@ procedure loginUtil(ptr : psingleuser; ptruser: puser);
 
 procedure findUserUtil(targetUsername : string; ptr: puser);
 	{DESKRIPSI	: (F15) Mencari username yang sesuai dengan targetUsername}
-	{PARAMETER	: string targetusername dan pointer dari array of user}
-	{RETURN		: ADT User dengan username sesuai target}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: data nama dan alamat user sesuai dengan input tertampil di layar}
+	{Proses 	: mencari user dengan username yang sesuai input pada array, lalu menampilkan datanya di layar}
 
 	{KAMUS LOKAL}
 	var

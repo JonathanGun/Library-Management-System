@@ -6,6 +6,16 @@ program main;
 			 https://www.tutorialspoint.com/pascal/pascal_pointers.htm
 			 https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
 
+{DAFTAR UNIT}
+{F01, F02, F15 		- uuserutils}
+{F03, F04 			- ubooksearch}
+{F05, F06, F07, F09 - ubookio}
+{F08, F11, F12 		- ubookoutput}
+{F13 				- uload}
+{F14 				- usave}
+{Definisi ADT 		- ubook, uuser, udate}
+{hashing (MD5)		- k03_kel3_md5}
+{fungsi pembantu	- k03_kel3_utils}
 uses
 	uload, usave, udate,
 	ubook, ubooksearch, ubookio, ubookoutput,
@@ -28,10 +38,13 @@ var
 	ptrmissing		: pmissing;
 	
 	activeUser		: User;
+	ptractiveUser 	: psingleuser;
+
 	query			: string;
+	firstLoad		: boolean;
 	notAdminMsg		: string;
 	notLoggedInMsg	: string;
-	ptractiveUser 	: psingleuser;
+	loggedInMsg 	: string;
 
 {FUNGSI DAN PROSEDUR}
 procedure init();
@@ -44,7 +57,9 @@ procedure init();
 	begin
 		query := 'load';
 		writeln('$ load');
+		firstLoad := true;
 
+		{INISIASI POINTER array of ADT}
 		new(ptrbook);
 		new(ptruser);
 		new(ptrborrow);
@@ -57,6 +72,7 @@ procedure init();
 		activeUser 		:= ptractiveUser^;
 		notAdminMsg 	:= 'Akses ditolak. Anda bukan admin!';
 		notLoggedInMsg 	:= 'Anda belum login. Silakan login terlebih dahulu';
+		loggedInMsg 	:= 'Anda masih logged in. Silakan logout terlebih dahulu.'
 	end;
 
 procedure registerUser();
@@ -79,10 +95,10 @@ procedure registerUser();
 			write('Masukkan password pengunjung: '); readln(newUser.password);
 			
 			newUser.fullname := wraptext(newUser.fullname);
-			newUser.address := wraptext(newUser.address);
+			newUser.address  := wraptext(newUser.address);
 			newUser.username := wraptext(newUser.username);
 			newUser.password := hashMD5(newUser.password);
-			newUser.isAdmin := false;
+			newUser.isAdmin  := false;
 
 			new(pnewUser);
 			pnewUser^ := newUser;
@@ -98,17 +114,22 @@ procedure login();
 	{F.S.		: berhasil atau gagalnya login}
 	{Proses 	: User menginput username dan password, layar akan menampilkan keberhasilan login jika username dan password cocok
 				  dengan yang sudah terdaftar}
-	
+
+	{ALGORITMA}	
 	begin
-		write('Masukkan username: '); readln(activeUser.username);	
-		write('Masukkan password: '); readln(activeUser.password);
+		if (activeUser.username = wraptext('Anonymous')) then begin
+			write('Masukkan username: '); readln(activeUser.username);	
+			write('Masukkan password: '); readln(activeUser.password);
 
-		activeUser.username := wraptext(activeUser.username);
-		activeUser.password := hashMD5(activeUser.password);
+			activeUser.username := wraptext(activeUser.username);
+			activeUser.password := hashMD5(activeUser.password);
 
-		ptractiveUser^ := activeUser;
-		loginUtil(ptractiveUser, ptruser);
-		activeUser := ptractiveUser^;
+			ptractiveUser^ := activeUser;
+			loginUtil(ptractiveUser, ptruser);
+			activeUser := ptractiveUser^;
+		end else begin
+			writeln(loggedInMsg);
+		end;
 	end;
 
 procedure findBookByCategory();
@@ -117,8 +138,7 @@ procedure findBookByCategory();
 	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
 	{Proses 	: Menanyakan pada user kategori apa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
 				  lalu menampilkannya di layar}
-				  
-				  
+
 	{KAMUS LOKAL}
 	var
 		category: string;
@@ -134,8 +154,7 @@ procedure findBookByCategory();
 		writeln();
 		write('Masukkan kategori: '); readln(category);
 		findBookByCategoryUtil(category, ptrbook);
-		while (categoryValid(category)=False) do
-		begin
+		while (categoryValid(category)=False) do begin
 			write('Masukkan kategori: '); readln(category);
 			findBookByCategoryUtil(category, ptrbook);
 		end;
@@ -213,10 +232,10 @@ procedure returnBook();
 
 
 procedure addMissingBook();
-	{DESKRIPSI  : (F07) Menerima laporan buku hilang dengan menerima data id buku, judul buku, dan tanggal pelaporan}
-    	{I.S        : array of book terdefinisi, pointer terdefinisi (pointer pada book.csv)}
-    	{F.S        : data buku hilang tersimpan }
-   	 {Proses     : menambahkan data buku yang hilang ke ptrarray, beserta mengurangi jumlah buku yang ada di ptrbook.}
+	{DESKRIPSI	: (F07)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{KAMUS LOKAL}
 	var
@@ -226,22 +245,26 @@ procedure addMissingBook();
 
 	{ALGORITMA}
 	begin
-		write('Masukkan id buku: '			); readln(newMissingBook.id);
-		write('Masukkan judul buku: '		); readln();
-		write('Masukkan tanggal pelaporan: '); readln(tmp);
-		newMissingBook.reportDate 	:= StrToDate(tmp);
-		newMissingBook.username 	:= activeUser.username;
+		if (activeUser.username <> wraptext('Anonymous')) then begin
+			write('Masukkan id buku: '			); readln(newMissingBook.id);
+			write('Masukkan judul buku: '		); readln();
+			write('Masukkan tanggal pelaporan: '); readln(tmp);
+			newMissingBook.reportDate 	:= StrToDate(tmp);
+			newMissingBook.username 	:= activeUser.username;
 
-		new(ptrnewmissing);
-		ptrnewmissing^ := newMissingBook;
-		addMissingBookUtil(ptrnewmissing, ptrmissing, ptrbook);
+			new(ptrnewmissing);
+			ptrnewmissing^ := newMissingBook;
+			addMissingBookUtil(ptrnewmissing, ptrmissing, ptrbook);
+		end else begin
+			writeln(notLoggedInMsg);
+		end;
     end;
 
 procedure showMissings();
-   	{DESKRIPSI  : (F08) Menampilkan data-data buku yang hilang}
-   	{I.S        : pointer menunjuk ke missing terdefinisi (pointer pada book.csv)}
-    	{F.S        : data buku hilang ditampilkan }
-  	{Proses     : menampilkan data-data buku hilang berdasarkan id dan tanggal dari ptrmissing, dan judul dari ptrbook}
+	{DESKRIPSI	: (F08)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{ALGORITMA}
 	begin
@@ -253,11 +276,10 @@ procedure showMissings();
 	end;
 
 procedure addNewBook();
-	{DESKRIPSI  : (F09) Menerima data buku baru dan memasukkannya ke book.csv,dengan menerima masukkan id buku, judul
-                 	pengarang,jumlah,tahun terbit,dan kategori}
-    	{I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
-   	{F.S        : data buku baru tersimpan }
-    	{Proses     : menambahkan data buku baru ke ptrarray}
+	{DESKRIPSI	: (F09)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{KAMUS LOKAL}
 	var
@@ -309,10 +331,10 @@ procedure addBookQty();
 	end;
 
 procedure showBorrowHistory();
-	{DESKRIPSI	: (F11) Menampilkan riwayat peminjaman}
-	{I.S. 		: Suatu username yang sedang aktif saat itu}
-	{F.S.		: Riwayat peminjaman dari username ditampilkan seluruhnya}
-	{Proses 	: Menggunakan skema pengulangan untuk menampilkan riwayat username}
+	{DESKRIPSI	: (F11)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{KAMUS LOKAL}
 	var
@@ -330,10 +352,10 @@ procedure showBorrowHistory();
 	end;
 
 procedure showStats();
-   	{DESKRIPSI  : (F12) Menampilkan data statistik berupa admin, pengunjung, dan 5 jenis buku berdasarkan user.csv dan book.csv}
-   	{I.S        : ptrbook valid (pointer pada book.csv), dan ptruser valid (pointer pada user.csv)}
-   	{F.S        : Menampilkan jenis-jenis statistik di layar }
-    	{Proses     : Menulis jenis-jenis statistik ke layar berdasarkan book.csv}
+	{DESKRIPSI	: (F12)}
+	{I.S. 		: }
+	{F.S.		: }
+	{Proses 	: }
 
 	{ALGORITMA}
 	begin
@@ -358,25 +380,30 @@ procedure loadAllFiles();
 
 	{ALGORITMA}
 	begin
-		ptrbook^ 	:= books;
-		ptruser^	:= users;
-		ptrborrow^ 	:= borrows;
-		ptrreturn^	:= returns;
-		ptrmissing^	:= missings;
+		if ((activeUser.isAdmin) or firstLoad) then begin
+			firstLoad 	:= false;
+			ptrbook^ 	:= books;
+			ptruser^	:= users;
+			ptrborrow^ 	:= borrows;
+			ptrreturn^	:= returns;
+			ptrmissing^	:= missings;
 
-		write('Masukkan nama File Buku: '		 ); readln(filename); loadbook(filename, ptrbook);
-		write('Masukkan nama File User: '		 ); readln(filename); loaduser(filename, ptruser);
-		write('Masukkan nama File Peminjaman: '	 ); readln(filename); loadborrow(filename, ptrborrow);
-		write('Masukkan nama File Pengembalian: '); readln(filename); loadreturn(filename, ptrreturn);
-		write('Masukkan nama File Buku Hilang: ' ); readln(filename); loadmissing(filename, ptrmissing);
-		writeln();
-		write('File perpustakaan berhasil dimuat!');
+			write('Masukkan nama File Buku: '		 ); readln(filename); loadbook(filename, ptrbook);
+			write('Masukkan nama File User: '		 ); readln(filename); loaduser(filename, ptruser);
+			write('Masukkan nama File Peminjaman: '	 ); readln(filename); loadborrow(filename, ptrborrow);
+			write('Masukkan nama File Pengembalian: '); readln(filename); loadreturn(filename, ptrreturn);
+			write('Masukkan nama File Buku Hilang: ' ); readln(filename); loadmissing(filename, ptrmissing);
+			writeln();
+			write('File perpustakaan berhasil dimuat!');
 
-		books 		:= ptrbook^;
-		users 		:= ptruser^;
-		borrows 	:= ptrborrow^;
-		returns 	:= ptrreturn^;
-		missings	:= ptrmissing^;
+			books 		:= ptrbook^;
+			users 		:= ptruser^;
+			borrows 	:= ptrborrow^;
+			returns 	:= ptrreturn^;
+			missings	:= ptrmissing^;
+		end else begin
+			writeln(notAdminMsg);
+		end;
 	end;
 
 procedure saveAllFiles();
@@ -392,19 +419,23 @@ procedure saveAllFiles();
 
 	{ALGORITMA}
 	begin
-		books 		:= ptrbook^;
-		users 		:= ptruser^;
-		borrows 	:= ptrborrow^;
-		returns 	:= ptrreturn^;
-		missings 	:= ptrmissing^;
+		if (activeUser.username <> wraptext('Anonymous')) then begin
+			books 		:= ptrbook^;
+			users 		:= ptruser^;
+			borrows 	:= ptrborrow^;
+			returns 	:= ptrreturn^;
+			missings 	:= ptrmissing^;
 
-		write('Masukkan nama File Buku: '		 ); readln(filename); savebook(filename, ptrbook);
-		write('Masukkan nama File User: '		 ); readln(filename); saveuser(filename, ptruser);
-		write('Masukkan nama File Peminjaman: '	 ); readln(filename); saveborrow(filename, ptrborrow);
-		write('Masukkan nama File Pengembalian: '); readln(filename); savereturn(filename, ptrreturn);
-		write('Masukkan nama File Buku Hilang: ' ); readln(filename); savemissing(filename, ptrmissing);
-		writeln();
-		write('Data berhasil disimpan!');
+			write('Masukkan nama File Buku: '		 ); readln(filename); savebook(filename, ptrbook);
+			write('Masukkan nama File User: '		 ); readln(filename); saveuser(filename, ptruser);
+			write('Masukkan nama File Peminjaman: '	 ); readln(filename); saveborrow(filename, ptrborrow);
+			write('Masukkan nama File Pengembalian: '); readln(filename); savereturn(filename, ptrreturn);
+			write('Masukkan nama File Buku Hilang: ' ); readln(filename); savemissing(filename, ptrmissing);
+			writeln();
+			write('Data berhasil disimpan!');
+		end else begin
+			writeln(notLoggedInMsg);
+		end;
 	end;
 
 procedure findUser();
@@ -414,9 +445,11 @@ procedure findUser();
 	{Proses 	: Menanyakan pada user username siapa yang akan dicari, lalu mencari username dan alamat user tersebut
 				  lalu menampilkannya di layar}
 
+	{KAMUS LOKAL}
 	var
 		targetUsername 	: string;
 
+	{ALGORITMA}
 	begin
 		if (activeUser.isAdmin) then begin
 			write('Masukkan username: '); readln(targetUsername);

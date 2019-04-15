@@ -1,6 +1,7 @@
 unit k03_kel3_utils;
 {Berisi fungsi-fungsi perantara yang vital untuk membantu unit-unit lain}
-{REFERENSI	: https://stackoverflow.com/questions/27708404/crt-library-changes-console-encoding-pascal (clearscreen in windows)}
+{REFERENSI	: https://stackoverflow.com/questions/27708404/crt-library-changes-console-encoding-pascal (clearscreen in windows)
+			  https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
 
 interface
 uses
@@ -116,6 +117,8 @@ procedure clrscr_();
 	{I.S.		: sembarang}
 	{F.S.		: layar cmd kosong}
 	{Proses		: menggunakan clrscr dan assign ulang input output}
+
+	{ALGORITMA}
 	begin
 		clrscr;
 		assign(input,  ''); reset(input);
