@@ -89,8 +89,8 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
                 writeln('Terima kasih sudah meminjam.');
             end else begin
                 writeln('Anda terlambat ', selisih, ' hari mengembalikan buku.');
-                writeln('Anda terkena denda Rp', selisih * 2000, '.');
-                writeln('Silakan bayar di loket.')
+                writeln('Anda terkena denda Rp2000/hari. Total denda: Rp', selisih * 2000, '.');
+                writeln('Silakan bayar di loket.');
             end;
         end;
     end;
