@@ -110,7 +110,7 @@ procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing; ptrbook:
         ptrbook^[idx].qty -= 1;
         ptrarray^[missingNeff + 1] := ptr^;
         missingNeff += 1;
-        writeln('Laporan berhasil diterima');
+        writeln('Laporan berhasil diterima.');
     end;
 
 procedure addNewBookUtil(ptr : psinglebook; ptrarray : pbook);
@@ -156,7 +156,8 @@ procedure addBookQtyUtil (id,qty : integer; ptr : pbook);
         {TAHAP PENAMBAHAN JUMLAH BUKU}
         ptr^[idx].qty += qty;
         writeln();
-        writeln('Pembaharuan jumlah buku berhasil dilakukan, total buku ', unwraptext(ptr^[idx].title), ' menjadi ', ptr^[idx].qty);
+        writeln('Pembaharuan jumlah buku berhasil dilakukan.');
+        writeln('Total buku ', unwraptext(ptr^[idx].title), ' menjadi ', ptr^[idx].qty);
     end;
 
 end.

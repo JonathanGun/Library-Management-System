@@ -8,6 +8,7 @@ uses
 	ubook, ubookutils;
 
 {PUBLIC, FUNCTION, PROCEDURE}
+function categoryValid(q : string): boolean;
 procedure findBookByCategoryUtil(category: string; ptrbook:pbook); {F03}
 procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook); {F04}
 	
@@ -145,7 +146,7 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 		
 	{ALGORITMA}
 	begin
-		writeln('Buku yang terbit', category, year);
+		writeln('Buku yang terbit pada tahun ', category, ' ', year, ':');
 
 		{skema pencarian dengan boolean}
 		i := 1;
@@ -165,8 +166,8 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 			ptr^ := filteredBooks;
 			sortBookByTitle(ptr, counter);
 
-			for i := 1 to bookNeff do begin
-				writeln(ptrbook^[i].id, '|', unwraptext(ptrbook^[i].title), '|', unwraptext(ptrbook^[i].author));
+			for i := 1 to counter do begin
+				writeln(ptr^[i].id, '|', unwraptext(ptr^[i].title), '|', unwraptext(ptr^[i].author));
 				found := true;
 			end;
 

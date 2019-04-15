@@ -74,7 +74,8 @@ procedure showStatsUtil(ptrbook : pbook; ptruser : puser);
         writeln('Admin | ',         countAdmin(ptruser));
         writeln('Pengunjung | ',    countPengunjung(ptruser));
         writeln('Total | ',         countAdmin(ptruser) + countPengunjung(ptruser));
-
+		writeln();
+		
         total := 0;
         writeln('Buku:');
         writeln('sastra | ',      countBuku('sastra', ptrbook)      ); total += countBuku('sastra', ptrbook);

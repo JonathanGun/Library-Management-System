@@ -131,6 +131,11 @@ procedure findBookByCategory();
 		writeln();
 		write('Masukkan kategori: '); readln(category);
 		findBookByCategoryUtil(category, ptrbook);
+		while (categoryValid(category)=False) do
+		begin
+			write('Masukkan kategori: '); readln(category);
+			findBookByCategoryUtil(category, ptrbook);
+		end;
 	end;
 
 procedure findBookByYear();
