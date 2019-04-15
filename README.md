@@ -80,6 +80,10 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
  **v1.2.1 Day count bug fixed**
   - fixed wrong return date
   - minor changes
+  
+ **v1.2.2 Category and Year fixed**
+  - categoryValidation solved
+  - searchbyYear solved
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
