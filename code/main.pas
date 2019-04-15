@@ -7,15 +7,15 @@ program main;
 			 https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
 
 {DAFTAR UNIT}
-{F01, F02, F15 		- uuserutils}
-{F03, F04 			- ubooksearch}
-{F05, F06, F07, F09 - ubookio}
-{F08, F11, F12 		- ubookoutput}
-{F13 				- uload}
-{F14 				- usave}
-{Definisi ADT 		- ubook, uuser, udate}
-{hashing (MD5)		- k03_kel3_md5}
-{fungsi pembantu	- k03_kel3_utils}
+{F01, F02, F15 				- uuserutils}
+{F03, F04 					- ubooksearch}
+{F05, F06, F07, F09, F10 	- ubookio}
+{F08, F11, F12 				- ubookoutput}
+{F13 						- uload}
+{F14 						- usave}
+{Definisi ADT 				- ubook, uuser, udate}
+{hashing (MD5)				- k03_kel3_md5}
+{fungsi pembantu			- k03_kel3_utils}
 uses
 	uload, usave, udate,
 	ubook, ubooksearch, ubookio, ubookoutput,
@@ -104,7 +104,7 @@ procedure registerUser();
 			pnewUser^ := newUser;
 			registerUserUtil(pnewUser, ptruser);
 		end else begin
-			writeln (notAdminMsg)
+			writeln(notAdminMsg);
 		end;	
 	end;
 
@@ -196,10 +196,9 @@ procedure borrowBook();
 			write('Masukkan id buku yang ingin dipinjam: '); readln(newBorrow.id);
 			write('Masukkan tanggal hari ini (DD/MM/YYYY): '); readln(tmp);
 
-			newBorrow.borrowDate := StrToDate(tmp);
 			newBorrow.username 	 := activeUser.username;
 			newBorrow.isBorrowed := true;
-
+			newBorrow.borrowDate := StrToDate(tmp);
 			newBorrow.returnDate := DaysToDate(DateToDays(newBorrow.borrowDate) + 7);
 
 			new(pnewBorrow);

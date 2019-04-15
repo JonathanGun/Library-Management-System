@@ -1,5 +1,5 @@
 unit ubookio;
-{Berisi fungsi (F05, F06, F07, F09) yang berhubungan dengan keluar masuknya buku di perpustakaan}
+{Berisi fungsi (F05, F06, F07, F09, F10) yang berhubungan dengan keluar masuknya buku di perpustakaan}
 {REFERENSI : -}
 
 interface

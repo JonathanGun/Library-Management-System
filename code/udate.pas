@@ -171,25 +171,25 @@ function DaysToDate(days : longint): Date;
 		repeat
 			enoughdays := false;
 			{feb kabisat}
-			if ((i = 2) and isKabisat(DaysToDate.year)) then begin
+			if ((days > 29) and (i = 2) and isKabisat(DaysToDate.year)) then begin
 				enoughdays := true;
 				days -= 29;
 				DaysToDate.month += 1;
 
 			{feb non kabisat}
-			end else if ((i = 2) and not isKabisat(DaysToDate.year)) then begin
+			end else if ((days > 28) and (i = 2) and not isKabisat(DaysToDate.year)) then begin
 				enoughdays := true;
 				days -= 28;
 				DaysToDate.month += 1;
 
 			{apr, jun, sept, nov}
-			end else if ((i = 4) or (i = 6) or (i = 9) or (i = 11)) then begin
+			end else if ((days > 30) and (i = 4) or (i = 6) or (i = 9) or (i = 11)) then begin
 				enoughdays := true;
 				days -= 30;
 				DaysToDate.month += 1;
 
 			{jan, mar, mei, jul, ags, okt, des}
-			end else begin
+			end else if (days > 31) then begin
 				enoughdays := true;
 				days -= 31;
 				DaysToDate.month += 1;
