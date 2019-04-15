@@ -65,21 +65,29 @@ procedure sortBookByTitle(ptr: pbook; counter: integer);
 
 	{KAMUS LOKAL}
 	var
-		i, j		: integer;
+		i, j, pass	: integer;
 		tmp 		: book;
+		tukar		: boolean;
 
 	{ALGORITMA}
 	begin
 		{bubble sort}
-		for j := 1 to counter-1 do begin
+		tukar := true;
+		pass := 1;
+		while (Pass <= counter-1) and (Tukar) do
+		begin
+		tukar := false;
 			for i := j to counter-1 do begin
 				if ptr^[i].title > ptr^[i+1].title then begin
 					{Tukar arraybuku indeks ke-i dengan i+1}
 					tmp 				:= ptr^[i];
 					ptr^[i] 	:= ptr^[i+1];
 					ptr^[i+1] 	:= tmp;
+					tukar := true;
 				end;
+			pass := pass + 1;
 			end;
+		end;
 		end;
 	end;
 
