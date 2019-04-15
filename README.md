@@ -3,12 +3,8 @@ commited on : 2 April 2019
 
 last edit   : 15 April 2019
 
-<br/>
-
 ## Deskripsi tugas:
 Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
-
-<br/>
 
 ## Spesifikasi Program:
 Memiliki 16 fitur wajib,
@@ -133,7 +129,7 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - seluruh program sudah ditesting
   - seluruh program sudah dicek ulang penulisannya
 
-<br/><br/>
+<br/>
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
