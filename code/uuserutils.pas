@@ -30,10 +30,11 @@ procedure setToDefaultUser(ptr : psingleuser);
 	end;
 
 procedure registerUserUtil(pnewUser : psingleuser; ptruser: puser);
-	{DESKRIPSI	: (F01) }
-	{PARAMETER	: }
-	{RETURN	: }
-
+	{DESKRIPSI	: (F01) melakukan registrasi akun dari user dan admin}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: keberhasilan registrasi ditampilkan di layar}
+	{Proses 	: Menanyakan nama lengkap, alamat, username dan password user, dan layar menampilkan keberhasilan registrasi}
+	
 	{ALGORITMA}
 	begin
 		ptruser^[userNeff + 1] := pnewUser^;
@@ -42,9 +43,11 @@ procedure registerUserUtil(pnewUser : psingleuser; ptruser: puser);
 	end;
 
 procedure loginUtil(ptr : psingleuser; ptruser: puser);
-	{DESKRIPSI	: (F02) }
-	{PARAMETER	: }
-	{RETURN	: }
+	{DESKRIPSI	: (F02) melakukan login dari akun user yang telah dibuat}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: berhasil atau gagalnya login}
+	{Proses 	: User menginput username dan password, layar akan menampilkan keberhasilan login jika username dan password cocok
+				  dengan yang sudah terdaftar}
 
 	{KAMUS LOKAL}
 	var

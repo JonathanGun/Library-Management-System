@@ -60,10 +60,10 @@ procedure init();
 	end;
 
 procedure registerUser();
-	{DESKRIPSI	: (F01)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI	: (F01) melakukan registrasi akun dari user dan admin}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: keberhasilan registrasi ditampilkan di layar}
+	{Proses 	: Menanyakan nama lengkap, alamat, username dan password user, dan layar menampilkan keberhasilan registrasi}
 
 	{KAMUS LOKAL}
 	var
@@ -93,11 +93,12 @@ procedure registerUser();
 	end;
 
 procedure login();
-	{DESKRIPSI	: (F02)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
-
+	{DESKRIPSI	: (F02) melakukan login dari akun user yang telah dibuat}
+	{I.S. 		: array of User terdefinisi}
+	{F.S.		: berhasil atau gagalnya login}
+	{Proses 	: User menginput username dan password, layar akan menampilkan keberhasilan login jika username dan password cocok
+				  dengan yang sudah terdaftar}
+	
 	begin
 		write('Masukkan username: '); readln(activeUser.username);	
 		write('Masukkan password: '); readln(activeUser.password);
@@ -111,11 +112,13 @@ procedure login();
 	end;
 
 procedure findBookByCategory();
-	{DESKRIPSI	: (F03)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
-
+	{DESKRIPSI	: (F03) mecari buku dengan kategori tertentu sesuai input dari user}
+	{I.S. 		: array of Book terdefinisi}
+	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
+	{Proses 	: Menanyakan pada user kategori apa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
+				  lalu menampilkannya di layar}
+				  
+				  
 	{KAMUS LOKAL}
 	var
 		category: string;
