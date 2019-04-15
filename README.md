@@ -3,8 +3,12 @@ commited on : 2 April 2019
 
 last edit   : 15 April 2019
 
+<br/><br/>
+
 ## Deskripsi tugas:
 Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
+
+<br/><br/>
 
 ## Spesifikasi Program:
 Memiliki 16 fitur wajib,
@@ -33,6 +37,8 @@ dan 1 fitur tambahan.
 - [x] T01 - `logout` (Logout)
 
 *khusus admin
+
+<br/><br/><br/>
 
 Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 - [x] File Buku (*ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori*)
@@ -75,6 +81,8 @@ Nama | Alamat | Username | Password | Role
 "asaa" | "jakarta" | "asaolv" | cf173a686221b935304947e60ab0d6d | Pengunjung
 
 Memiliki format tanggal berupa *DD/MM/YYYY*
+
+<br/><br/><br/>
 
 ## Changelog
 **(05/04/2019) v0.2 Main program + (F13) Load file**
@@ -124,6 +132,8 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - seluruh program sudah terdokumentasi
   - seluruh program sudah ditesting
   - seluruh program sudah dicek ulang penulisannya
+
+<br/><br/>
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
