@@ -155,6 +155,7 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 		
 	{ALGORITMA}
 	begin
+		writeln();
 		writeln('Buku yang terbit pada tahun ', category, ' ', year, ':');
 
 		{skema pencarian dengan boolean}
