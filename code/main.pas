@@ -213,10 +213,10 @@ procedure returnBook();
 
 
 procedure addMissingBook();
-	{DESKRIPSI	: (F07)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI  : (F07) Menerima laporan buku hilang dengan menerima data id buku, judul buku, dan tanggal pelaporan}
+    	{I.S        : array of book terdefinisi, pointer terdefinisi (pointer pada book.csv)}
+    	{F.S        : data buku hilang tersimpan }
+   	 {Proses     : menambahkan data buku yang hilang ke ptrarray, beserta mengurangi jumlah buku yang ada di ptrbook.}
 
 	{KAMUS LOKAL}
 	var
@@ -238,10 +238,10 @@ procedure addMissingBook();
     end;
 
 procedure showMissings();
-	{DESKRIPSI	: (F08)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+   	{DESKRIPSI  : (F08) Menampilkan data-data buku yang hilang}
+   	{I.S        : pointer menunjuk ke missing terdefinisi (pointer pada book.csv)}
+    	{F.S        : data buku hilang ditampilkan }
+  	{Proses     : menampilkan data-data buku hilang berdasarkan id dan tanggal dari ptrmissing, dan judul dari ptrbook}
 
 	{ALGORITMA}
 	begin
@@ -253,10 +253,11 @@ procedure showMissings();
 	end;
 
 procedure addNewBook();
-	{DESKRIPSI	: (F09)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI  : (F09) Menerima data buku baru dan memasukkannya ke book.csv,dengan menerima masukkan id buku, judul
+                 	pengarang,jumlah,tahun terbit,dan kategori}
+    	{I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
+   	{F.S        : data buku baru tersimpan }
+    	{Proses     : menambahkan data buku baru ke ptrarray}
 
 	{KAMUS LOKAL}
 	var
@@ -308,10 +309,10 @@ procedure addBookQty();
 	end;
 
 procedure showBorrowHistory();
-	{DESKRIPSI	: (F11)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI	: (F11) Menampilkan riwayat peminjaman}
+	{I.S. 		: Suatu username yang sedang aktif saat itu}
+	{F.S.		: Riwayat peminjaman dari username ditampilkan seluruhnya}
+	{Proses 	: Menggunakan skema pengulangan untuk menampilkan riwayat username}
 
 	{KAMUS LOKAL}
 	var
@@ -329,10 +330,10 @@ procedure showBorrowHistory();
 	end;
 
 procedure showStats();
-	{DESKRIPSI	: (F12)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+   	{DESKRIPSI  : (F12) Menampilkan data statistik berupa admin, pengunjung, dan 5 jenis buku berdasarkan user.csv dan book.csv}
+   	{I.S        : ptrbook valid (pointer pada book.csv), dan ptruser valid (pointer pada user.csv)}
+   	{F.S        : Menampilkan jenis-jenis statistik di layar }
+    	{Proses     : Menulis jenis-jenis statistik ke layar berdasarkan book.csv}
 
 	{ALGORITMA}
 	begin
