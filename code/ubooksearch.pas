@@ -137,6 +137,7 @@ procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
 
 		end else begin
 			writeln ('Kategori ', category ,' tidak valid.');
+			writeln();
 		end;
 	end;
 

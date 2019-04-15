@@ -29,6 +29,7 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
 
     {ALGORITMA}
     begin
+        writeln();
     	idx	:= checklocation(pnewBorrow^.id, ptrbook);
     	if (ptrbook^[idx].qty > 0) then begin
 	    	ptrborrow^[borrowNeff+1] := pnewBorrow^;
