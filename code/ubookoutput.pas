@@ -19,7 +19,7 @@ procedure showMissingsUtil(ptrmissing : pmissing; ptrbook : pbook);
     {DESKRIPSI  : (F08) Menampilkan data-data buku yang hilang}
     {I.S        : pointer menunjuk ke missing terdefinisi (pointer pada book.csv)}
     {F.S        : data buku hilang ditampilkan }
-    {Proses     : menampilkan data-data buku hilang berdasarkan book.csv}
+    {Proses     : menampilkan data-data buku hilang berdasarkan id dan tanggal dari ptrmissing, dan judul dari ptrbook}
 
     {KAMUS LOKAL}
     var
