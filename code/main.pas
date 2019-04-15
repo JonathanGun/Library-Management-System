@@ -4,7 +4,8 @@ program main;
 {REFERENSI : https://tpb.kuliah.itb.ac.id/pluginfile.php/104511/mod_resource/content/1/IF1210_12_Skema_Standar_Bag2_040419.pdf (SkemaStandar Pemrosesan Array)
 			 https://tpb.kuliah.itb.ac.id/pluginfile.php/10273/mod_resource/content/1/ContohPrgKecilPascal_Agt08.pdf (Contoh Program Kecil Bahasa Pascal)
 			 https://www.tutorialspoint.com/pascal/pascal_pointers.htm
-			 https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
+			 https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array
+			 http://www.asciitable.com/}
 
 {DAFTAR UNIT}
 {F01, F02, F15 				- uuserutils}
@@ -89,18 +90,20 @@ procedure registerUser();
 	{ALGORITMA}
 	begin
 		if (activeUser.isAdmin) then begin
+			new(pnewUser);
 			write('Masukkan nama pengunjung: '	  ); readln(newUser.fullname);
 			write('Masukkan alamat pengunjung: '  ); readln(newUser.address);
 			write('Masukkan username pengunjung: '); readln(newUser.username);
-			write('Masukkan password pengunjung: '); newUser.password := readpass();
 
 			newUser.fullname := wraptext(newUser.fullname);
 			newUser.address  := wraptext(newUser.address);
 			newUser.username := wraptext(newUser.username);
-			newUser.password := hashMD5(newUser.password);
+			pnewUser^ := newUser;
+
+			write('Masukkan password pengunjung: ');
+			newUser.password := hashMD5(readpass(pnewUser));
 			newUser.isAdmin  := false;
 
-			new(pnewUser);
 			pnewUser^ := newUser;
 			registerUserUtil(pnewUser, ptruser);
 		end else begin
@@ -118,11 +121,12 @@ procedure login();
 	{ALGORITMA}	
 	begin
 		if (activeUser.username = wraptext('Anonymous')) then begin
-			write('Masukkan username: '); readln(activeUser.username);	
-			write('Masukkan password: '); activeUser.password := readpass();
-
+			write('Masukkan username: '); readln(activeUser.username);
 			activeUser.username := wraptext(activeUser.username);
-			activeUser.password := hashMD5(activeUser.password);
+
+			ptractiveUser^ := activeUser;
+			write('Masukkan password: ');			
+			activeUser.password := hashMD5(readpass(ptractiveUser));
 
 			ptractiveUser^ := activeUser;
 			loginUtil(ptractiveUser, ptruser);

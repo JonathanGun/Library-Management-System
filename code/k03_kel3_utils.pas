@@ -1,7 +1,8 @@
 unit k03_kel3_utils;
 {Berisi fungsi-fungsi perantara yang vital untuk membantu unit-unit lain}
 {REFERENSI	: https://stackoverflow.com/questions/27708404/crt-library-changes-console-encoding-pascal (clearscreen in windows)
-			  https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array}
+			  https://stackoverflow.com/questions/6320003/how-do-i-check-whether-a-string-exists-in-an-array
+			  http://computer-programming-forum.com/29-pascal/f1ca9109e91492c4.htm (Pascal, Password mask)}
 
 interface
 uses
@@ -18,7 +19,7 @@ function IntToHex(n: Cardinal): string;
 procedure clrscr_();
 procedure printFeatures(pactiveUser : psingleuser);
 function queryValid(q : string): boolean;
-function readpass(): string;
+function readpass(ptr : psingleuser): string;
 
 implementation
 {FUNGSI dan PROSEDUR}
@@ -204,23 +205,46 @@ function queryValid(q : string): boolean;
 		end;
 	end;
 
-function readpass(): string;
+function readpass(ptr : psingleuser): string;
 	{DESKRIPSI	: membuat agar password tidak terlihat di layar}
-	{PARAMETER	: - }
+	{PARAMETER	: pointer user untuk menentukan apakah sedang login/register }
 	{RETURN 	: string password}
 
 	{KAMUS LOKAL}
 	var
 		ch: char;
+		i : integer;
 
 	{ALGORITMA}
 	begin
 		readpass := '';
 		ch := readkey;
 		while (ch <> #13) do begin
-			write('*');
-			readpass += ch;
+			if (ch = #8) then begin
+				if (length(readpass) <> 0) then begin
+					clrscr_();
+					delete(readpass, length(readpass), 1);
+					if (ptr^.fullname = wraptext('Anonymous')) then begin
+						writeln('$ login');
+						writeln('Masukkan username: ', unwraptext(ptr^.username));
+						write('Masukkan password: ');
+					end else begin
+						writeln('$ register');
+						writeln('Masukkan nama pengunjung: ', unwraptext(ptr^.fullname));
+						writeln('Masukkan alamat pengunjung: ', unwraptext(ptr^.address));
+						writeln('Masukkan username pengunjung: ', unwraptext(ptr^.username));
+						write('Masukkan password pengunjung: ');
+					end;
+					for i := 1 to length(readpass) do begin
+						write('*');
+					end;
+				end;
+			end else begin
+				write('*');
+				readpass += ch;
+			end;
 			ch := readkey;
 		end;
+		writeln();
 	end;
 end.
