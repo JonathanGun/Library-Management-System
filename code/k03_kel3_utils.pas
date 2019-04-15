@@ -18,6 +18,7 @@ function IntToHex(n: Cardinal): string;
 procedure clrscr_();
 procedure printFeatures(pactiveUser : psingleuser);
 function queryValid(q : string): boolean;
+function readpass(): string;
 
 implementation
 {FUNGSI dan PROSEDUR}
@@ -202,5 +203,24 @@ function queryValid(q : string): boolean;
 			end;
 		end;
 	end;
-	
+
+function readpass(): string;
+	{DESKRIPSI	: membuat agar password tidak terlihat di layar}
+	{PARAMETER	: - }
+	{RETURN 	: string password}
+
+	{KAMUS LOKAL}
+	var
+		ch: char;
+
+	{ALGORITMA}
+	begin
+		readpass := '';
+		ch := readkey;
+		while (ch <> #13) do begin
+			write('*');
+			readpass += ch;
+			ch := readkey;
+		end;
+	end;
 end.

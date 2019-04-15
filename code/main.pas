@@ -92,8 +92,8 @@ procedure registerUser();
 			write('Masukkan nama pengunjung: '	  ); readln(newUser.fullname);
 			write('Masukkan alamat pengunjung: '  ); readln(newUser.address);
 			write('Masukkan username pengunjung: '); readln(newUser.username);
-			write('Masukkan password pengunjung: '); readln(newUser.password);
-			
+			write('Masukkan password pengunjung: '); newUser.password := readpass();
+
 			newUser.fullname := wraptext(newUser.fullname);
 			newUser.address  := wraptext(newUser.address);
 			newUser.username := wraptext(newUser.username);
@@ -119,7 +119,7 @@ procedure login();
 	begin
 		if (activeUser.username = wraptext('Anonymous')) then begin
 			write('Masukkan username: '); readln(activeUser.username);	
-			write('Masukkan password: '); readln(activeUser.password);
+			write('Masukkan password: '); activeUser.password := readpass();
 
 			activeUser.username := wraptext(activeUser.username);
 			activeUser.password := hashMD5(activeUser.password);
