@@ -15,10 +15,11 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook); {F04
 implementation
 {FUNGSI dan PROSEDUR}
 function fitCategory(year:integer; category:string; currentyear:integer) : boolean;
-	{DESKRIPSI	: menjelaskan fungsi fitcategory}
-	{PARAMETER	: menjelaskan masing-masing parameter}
-	{RETURN	: apakah dia fitcategory atau tidak}
-
+	{DESKRIPSI	: mencocokkan kategori dengan tahun terbit buku.}
+	{PARAMETER	: year menyatakan tahun terbit buku,
+			  category menyatakan kategori dari buku,
+			  dan current year adalah input tahun yang dimasukkan.}
+	{RETURN		: apakah dia fitcategory atau tidak.}
 	{KAMUS LOKAL}
 	{-}
 
@@ -38,9 +39,9 @@ function fitCategory(year:integer; category:string; currentyear:integer) : boole
 	end;
 
 function categoryValid(q : string): boolean;
-	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak}
-	{PARAMETER	: kategori input user }
-	{RETURN 	: boolean apakah kategori valid }
+	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak.}
+	{PARAMETER	: kategori input user.}
+	{RETURN 	: boolean apakah kategori valid.}
 
 	{KAMUS LOKAL}
 	var
