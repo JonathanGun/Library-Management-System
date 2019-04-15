@@ -73,7 +73,7 @@ Nama | Alamat | Username | Password | Role
 ---- | ------ | -------- | -------- | ----
 "Jojo" | "Padma" | "jojojojojo" | ec28f57b49dc8382660b7945d5795a71 | Admin
 "Wan Shi Tong" | "Jl. Perpustakaan, Tengah Gurun 40135" | "wshitong997" | a7206de957142d005226b1af5e25d773 | Pengunjung
-"Michael Hans" | "Jalan Cisitu Lama No. 36 |  Dago |  Coblong" | "michaellhans" | ea503df530b682c3a7b43263a93e7a40 | Pengunjung
+"Michael Hans" | "Jalan Cisitu Lama No. 36, Dago, Coblong" | "michaellhans" | ea503df530b682c3a7b43263a93e7a40 | Pengunjung
 "asaa" | "jakarta" | "asaolv" | cf173a686221b935304947e60ab0d6d | Pengunjung
 
 Memiliki format tanggal berupa *DD/MM/YYYY*
