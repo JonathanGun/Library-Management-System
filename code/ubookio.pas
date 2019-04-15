@@ -99,7 +99,7 @@ procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing; ptrbook:
     {DESKRIPSI  : (F07) Menerima laporan buku hilang dengan menerima data id buku, judul buku, dan tanggal pelaporan}
     {I.S        : array of book terdefinisi, pointer terdefinisi (pointer pada book.csv)}
     {F.S        : data buku hilang tersimpan }
-    {Proses     : }
+    {Proses     : menambahkan data buku yang hilang ke ptrarray, beserta mengurangi jumlah buku yang ada di ptrbook.}
 
     {KAMUS LOKAL}
     var
@@ -118,7 +118,7 @@ procedure addNewBookUtil(ptr : psinglebook; ptrarray : pbook);
                   pengarang,jumlah,tahun terbit,dan kategori}
     {I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
     {F.S        : data buku baru tersimpan }
-    {Proses     : }
+    {Proses     : menambahkan data buku baru ke ptrarray}
     
     {ALGORITMA}
     begin
