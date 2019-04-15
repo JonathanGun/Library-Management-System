@@ -32,14 +32,47 @@ Memiliki 16 fitur wajib,
 dan 1 fitur tambahan.
 - [x] T01 - `logout` (Logout)
 
-* khusus admin
+*khusus admin
 
 Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 - [x] File Buku (*ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori*)
+
+ID_Buku | Judul_Buku | Author | Jumlah_Buku | Tahun_Penerbit | Kategori
+------- | ---------- | ------ | ------------| -------------- | --------
+1200 | "Pengantar Analisis Rangkaian" | "M.K. Sadiku" | 418 | 2015 | programming
+1210 | "Dasar Pemrograman B" | "Inggriani Liem" | 419 | 2014 | programming
+1101 | "Sejarah Olahraga Dasar" | "Jonathan" | 1 | 2007 | sejarah
+7500 | "Naruto The Ultimate Edition" | "Masashi Kishimoto" | 79 | 2018 | manga
+3450 | "Di Balik Sebuah Cerita" | "Mandala Rando" | 192 | 2017 | sastra
+
 - [x] File User (*Nama,Alamat,Username,Password,Role*)
-- [x] File History Peminjaman (*Username,ID_Buku,Tanggal_Peminjaman,Tanggal_Batas_Pengembalian,Status_Pengembalian*)
-- [x] File History Pengembalian (*Username,ID_Buku,Tanggal_Pengembalian*)
+
+Username | ID_Buku_Hilang | Tanggal_Laporan
+-------- | -------------- | ---------------
+"jojojojojo" | 7500 | 14/04/2019
+"michaellhans" | 1200 | 26/04/2019
+
+- [x] File Histori Peminjaman (*Username,ID_Buku,Tanggal_Peminjaman,Tanggal_Batas_Pengembalian,Status_Pengembalian*)
+
+Username | ID_Buku | Tanggal_Peminjaman | Tanggal_Batas_Pengembalian | Status_Pengembalian
+-------- | ------- | ------------------ | ---------------------------| -------------------
+"jojojojojo" | 7500 | 14/04/2019 | 21/04/2019 | sudah
+"michaellhans" | 4500 | 14/04/2019 | 21/04/2019 | belum
+
+- [x] File Histori Pengembalian (*Username,ID_Buku,Tanggal_Pengembalian*)
+
+Username | ID_Buku | Tanggal_Pengembalian
+-------- | ------- | --------------------
+"jojojojojo" | 7500 | 25/04/2019
+
 - [x] File Laporan Buku Hilang (*Username,ID_Buku_Hilang,Tanggal_Laporan*)
+
+Nama | Alamat | Username | Password | Role
+---- | ------ | -------- | -------- | ----
+"Jojo" | "Padma" | "jojojojojo" | ec28f57b49dc8382660b7945d5795a71 | Admin
+"Wan Shi Tong" | "Jl. Perpustakaan, Tengah Gurun 40135" | "wshitong997" | a7206de957142d005226b1af5e25d773 | Pengunjung
+"Michael Hans" | "Jalan Cisitu Lama No. 36 |  Dago |  Coblong" | "michaellhans" | ea503df530b682c3a7b43263a93e7a40 | Pengunjung
+"asaa" | "jakarta" | "asaolv" | cf173a686221b935304947e60ab0d6d | Pengunjung
 
 Memiliki format tanggal berupa *DD/MM/YYYY*
 
@@ -86,6 +119,11 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
 **(15/04/2019) v1.2.2 Category and Year fixed**
   - categoryValidation solved
   - searchbyYear solved
+ 
+ **(15/04/2019) v1.3.0 First Stable Version**
+  - seluruh program sudah terdokumentasi
+  - seluruh program sudah ditesting
+  - seluruh program sudah dicek ulang penulisannya
 
 ## Anggota Kelompok
 - [Jonathan Yudi Gunawan](https://github.com/JonathanGun/)
