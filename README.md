@@ -32,6 +32,8 @@ Memiliki 16 fitur wajib,
 dan 1 fitur tambahan.
 - [x] T01 - `logout` (Logout)
 
+* khusus admin
+
 Memiliki 5 struktur data eksternal dengan ekstensi **csv**,
 - [x] File Buku (*ID_Buku,Judul_Buku,Author,Jumlah_Buku,Tahun_Penerbit,Kategori*)
 - [x] File User (*Nama,Alamat,Username,Password,Role*)
