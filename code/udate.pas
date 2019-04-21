@@ -183,7 +183,7 @@ function DaysToDate(days : longint): Date;
 				DaysToDate.month += 1;
 
 			{apr, jun, sept, nov}
-			end else if ((days > 30) and (i = 4) or (i = 6) or (i = 9) or (i = 11)) then begin
+			end else if ((days > 30) and ((i = 4) or (i = 6) or (i = 9) or (i = 11))) then begin
 				enoughdays := true;
 				days -= 30;
 				DaysToDate.month += 1;

@@ -123,8 +123,10 @@ procedure clrscr_();
 	{ALGORITMA}
 	begin
 		clrscr;
+		{IFDEF WINDOWS}
 		assign(input,  ''); reset(input);
 		assign(output, ''); rewrite(output);
+		{ENDIF}
 	end;
 
 procedure printFeatures(pactiveUser : psingleuser);
