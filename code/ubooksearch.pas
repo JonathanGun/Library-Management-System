@@ -17,8 +17,8 @@ implementation
 function fitCategory(year:integer; category:string; currentyear:integer) : boolean;
 	{DESKRIPSI	: mencocokkan kategori dengan tahun terbit buku.}
 	{PARAMETER	: year menyatakan tahun terbit buku,
-			  	  category menyatakan kategori dari buku,
-			  	  dan current year adalah input tahun yang dimasukkan.}
+		  	  category menyatakan kategori dari buku,
+		  	  dan current year adalah input tahun yang dimasukkan.}
 	{RETURN		: apakah dia fitcategory atau tidak.}
 
 	{ALGORITMA}
@@ -44,7 +44,7 @@ function categoryValid(q : string): boolean;
 	{KAMUS LOKAL}
 	var
 		str : string;
-		i 	: integer;
+		i   : integer;
 
 	{ALGORITMA}
 	begin
@@ -62,13 +62,13 @@ procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
 	{I.S. 		: array of Book terdefinisi}
 	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
 	{Proses 	: Menanyakan pada user kategori apa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
-				  lalu menampilkannya di layar}
+			  lalu menampilkannya di layar}
 
 	{KAMUS LOKAL}
 	var
 		i, counter 		: integer;
 		found 			: boolean;
-		filteredBooks 	: tbook;
+		filteredBooks 		: tbook;
 		ptr 			: pbook;
 
 	{ALGORITMA}
@@ -108,16 +108,18 @@ procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
 	end;
 
 procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
-	{DESKRIPSI	: (F04)}
-	{I.S.		: }
-	{F.S.		: }
-	{Proses	: }
+	{DESKRIPSI	: (F04) mencari buku berdasarkan tahun yang diinput oleh user.}
+	{I.S.		: array of book terdefinisi.}
+	{F.S.		: ID buku, judul buku, penulis buku berdasarkan tahun yang diinput ditampilkan di layar dengan judul
+			  tersusun sesuai abjad.}
+	{Proses		: Menanyakan pada user tahun terbit berapa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
+			  dan menampilkannya di layar.}
 
 	{KAMUS LOKAL}
 	var
 		i, counter 		: integer;
 		found 			: boolean;
-		filteredBooks 	: tbook;
+		filteredBooks 		: tbook;
 		ptr 			: pbook;
 		
 	{ALGORITMA}
