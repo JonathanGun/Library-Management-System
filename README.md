@@ -124,10 +124,11 @@ Memiliki format tanggal berupa *DD/MM/YYYY*
   - categoryValidation solved
   - searchbyYear solved
  
- **(15/04/2019) v1.3.0 First Stable Version**
+ **(22/04/2019) v1.3.0 First Stable Version**
   - seluruh program sudah terdokumentasi
   - seluruh program sudah ditesting
   - seluruh program sudah dicek ulang penulisannya
+  - minor fix (typo, dll)
 
 <br/>
 
