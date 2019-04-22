@@ -21,7 +21,8 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
     {DESKRIPSI  : (F05) Menerima data buku yang dipinjam dengan menerima data id buku, judul buku, dan tanggal peminjaman.}
     {I.S        : pointer terdefinisi (pointer pada book.csv)}
     {F.S        : data buku dipinjam tersimpan.}
-    {Proses     : Menerima input buku yang dipinjam, memeriksa apakah stok buku ada, lalu mengurangi jumlah buku dipinjam dalam data jika stok tersedia.}
+    {Proses     : Menerima input buku yang dipinjam, memeriksa apakah stok buku ada, lalu mengurangi jumlah buku dipinjam
+		  dalam data jika stok tersedia.}
     
     var
     	idx	: integer;
@@ -44,7 +45,7 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
     end;
 
 procedure returnBookUtil(bookid : integer; username : string; ptrreturn : preturn; ptrborrow : pborrow; ptrbook : pbook);
-    {DESKRIPSI  : (F06) Menerima data buku yang dikembalikan dengan menerima id buku, judul buku, dan tanggal pengembalian,}
+    {DESKRIPSI  : (F06) Menerima data buku yang dikembalikan dengan menerima id buku, judul buku, dan tanggal pengembalian.}
     {I.S        : bookid bertipe integer, username bertipe string, dan pointer terdefinisi.}
     {F.S        : data buku yang dikembalikan tersimpan.}
     {Proses     : menerima input buku yang dikembalikan, lalu menambahkan jumlah buku yang dikembalikan dalam data csv.}
