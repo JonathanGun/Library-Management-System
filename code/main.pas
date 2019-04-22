@@ -167,9 +167,10 @@ procedure findBookByCategory();
 procedure findBookByYear();
 	{DESKRIPSI	: (F04) mencari buku berdasarkan tahun yang diinput dari user.}
 	{I.S. 		: array of Book terdefinisi.}
-	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
-	{Proses 	: Menanyakan pada user buku terbitan tahun berapa yang dicari, lalu mencari buku berdasarkan tahun terbit,
-			  judul dan penulis buku tersebut lalu menampilkannya di layar}
+	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul
+			  tersusun sesuai abjad.}
+	{Proses 	: Menanyakan pada user buku terbitan tahun berapa yang dicari, lalu mencari ID, judul dan penulis
+			  buku tersebut lalu menampilkannya di layar.}
 
 	{KAMUS LOKAL}
 	var
