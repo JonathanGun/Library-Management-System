@@ -9,11 +9,11 @@ program main;
 
 {DAFTAR UNIT}
 {F01, F02, F15 				- uuserutils}
-{F03, F04 					- ubooksearch}
-{F05, F06, F07, F09, F10 	- ubookio}
+{F03, F04 				- ubooksearch}
+{F05, F06, F07, F09, F10 		- ubookio}
 {F08, F11, F12 				- ubookoutput}
-{F13 						- uload}
-{F14 						- usave}
+{F13 					- uload}
+{F14 					- usave}
 {Definisi ADT 				- ubook, uuser, udate}
 {hashing (MD5)				- k03_kel3_md5}
 {fungsi pembantu			- k03_kel3_utils}
@@ -39,13 +39,13 @@ var
 	ptrmissing		: pmissing;
 	
 	activeUser		: User;
-	ptractiveUser 	: psingleuser;
+	ptractiveUser 		: psingleuser;
 
 	query			: string;
 	firstLoad		: boolean;
 	notAdminMsg		: string;
-	notLoggedInMsg	: string;
-	loggedInMsg 	: string;
+	notLoggedInMsg		: string;
+	loggedInMsg	 	: string;
 
 {FUNGSI DAN PROSEDUR}
 procedure init();
@@ -91,14 +91,14 @@ procedure registerUser();
 	begin
 		if (activeUser.isAdmin) then begin
 			new(pnewUser);
-			write('Masukkan nama pengunjung: '	  ); readln(newUser.fullname);
+			write('Masukkan nama pengunjung: '    ); readln(newUser.fullname);
 			write('Masukkan alamat pengunjung: '  ); readln(newUser.address);
 			write('Masukkan username pengunjung: '); readln(newUser.username);
 
 			newUser.fullname := wraptext(newUser.fullname);
 			newUser.address  := wraptext(newUser.address);
 			newUser.username := wraptext(newUser.username);
-			pnewUser^ := newUser;
+			pnewUser^ 	 := newUser;
 
 			write('Masukkan password pengunjung: ');
 			newUser.password := hashMD5(readpass(pnewUser));
@@ -165,10 +165,11 @@ procedure findBookByCategory();
 	end;
 
 procedure findBookByYear();
-	{DESKRIPSI	: (F04)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI	: (F04) mencari buku berdasarkan tahun yang diinput dari user.}
+	{I.S. 		: array of Book terdefinisi.}
+	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
+	{Proses 	: Menanyakan pada user buku terbitan tahun berapa yang dicari, lalu mencari buku berdasarkan tahun terbit,
+			  judul dan penulis buku tersebut lalu menampilkannya di layar}
 
 	{KAMUS LOKAL}
 	var
@@ -183,10 +184,10 @@ procedure findBookByYear();
 	end;
 
 procedure borrowBook();
-	{DESKRIPSI	: (F05)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI	: (F05) Menerima data buku yang dipinjam dengan menerima data id buku, judul buku, dan tanggal peminjaman.}
+	{I.S. 		: array of book terdefinisi, pointer pada book.csv terdefinisi.}
+	{F.S.		: data buku dipinjam tersimpan.}
+	{Proses 	: mengurangi jumlah buku dipinjam dalam data jika stok tersedia.}
 
 	{KAMUS LOKAL}
 	var
@@ -200,7 +201,7 @@ procedure borrowBook();
 			write('Masukkan id buku yang ingin dipinjam: '); readln(newBorrow.id);
 			write('Masukkan tanggal hari ini (DD/MM/YYYY): '); readln(tmp);
 
-			newBorrow.username 	 := activeUser.username;
+			newBorrow.username   := activeUser.username;
 			newBorrow.isBorrowed := true;
 			newBorrow.borrowDate := StrToDate(tmp);
 			newBorrow.returnDate := DaysToDate(DateToDays(newBorrow.borrowDate) + 7);
@@ -214,10 +215,10 @@ procedure borrowBook();
 	end;
 
 procedure returnBook();
-	{DESKRIPSI	: (F06)}
-	{I.S. 		: }
-	{F.S.		: }
-	{Proses 	: }
+	{DESKRIPSI	: (F06) Menerima data buku yang dikembalikan dengan menerima id buku, judul buku, dan tanggal pengembalian.}
+	{I.S. 		: bookid bertipe integer, username bertipe string, dan pointer terdefinisi.}
+	{F.S.		: data buku yang dikembalikan tersimpan.}
+	{Proses 	: menambahkan jumlah buku yang dikembalikan dalam data csv.}
 
 	{KAMUS LOKAL}
 	var
@@ -266,7 +267,7 @@ procedure addMissingBook();
 procedure showMissings();
    	{DESKRIPSI  : (F08) Menampilkan data-data buku yang hilang}
    	{I.S        : pointer menunjuk ke missing terdefinisi (pointer pada book.csv)}
-    {F.S        : data buku hilang ditampilkan }
+ 	{F.S        : data buku hilang ditampilkan }
   	{Proses     : menampilkan data-data buku hilang berdasarkan id dan tanggal dari ptrmissing, dan judul dari ptrbook}
 
 	{ALGORITMA}
@@ -280,10 +281,10 @@ procedure showMissings();
 
 procedure addNewBook();
 	{DESKRIPSI  : (F09) Menerima data buku baru dan memasukkannya ke book.csv,dengan menerima masukkan id buku, judul
-                 	pengarang,jumlah,tahun terbit,dan kategori}
-    {I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
+                      pengarang,jumlah,tahun terbit,dan kategori}
+        {I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
    	{F.S        : data buku baru tersimpan }
-    {Proses     : menambahkan data buku baru ke ptrarray}
+        {Proses     : menambahkan data buku baru ke ptrarray}
 
 	{KAMUS LOKAL}
 	var
@@ -317,7 +318,7 @@ procedure addBookQty();
 	{I.S. 		: Sembarang}
 	{F.S.		: jumlah buku dengan id ID bertambah sebanyak qty}
 	{Proses 	: Meminta input id buku dan jumlah yang ingin ditambahkan,
-			  	  lalu menambahkan jumlah buku ber id ID}
+			  lalu menambahkan jumlah buku ber id ID}
 
 	{KAMUS LOKAL}
 	var
@@ -359,7 +360,7 @@ procedure showStats();
    	{DESKRIPSI  : (F12) Menampilkan data statistik berupa admin, pengunjung, dan 5 jenis buku berdasarkan user.csv dan book.csv}
    	{I.S        : ptrbook valid (pointer pada book.csv), dan ptruser valid (pointer pada user.csv)}
    	{F.S        : Menampilkan jenis-jenis statistik di layar }
-    {Proses     : Menulis jenis-jenis statistik ke layar berdasarkan book.csv}
+        {Proses     : Menulis jenis-jenis statistik ke layar berdasarkan book.csv}
 
 	{ALGORITMA}
 	begin
@@ -447,7 +448,7 @@ procedure findUser();
 	{I.S. 		: array of User terdefinisi}
 	{F.S.		: nama dan alamat user yang dicari tertulis di layar}
 	{Proses 	: Menanyakan pada user username siapa yang akan dicari, lalu mencari username dan alamat user tersebut
-				  lalu menampilkannya di layar}
+		          lalu menampilkannya di layar}
 
 	{KAMUS LOKAL}
 	var
