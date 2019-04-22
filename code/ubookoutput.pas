@@ -1,5 +1,5 @@
 unit ubookoutput;
-{Berisi fungsi (F08, F11, F12) yang mennampilkan isi berbagai ADT Buku ke layar}
+{Berisi fungsi (F08, F11, F12) yang menampilkan isi berbagai ADT Buku ke layar}
 {REFERENSI : - }
 
 interface

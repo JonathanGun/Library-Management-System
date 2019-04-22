@@ -57,42 +57,8 @@ function categoryValid(q : string): boolean;
 		end;
 	end;
 
-procedure sortBookByTitle(ptr: pbook; counter: integer);
-	{DESKRIPSI	: sortBookByTitle menyusun buku sesuai abjad pada judul buku}
-	{I.S. 		: array of Book terdefinisi}
-	{F.S.		: buku tersusun sesuai abjad pada judul buku}
-	{Proses 	: dari array of book menyusun abjad pada judul buku dari A sampai Z dengan menggunakan bubble sort versi optimum}
-
-	{KAMUS LOKAL}
-	var
-		i, pass		: integer;
-		tmp 		: book;
-		tukar		: boolean;
-
-	{ALGORITMA}
-	begin
-		{Skema Sorting dengan Optimized Bubble Sort}
-		tukar 	:= true;
-		pass 	:= 1;
-		while ((pass <= counter-1) and tukar) do begin
-			tukar := false;
-			for i := 1 to (counter-pass) do begin
-				if ptr^[i].title > ptr^[i+1].title then begin
-					{Tukar arraybuku indeks ke-i dengan i+1}
-					tmp 		:= ptr^[i];
-					ptr^[i] 	:= ptr^[i+1];
-					ptr^[i+1] 	:= tmp;
-
-					tukar 		:= true;
-				end;
-			end;
-			pass += 1;
-		end;
-	end;
-
-
 procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
-	{DESKRIPSI	: (F03) mecari buku dengan kategori tertentu sesuai input dari user}
+	{DESKRIPSI	: (F03) mencari buku dengan kategori tertentu sesuai input dari user}
 	{I.S. 		: array of Book terdefinisi}
 	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
 	{Proses 	: Menanyakan pada user kategori apa yang dicari, lalu mencari ID, judul dan penulis buku tersebut

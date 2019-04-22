@@ -18,12 +18,11 @@ procedure addBookQtyUtil(id, qty : integer; ptr : pbook); {F10}
 implementation
 {FUNGSI dan PROSEDUR}
 procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook: pbook);
-    {DESKRIPSI	: (F05) Menerima data buku yang dipinjam dengan menerima data id buku, judul buku, dan tanggal pelaporan.}
-    {I.S	: pointer terdefinisi (pointer pada book.csv)}
-    {F.S	: data buku dipinjam tersimpan.}
+    {DESKRIPSI  : (F05) Menerima data buku yang dipinjam dengan menerima data id buku, judul buku, dan tanggal pelaporan.}
+    {I.S        : pointer terdefinisi (pointer pada book.csv)}
+    {F.S        : data buku dipinjam tersimpan.}
     {Proses     : Menerima input buku yang dipinjam, memeriksa apakah stok buku ada, lalu mengurangi jumlah buku di dalam data jika stok ada.}
     
-    {KAMUS LOKAL}
     var
     	idx	: integer;
 
@@ -75,9 +74,9 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
             write('Masukkan tanggal hari ini (DD/MM/YYYY): '); readln(tmp);
             writeln();
 
-            newReturn.username   := username;
-            newReturn.id         := bookid;
-            newReturn.returnDate := StrToDate(tmp);
+            newReturn.username  := username;
+            newReturn.id        := bookid;
+            newReturn.returnDate:= StrToDate(tmp);
 
             ptrreturn^[returnNeff+1] := newReturn;
             returnNeff += 1;

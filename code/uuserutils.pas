@@ -30,7 +30,7 @@ procedure setToDefaultUser(ptr : psingleuser);
 	end;
 
 procedure registerUserUtil(pnewUser : psingleuser; ptruser: puser);
-	{DESKRIPSI	: (F01) melakukan registrasi akun dari user dan admin}
+	{DESKRIPSI	: (F01) melakukan registrasi akun user oleh admin}
 	{I.S. 		: array of User terdefinisi}
 	{F.S.		: keberhasilan registrasi ditampilkan di layar}
 	{Proses 	: Menanyakan nama lengkap, alamat, username dan password user, dan layar menampilkan keberhasilan registrasi}

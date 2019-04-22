@@ -13,8 +13,9 @@ function countAdmin(ptruser : puser):integer;
 function countPengunjung(ptruser : puser):integer;
 function countBuku(category : string; ptrbook : pbook):integer;
 
-function checkLocation (id : integer; ptr : pbook):integer;
+function checkLocation(id : integer; ptr : pbook):integer;
 function searchBorrow(id : integer; username: string; ptrborrow: pborrow): BorrowHistory;
+procedure sortBookByTitle(ptr: pbook; counter: integer);
 
 implementation
 {FUNGSI dan PROSEDUR}
@@ -145,5 +146,38 @@ function searchBorrow(id : integer; username: string; ptrborrow: pborrow): Borro
             searchBorrow.username := wraptext('Anonymous');
         end;
 	end;
+
+procedure sortBookByTitle(ptr: pbook; counter: integer);
+    {DESKRIPSI  : sortBookByTitle menyusun buku sesuai abjad pada judul buku}
+    {I.S.       : array of Book terdefinisi}
+    {F.S.       : buku tersusun sesuai abjad pada judul buku}
+    {Proses     : dari array of book menyusun abjad pada judul buku dari A sampai Z dengan menggunakan bubble sort versi optimum}
+
+    {KAMUS LOKAL}
+    var
+        i, pass     : integer;
+        tmp         : book;
+        tukar       : boolean;
+
+    {ALGORITMA}
+    begin
+        {Skema Sorting dengan Optimized Bubble Sort}
+        tukar   := true;
+        pass    := 1;
+        while ((pass <= counter-1) and tukar) do begin
+            tukar := false;
+            for i := 1 to (counter-pass) do begin
+                if ptr^[i].title > ptr^[i+1].title then begin
+                    {Tukar arraybuku indeks ke-i dengan i+1}
+                    tmp         := ptr^[i];
+                    ptr^[i]     := ptr^[i+1];
+                    ptr^[i+1]   := tmp;
+
+                    tukar       := true;
+                end;
+            end;
+            pass += 1;
+        end;
+    end;
 
 end.
