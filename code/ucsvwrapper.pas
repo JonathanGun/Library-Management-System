@@ -12,11 +12,11 @@ function wraptext(str: string): string;
 function unwraptext(str: string): string;
 
 implementation
-{Realisasi FUNGSI dan PROSEDUR}
+{FUNGSI dan PROSEDUR}
 function wraptext(str: string): string;
-	{DESKRIPSI	: }
-	{PARAMETER 	: }
-	{RETURN 	: }
+	{DESKRIPSI	: Membungkus string agar dapat memuat karakter koma (',')}
+	{PARAMETER 	: string yang ingin dibungkus(wrapped)}
+	{RETURN 	: string yang sudah terbungkus(wrapped)}
 
 	{KAMUS LOKAL}
 	var
@@ -24,10 +24,11 @@ function wraptext(str: string): string;
 
 	{ALGORITMA}
 	begin
+		{Diawali dan diakhiri dengan quote ' " ', serta mengubah semua quote menjadi double quote ' "" '}
 		wraptext := '"';
 		for i := 1 to length(str) do begin
-			if (str[i] = '"') then begin
-				wraptext += '""';
+			if (str[i] = wrapper) then begin
+				wraptext += wrapper + wrapper;
 			end else begin
 				wraptext += str[i];
 			end;
@@ -36,9 +37,9 @@ function wraptext(str: string): string;
 	end;
 
 function unwraptext(str: string): string;
-	{DESKRIPSI	: }
-	{PARAMETER 	: }
-	{RETURN 	: }
+	{DESKRIPSI	: Kebalikan dari wraptext, mengembalikan ke string semulanya}
+	{PARAMETER 	: string yang ingin dikembalikan seperti semula}
+	{RETURN 	: string yang sudah dikembalikan seperti semula}
 
 	{KAMUS LOKAL}
 	var
@@ -47,10 +48,11 @@ function unwraptext(str: string): string;
 	{ALGORITMA}
 	begin
 		unwraptext := '';
+		{mengabaikan karakter pertama dan terakhir, yaitu quote ' " '}
 		i := 2;
 		while (i <= length(str) - 1) do begin
 			unwraptext += str[i];
-			if (str[i] = '"') then begin
+			if (str[i] = wrapper) then begin
 				i += 1;
 			end;
 			i += 1;

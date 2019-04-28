@@ -1,6 +1,6 @@
 unit ubooksearch;
 {Berisi fungsi (F03, F04) untuk mencari buku di perpustakaan}
-{REFERENSI}
+{REFERENSI : - }
 
 interface
 uses
@@ -8,18 +8,18 @@ uses
 	ubook, ubookutils;
 
 {PUBLIC, FUNCTION, PROCEDURE}
+function categoryValid(q : string): boolean;
 procedure findBookByCategoryUtil(category: string; ptrbook:pbook); {F03}
 procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook); {F04}
 	
 implementation
 {FUNGSI dan PROSEDUR}
 function fitCategory(year:integer; category:string; currentyear:integer) : boolean;
-	{DESKRIPSI	: menjelaskan fungsi fitcategory}
-	{PARAMETER	: menjelaskan masing-masing parameter}
-	{RETURN	: apakah dia fitcategory atau tidak}
-
-	{KAMUS LOKAL}
-	{-}
+	{DESKRIPSI	: mencocokkan kategori dengan tahun terbit buku.}
+	{PARAMETER	: year menyatakan tahun terbit buku,
+		  	  category menyatakan kategori dari buku,
+		  	  dan current year adalah input tahun yang dimasukkan.}
+	{RETURN		: apakah dia fitcategory atau tidak.}
 
 	{ALGORITMA}
 	begin
@@ -37,14 +37,14 @@ function fitCategory(year:integer; category:string; currentyear:integer) : boole
 	end;
 
 function categoryValid(q : string): boolean;
-	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak}
-	{PARAMETER	: kategori input user }
-	{RETURN 	: boolean apakah kategori valid }
+	{DESKRIPSI	: mengecek apakah query yang dimasukkan user valid/tidak.}
+	{PARAMETER	: kategori input user.}
+	{RETURN 	: boolean apakah kategori valid.}
 
 	{KAMUS LOKAL}
 	var
 		str : string;
-		i 	: integer;
+		i   : integer;
 
 	{ALGORITMA}
 	begin
@@ -57,42 +57,18 @@ function categoryValid(q : string): boolean;
 		end;
 	end;
 
-procedure sortBookByTitle(ptr: pbook; counter: integer);
-	{DESKRIPSI	: }
-	{PARAMETER	: }
-	{RETURN	: }
-
-	{KAMUS LOKAL}
-	var
-		i, j		: integer;
-		tmp 		: book;
-
-	{ALGORITMA}
-	begin
-		{bubble sort}
-		for j := 1 to counter-1 do begin
-			for i := j to counter-1 do begin
-				if ptr^[i].title > ptr^[i+1].title then begin
-					{Tukar arraybuku indeks ke-i dengan i+1}
-					tmp 				:= ptr^[i];
-					ptr^[i] 	:= ptr^[i+1];
-					ptr^[i+1] 	:= tmp;
-				end;
-			end;
-		end;
-	end;
-
-
 procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
-	{DESKRIPSI	: (F03)}
-	{PARAMETER	: }
-	{RETURN	: }
+	{DESKRIPSI	: (F03) mencari buku dengan kategori tertentu sesuai input dari user}
+	{I.S. 		: array of Book terdefinisi}
+	{F.S.		: ID buku, judul buku, penulis buku dengan kategori yang diinput ditampilkan di layar dengan judul tersusun sesuai abjad}
+	{Proses 	: Menanyakan pada user kategori apa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
+			  lalu menampilkannya di layar}
 
 	{KAMUS LOKAL}
 	var
 		i, counter 		: integer;
 		found 			: boolean;
-		filteredBooks 	: tbook;
+		filteredBooks 		: tbook;
 		ptr 			: pbook;
 
 	{ALGORITMA}
@@ -127,25 +103,29 @@ procedure findBookByCategoryUtil(category: string; ptrbook:pbook);
 
 		end else begin
 			writeln ('Kategori ', category ,' tidak valid.');
+			writeln();
 		end;
 	end;
 
 procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
-	{DESKRIPSI	: (F04)}
-	{I.S.		: }
-	{F.S.		: }
-	{Proses	: }
+	{DESKRIPSI	: (F04) mencari buku berdasarkan tahun yang diinput oleh user.}
+	{I.S.		: array of book terdefinisi.}
+	{F.S.		: ID buku, judul buku, penulis buku berdasarkan tahun yang diinput ditampilkan di layar dengan judul
+			  tersusun sesuai abjad.}
+	{Proses		: Menanyakan pada user tahun terbit berapa yang dicari, lalu mencari ID, judul dan penulis buku tersebut
+			  dan menampilkannya di layar.}
 
 	{KAMUS LOKAL}
 	var
 		i, counter 		: integer;
 		found 			: boolean;
-		filteredBooks 	: tbook;
+		filteredBooks 		: tbook;
 		ptr 			: pbook;
 		
 	{ALGORITMA}
 	begin
-		writeln('Buku yang terbit', category, year);
+		writeln();
+		writeln('Buku yang terbit pada tahun ', category, ' ', year, ':');
 
 		{skema pencarian dengan boolean}
 		i := 1;
@@ -165,8 +145,8 @@ procedure findBookByYearUtil(year:integer; category:string; ptrbook:pbook);
 			ptr^ := filteredBooks;
 			sortBookByTitle(ptr, counter);
 
-			for i := 1 to bookNeff do begin
-				writeln(ptrbook^[i].id, '|', unwraptext(ptrbook^[i].title), '|', unwraptext(ptrbook^[i].author));
+			for i := 1 to counter do begin
+				writeln(ptr^[i].id, '|', unwraptext(ptr^[i].title), '|', unwraptext(ptr^[i].author));
 				found := true;
 			end;
 

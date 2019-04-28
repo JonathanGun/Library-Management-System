@@ -3,10 +3,10 @@ unit ubook;
 {REFERENSI : - }
 
 interface
-{PUBLIC VARIABLE, CONST, ADT}
 uses
 	udate, uuser;
 
+{PUBLIC VARIABLE, CONST, ADT}
 const
 	BOOK_MAX 		= 1000;
 	BORROW_MAX 		= 1000;
@@ -34,21 +34,21 @@ type
 	end;
 
 	BorrowHistory = record
-		username 	: string; {User.username}
-		id 			: integer; {Book.id}
+		username 	: string;
+		id 			: integer;
 		borrowDate	: Date;
 		returnDate	: Date;
 		isBorrowed	: boolean;
 	end;
 
 	ReturnHistory = record
-		username	: string; {User.username}
-		id			: integer; {Book.id}
+		username	: string;
+		id			: integer;
 		returnDate	: Date;
 	end;
 
 	MissingBook = record
-		username	: string; {User.username}
+		username	: string;
 		id 			: integer;
 		reportDate	: Date;
 	end;
@@ -56,15 +56,13 @@ type
 	{Definisi ADT array of X dan pointernya}
 	{Agar dapat digunakan di program utama dan unit lain}
 	tbook 	= array [1..BOOK_MAX] of Book;
-	pbook 	= ^tbook;
-
 	tborrow = array [1..BORROW_MAX] of BorrowHistory;
-	pborrow = ^tborrow;
-
 	tmissing= array [1..MISSING_MAX] of MissingBook;
-	pmissing= ^tmissing;
-
 	treturn = array [1..RETURN_MAX] of ReturnHistory;
+
+	pmissing= ^tmissing;
+	pbook 	= ^tbook;
+	pborrow = ^tborrow;
 	preturn = ^treturn;
 
 	psinglebook 	= ^Book;
@@ -75,10 +73,10 @@ type
 
 var
 	{N efektif, jumlah array yang terisi}
-	bookNeff : Integer;
-	borrowNeff: integer;
-	returnNeff: integer;
-	missingNeff: integer;
+	bookNeff 	: integer;
+	borrowNeff	: integer;
+	returnNeff	: integer;
+	missingNeff	: integer;
 	
 implementation
 

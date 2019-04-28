@@ -34,9 +34,13 @@ var
 
 {FUNGSI dan PROSEDUR}
 procedure parserow(str: string; ptr: pinput);
-	{DESKRIPSI	: }
-	{PARAMETER 	: }
-	{RETURN 	: }
+	{DESKRIPSI	: Mencari cell yang memuat koma, kemudian mengubahnya menjadi string yang dapat digunakan pada program}
+	{I.S. 		: sembarang}
+	{F.S.		: string kompatibel dengan program dan dapat dimasukkan ke array of ADT}
+	{Proses 	: mencari kombinasi char ' ,"x ' (menandakan awal cell yang dibungkus) dan
+									char ' x", ' (menandakan akhir cell yang dibungkus) dengan
+				  x karakter sembarang bukan quote ' " '
+				  lalu membuka cell yang dibungkus, dan tidak mengubah cell yang tidak dibungkus}
 
 	{KAMUS LOKAL}
 	var
@@ -49,6 +53,7 @@ procedure parserow(str: string; ptr: pinput);
 		wordcnt += 1;
 		ptr^[wordcnt] := '';
 		while (i <= length(str)) do begin
+			{cell dibungkus wrapper}
 			if (((i = 1) or ((i - 1 >= 1) and (str[i - 1] = delimiter))) and
 			    (str[i] = wrapper) and
 			    ((i = length(str)) or ((i + 1 <= length(str)) and (str[i + 1] <> wrapper)))) then begin
@@ -63,6 +68,8 @@ procedure parserow(str: string; ptr: pinput);
 
 				wrappedtext += str[i];
 				ptr^[wordcnt] := unwraptext(wrappedtext);
+
+			{cell tidak dibungkus wrapper}
 			end else begin
 				if (str[i] = delimiter) then begin
 					wordcnt += 1;
@@ -76,10 +83,8 @@ procedure parserow(str: string; ptr: pinput);
 	end;
 
 function readInput(filename: string; delimiter: char): pinput;
-	{DESKRIPSI	: membaca file teks dan memuat ke dalam array agar dapat
-	digunakan program/unit lain}
-	{PARAMETER 	: nama file (beserta extensionnya) dan karakter delimiter
-	(pemisah masing-masing kolom), pada kasus ini (CSV), adalah koma ','}
+	{DESKRIPSI	: membaca file teks dan memuat ke dalam array agar dapat digunakan program/unit lain}
+	{PARAMETER 	: nama file (beserta extensionnya) dan karakter delimiter (pemisah masing-masing kolom), pada kasus ini (CSV), adalah koma ','}
 	{RETURN 	: pointer dari ADT inputStream}
 
 	{KAMUS LOKAL}
@@ -119,7 +124,7 @@ procedure loadbook(filename: string; ptr: pbook);
 	{I.S. 		: pointer pbook terdefinisi, array tbook terdefinisi, filename ada di direktori}
 	{F.S.		: array tbook terisi sesuai isi filename,}
 	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari buku,
-			  mengisi variabel bookNeff sesuai jumlah baris dari file csv}
+			  	  mengisi variabel bookNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -164,7 +169,7 @@ procedure loaduser(filename: string; ptr: puser);
 	{I.S. 		: pointer puser terdefinisi, array tuser terdefinisi, filename ada di direktori}
 	{F.S.		: array tuser terisi sesuai isi filename,}
 	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari user,
-			  mengisi variabel userNeff sesuai jumlah baris dari file csv}
+			  	  mengisi variabel userNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -207,7 +212,7 @@ procedure loadborrow(filename: string; ptr: pborrow);
 	{I.S. 		: pointer pBorrowHistory terdefinisi, array tBorrowHistory terdefinisi, filename ada di direktori}
 	{F.S.		: array tBorrowHistory terisi sesuai isi filename,}
 	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari BorrowHistory,
-			  mengisi variabel BorrowNeff sesuai jumlah baris dari file csv}
+			  	  mengisi variabel BorrowNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -250,7 +255,7 @@ procedure loadreturn(filename: string; ptr: preturn);
 	{I.S. 		: pointer pReturnHistory terdefinisi, array tReturnHistory terdefinisi, filename ada di direktori}
 	{F.S.		: array tReturnHistory terisi sesuai isi filename,}
 	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari ReturnHistory,
-			  mengisi variabel ReturnNeff sesuai jumlah baris dari file csv}
+			  	  mengisi variabel ReturnNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var
@@ -289,7 +294,7 @@ procedure loadmissing(filename: string; ptr: pmissing);
 	{I.S. 		: pointer pMissingBook terdefinisi, array tMissingBook terdefinisi, filename ada di direktori}
 	{F.S.		: array tMissingBook terisi sesuai isi filename,}
 	{Proses 	: meminta input nama file, lalu memisah masing-masing kolom menjadi beberapa type dari MissingBook,
-			  mengisi variabel MissingNeff sesuai jumlah baris dari file csv}
+			  	  mengisi variabel MissingNeff sesuai jumlah baris dari file csv}
 
 	{KAMUS LOKAL}
 	var

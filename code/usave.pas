@@ -26,7 +26,6 @@ procedure savebook(filename: string; ptr: pbook);
 	{F.S.		: file csv terbentuk/terupdate di direktori}
 	{Proses 	: meminta input nama file, lalu menyimpan ADT array of Book ke dalam file csv}
 
-
 	{KAMUS LOKAL}
 	var
 		row 	: integer;
@@ -80,8 +79,6 @@ procedure saveuser(filename: string; ptr: puser);
 			end;
 		end;
 		close(f);
-		assign(input,  ''); reset(input);
-		assign(output, ''); rewrite(output);
 	end;
 
 procedure saveborrow(filename: string; ptr: pborrow);
@@ -114,8 +111,6 @@ procedure saveborrow(filename: string; ptr: pborrow);
 			end;
 		end;
 		close(f);
-		assign(input,  ''); reset(input);
-		assign(output, ''); rewrite(output);
 	end;
 
 procedure savereturn(filename: string; ptr: preturn);
@@ -142,8 +137,6 @@ procedure savereturn(filename: string; ptr: preturn);
 			writeln(f, DateToStr(ptr^[row].returnDate));
 		end;
 		close(f);
-		assign(input,  ''); reset(input);
-		assign(output, ''); rewrite(output);
 	end;
 
 procedure savemissing(filename: string; ptr: pmissing);
@@ -170,7 +163,5 @@ procedure savemissing(filename: string; ptr: pmissing);
 			writeln(f, DateToStr(ptr^[row].reportDate));
 		end;
 		close(f);
-		assign(input,  ''); reset(input);
-		assign(output, ''); rewrite(output);
 	end;
 end.

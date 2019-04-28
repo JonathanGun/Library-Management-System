@@ -1,5 +1,5 @@
 unit ubookio;
-{Berisi fungsi (F05, F06, F07, F09) yang berhubungan dengan keluar masuknya buku di perpustakaan}
+{Berisi fungsi (F05, F06, F07, F09, F10) yang berhubungan dengan keluar masuknya buku di perpustakaan}
 {REFERENSI : -}
 
 interface
@@ -18,17 +18,18 @@ procedure addBookQtyUtil(id, qty : integer; ptr : pbook); {F10}
 implementation
 {FUNGSI dan PROSEDUR}
 procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook: pbook);
-    {DESKRIPSI	: (F05) }
-    {I.S		: }
-    {F.S		: }
-    {Proses     : }
+    {DESKRIPSI  : (F05) Menerima data buku yang dipinjam dengan menerima data id buku, judul buku, dan tanggal peminjaman.}
+    {I.S        : pointer terdefinisi (pointer pada book.csv)}
+    {F.S        : data buku dipinjam tersimpan.}
+    {Proses     : Menerima input buku yang dipinjam, memeriksa apakah stok buku ada, lalu mengurangi jumlah buku dipinjam
+		  dalam data jika stok tersedia.}
     
-    {KAMUS LOKAL}
     var
     	idx	: integer;
 
     {ALGORITMA}
     begin
+        writeln();
     	idx	:= checklocation(pnewBorrow^.id, ptrbook);
     	if (ptrbook^[idx].qty > 0) then begin
 	    	ptrborrow^[borrowNeff+1] := pnewBorrow^;
@@ -44,10 +45,10 @@ procedure borrowBookUtil(pnewBorrow : psingleborrow; ptrborrow: pborrow; ptrbook
     end;
 
 procedure returnBookUtil(bookid : integer; username : string; ptrreturn : preturn; ptrborrow : pborrow; ptrbook : pbook);
-    {DESKRIPSI  : (F06) }
-    {I.S        : }
-    {F.S        : }
-    {Proses     : }
+    {DESKRIPSI  : (F06) Menerima data buku yang dikembalikan dengan menerima id buku, judul buku, dan tanggal pengembalian.}
+    {I.S        : bookid bertipe integer, username bertipe string, dan pointer terdefinisi.}
+    {F.S        : data buku yang dikembalikan tersimpan.}
+    {Proses     : menerima input buku yang dikembalikan, lalu menambahkan jumlah buku yang dikembalikan dalam data csv.}
 
     {KAMUS LOKAL}
     var
@@ -89,8 +90,8 @@ procedure returnBookUtil(bookid : integer; username : string; ptrreturn : pretur
                 writeln('Terima kasih sudah meminjam.');
             end else begin
                 writeln('Anda terlambat ', selisih, ' hari mengembalikan buku.');
-                writeln('Anda terkena denda Rp', selisih * 2000, '.');
-                writeln('Silakan bayar di loket.')
+                writeln('Anda terkena denda Rp2000/hari. Total denda: Rp', selisih * 2000, '.');
+                writeln('Silakan bayar di loket.');
             end;
         end;
     end;
@@ -99,7 +100,7 @@ procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing; ptrbook:
     {DESKRIPSI  : (F07) Menerima laporan buku hilang dengan menerima data id buku, judul buku, dan tanggal pelaporan}
     {I.S        : array of book terdefinisi, pointer terdefinisi (pointer pada book.csv)}
     {F.S        : data buku hilang tersimpan }
-    {Proses     : }
+    {Proses     : menambahkan buku hilang sesuai dengan data buku hilang yang diinput dan mengurangi jumlah buku tsb pada array buku}
 
     {KAMUS LOKAL}
     var
@@ -110,15 +111,15 @@ procedure addMissingBookUtil(ptr : psinglemissing; ptrarray : pmissing; ptrbook:
         ptrbook^[idx].qty -= 1;
         ptrarray^[missingNeff + 1] := ptr^;
         missingNeff += 1;
-        writeln('Laporan berhasil diterima');
+        writeln('Laporan berhasil diterima.');
     end;
 
 procedure addNewBookUtil(ptr : psinglebook; ptrarray : pbook);
-    {DESKRIPSI  : (F09) Menerima data buku baru dan memasukkannya ke book.csv,dengan menerima masukkan id buku, judul
-                  pengarang,jumlah,tahun terbit,dan kategori}
+    {DESKRIPSI  : (F09) Menerima data buku baru dan memasukkannya ke book.csv}
     {I.S        : pointer buku dan array terdefinisi (pointer pada book.csv)}
     {F.S        : data buku baru tersimpan }
-    {Proses     : }
+    {Proses     : Menerima data buku baru dan memasukkannya ke book.csv, dengan menerima masukkan id buku, judul
+                  pengarang,jumlah,tahun terbit,dan kategori}
     
     {ALGORITMA}
     begin
@@ -156,7 +157,8 @@ procedure addBookQtyUtil (id,qty : integer; ptr : pbook);
         {TAHAP PENAMBAHAN JUMLAH BUKU}
         ptr^[idx].qty += qty;
         writeln();
-        writeln('Pembaharuan jumlah buku berhasil dilakukan, total buku ', unwraptext(ptr^[idx].title), ' menjadi ', ptr^[idx].qty);
+        writeln('Pembaharuan jumlah buku berhasil dilakukan.');
+        writeln('Total buku ', unwraptext(ptr^[idx].title), ' menjadi ', ptr^[idx].qty);
     end;
 
 end.

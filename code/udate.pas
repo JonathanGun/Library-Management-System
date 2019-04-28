@@ -1,7 +1,6 @@
 unit udate;
 {Mengatur format tanggal dan konversinya dari string menjadi integer dan ADT Date}
-{REFERENSI : https://www.freepascal.org/docs-html/rtl/sysutils/format.html
-			 http://forum.lazarus.freepascal.org/index.php?topic=27778.0 (Topic: What is the format string for padding a number with leading zeros?)}
+{REFERENSI : http://forum.lazarus.freepascal.org/index.php?topic=27778.0 (Topic: What is the format string for padding a number with leading zeros?)}
 
 interface
 uses
@@ -26,7 +25,7 @@ function DaysToDate(days : longint): Date;
 implementation
 {FUNGSI dan PROSEDUR}
 function StrToDate(rawDate: string): Date;
-	{DESKRIPSI	: Mengubah format masukan tanggal dari fromat string ke format ADT Date}
+	{DESKRIPSI	: Mengubah format masukan tanggal dari format string ke format ADT Date}
 	{PARAMETER	: string tanggal dengan format DD/MM/YYYY}
 	{RETURN		: Date}
 
@@ -87,9 +86,9 @@ function isKabisat(year: integer): boolean;
 	end;
 
 function DateToDays(varDate : Date): longint;
-	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 01/01/0000) - 1}
+	{DESKRIPSI	: Menentukan jumlah hari dalam tanggal tesebut (terhitung dari 01/01/0000)}
 	{PARAMETER	: 1 ADT Date}
-	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 01/01/0000) - 1}
+	{RETURN		: berapa hari dalam tanggal tesebut (terhitung dari 01/01/0000)}
 
 	{KAMUS LOKAL}
 	var
@@ -109,31 +108,21 @@ function DateToDays(varDate : Date): longint;
 
 		{bulan}
 		for i := 1 to varDate.month - 1 do begin
-			{feb}
-			if (i = 2) then begin
-				if isKabisat(varDate.year) then begin
-					DateToDays += 29;
-				end else begin
-					DateToDays += 28;
-				end;
+			{feb kabisat}
+			if ((i = 2) and isKabisat(varDate.year)) then begin
+				DateToDays += 29;
 
-			end else if (i <= 7) then begin
-				{jan, mar, mei, jul}
-				if (i mod 2 = 1) then begin
-					DateToDays += 31;
-				{apr, jun}
-				end else begin
-					DateToDays += 30;
-				end;
+			{feb non kabisat}
+			end else if ((i = 2) and not isKabisat(varDate.year)) then begin
+				DateToDays += 28;
 
+			{apr, jun, sept, nov}
+			end else if ((i = 4) or (i = 6) or (i = 9) or (i = 11)) then begin
+				DateToDays += 30;
+
+			{jan, mar, mei, jul, ags, okt, des}
 			end else begin
-				{ags, okt, des}
-				if (i mod 2 = 0) then begin
-					DateToDays += 31;
-				{sept, nov}
-				end else begin
-					DateToDays += 30;
-				end;
+				DateToDays += 31;
 			end;
 		end;
 
@@ -142,13 +131,13 @@ function DateToDays(varDate : Date): longint;
 	end;
 
 function DaysToDate(days : longint): Date;
-	{DESKRIPSI	: }
-	{PARAMETER	: }
-	{RETURN		: }
+	{DESKRIPSI	: Mengubah dari jumlah hari menjadi Date terhitung dari tanggal (01/01/0000)}
+	{PARAMETER	: jumlah hari (integer)}
+	{RETURN		: Date yang merepresentasikan, terhitung sejak (01/01/0000)}
 
 	{KAMUS LOKAL}
 	var
-		i : integer;
+		i 			: integer;
 		enoughdays 	: boolean;
 
 	{ALGORITMA}
@@ -161,7 +150,7 @@ function DaysToDate(days : longint): Date;
 		i := 0;
 		repeat
 			enoughdays := false;
-			if isKabisat(i)	then begin
+			if (isKabisat(i)) then begin
 				if (days > 366) then begin
 					DaysToDate.year += 1;
 					days -= 366;
@@ -181,57 +170,31 @@ function DaysToDate(days : longint): Date;
 		i := 1;
 		repeat
 			enoughdays := false;
-			{feb}
-			if i = 2 then begin
-				if isKabisat(DaysToDate.year) then begin
-					if (days > 29) then begin
-						enoughdays := true;
-						days -= 29;
-						DaysToDate.month += 1;
-					end;
-				
-				end else begin
-					if (days > 28) then begin
-						enoughdays := true;
-						days -= 28;
-						DaysToDate.month += 1;
-					end;
-				end;
+			{feb kabisat}
+			if ((days > 29) and (i = 2) and isKabisat(DaysToDate.year)) then begin
+				enoughdays := true;
+				days -= 29;
+				DaysToDate.month += 1;
 
-			end else if (i <= 7) then begin
-				{jan, mar, mei, jul}
-				if (i mod 2 = 1) then begin
-					if (days > 31) then begin
-						enoughdays := true;
-						days -= 31;
-						DaysToDate.month += 1;
-					end;
-				{apr, jun}
-				end else begin
-					if (days > 30) then begin
-						enoughdays := true;
-						days -= 30;
-						DaysToDate.month += 1;
-					end;
-				end;
+			{feb non kabisat}
+			end else if ((days > 28) and (i = 2) and not isKabisat(DaysToDate.year)) then begin
+				enoughdays := true;
+				days -= 28;
+				DaysToDate.month += 1;
 
-			end else begin
-				{ags, okt, des}
-				if (i mod 2 = 0) then begin
-					if (days > 31) then begin
-						enoughdays := true;
-						days -= 31;
-						DaysToDate.month += 1;
-					end;
-				{sept, nov}
-				end else begin
-					if (days > 30) then begin
-						enoughdays := true;
-						days -= 30;
-						DaysToDate.month += 1;
-					end;
-				end;
+			{apr, jun, sept, nov}
+			end else if ((days > 30) and ((i = 4) or (i = 6) or (i = 9) or (i = 11))) then begin
+				enoughdays := true;
+				days -= 30;
+				DaysToDate.month += 1;
+
+			{jan, mar, mei, jul, ags, okt, des}
+			end else if (days > 31) then begin
+				enoughdays := true;
+				days -= 31;
+				DaysToDate.month += 1;
 			end;
+
 			i += 1;
 		until (not enoughdays);
 
@@ -243,9 +206,6 @@ function DateDifference(date1, date2 : Date): longint;
 	{DESKRIPSI	: Mencari selisih dari 2 tanggal (dalam satuan hari)}
 	{PARAMETER	: 2 ADT Date}
 	{RETURN		: berapa hari selisih kedua tanggal tersebut, dalam satuan hari (integer)}
-
-	{KAMUS LOKAL}
-	{ - }
 
 	{ALGORITMA}
 	begin

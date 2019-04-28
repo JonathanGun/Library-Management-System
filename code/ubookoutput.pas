@@ -1,6 +1,6 @@
 unit ubookoutput;
-{Berisi fungsi (F08, F11, F12) yang mennampilkan isi berbagai ADT Buku ke layar}
-{REFERENSI}
+{Berisi fungsi (F08, F11, F12) yang menampilkan isi berbagai ADT Buku ke layar}
+{REFERENSI : - }
 
 interface
 uses
@@ -74,7 +74,8 @@ procedure showStatsUtil(ptrbook : pbook; ptruser : puser);
         writeln('Admin | ',         countAdmin(ptruser));
         writeln('Pengunjung | ',    countPengunjung(ptruser));
         writeln('Total | ',         countAdmin(ptruser) + countPengunjung(ptruser));
-
+		writeln();
+		
         total := 0;
         writeln('Buku:');
         writeln('sastra | ',      countBuku('sastra', ptrbook)      ); total += countBuku('sastra', ptrbook);
