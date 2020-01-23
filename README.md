@@ -1,10 +1,9 @@
-# TUGAS BESAR DASAR PEMROGRAMAN
-commited on : 2 April 2019
+# Programming Basic Annual Project
+> Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
 
-last edit   : 22 April 2019
+> commited on : 2 April 2019
 
-## Deskripsi tugas:
-Membuat program **sistem manajemen perpustakaan** dengan bahasa **Pascal**.
+> last edit   : 22 April 2019
 
 ## Spesifikasi Program:
 Memiliki 16 fitur wajib,
